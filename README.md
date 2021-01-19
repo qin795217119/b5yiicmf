@@ -1,60 +1,50 @@
-<p align="center">
-    <a href="https://github.com/yiisoft" target="_blank">
-        <img src="https://avatars0.githubusercontent.com/u/993323" height="100px">
-    </a>
-    <h1 align="center">Yii 2 Advanced Project Template</h1>
-    <br>
-</p>
+# b5YiiCMF
 
-Yii 2 Advanced Project Template is a skeleton [Yii 2](http://www.yiiframework.com/) application best for
-developing complex Web applications with multiple tiers.
+#### 介绍
+基于 Yii 2 + bootstrap 3，仿照java的若依框架，做了一些改动与Yii2结合，做了一点简单封装，构架了这套CMF系统。
 
-The template includes three tiers: front end, back end, and console, each of which
-is a separate Yii application.
 
-The template is designed to work in a team development environment. It supports
-deploying the application in different environments.
+本系统只是经过简单测试，还未正式使用，若有问题或建议，请多多指教。
 
-Documentation is at [docs/guide/README.md](docs/guide/README.md).
+#### 软件架构
+基于 Yii 2 + bootstrap 3，其中使用了bootrstrap-table来进行列表的展示，以及一些较为流行js插件做各种效果，页面简洁、响应式。
 
-[![Latest Stable Version](https://img.shields.io/packagist/v/yiisoft/yii2-app-advanced.svg)](https://packagist.org/packages/yiisoft/yii2-app-advanced)
-[![Total Downloads](https://img.shields.io/packagist/dt/yiisoft/yii2-app-advanced.svg)](https://packagist.org/packages/yiisoft/yii2-app-advanced)
-[![build](https://github.com/yiisoft/yii2-app-advanced/workflows/build/badge.svg)](https://github.com/yiisoft/yii2-app-advanced/actions?query=workflow%3Abuild)
+系统在MVC的基础上加了已成Service，用来处理业务逻辑。
+还单独列出了缓存类Cache
+基本是一个表 对应一个Model、Service及Cache。当然在后面开发的功能你可以根据自己的喜好写。
 
-DIRECTORY STRUCTURE
--------------------
+系统完全开源，数据库文件在public目录下，超管默认为：admin，123456。
 
-```
-common
-    config/              contains shared configurations
-    mail/                contains view files for e-mails
-    models/              contains model classes used in both backend and frontend
-    tests/               contains tests for common classes    
-console
-    config/              contains console configurations
-    controllers/         contains console controllers (commands)
-    migrations/          contains database migrations
-    models/              contains console-specific model classes
-    runtime/             contains files generated during runtime
-backend
-    assets/              contains application assets such as JavaScript and CSS
-    config/              contains backend configurations
-    controllers/         contains Web controller classes
-    models/              contains backend-specific model classes
-    runtime/             contains files generated during runtime
-    tests/               contains tests for backend application    
-    views/               contains view files for the Web application
-    web/                 contains the entry script and Web resources
-frontend
-    assets/              contains application assets such as JavaScript and CSS
-    config/              contains frontend configurations
-    controllers/         contains Web controller classes
-    models/              contains frontend-specific model classes
-    runtime/             contains files generated during runtime
-    tests/               contains tests for frontend application
-    views/               contains view files for the Web application
-    web/                 contains the entry script and Web resources
-    widgets/             contains frontend widgets
-vendor/                  contains dependent 3rd-party packages
-environments/            contains environment-based overrides
-```
+#### 系统演示
+地址：<a href="http://b5yiicmf.b5net.com/" target="_blank">http://b5yiicmf.b5net.com</a>
+
+账号：ceshi
+
+密码：123456
+
+### 下载地址：
+github: https://github.com/qin795217119/b5yiicmf
+
+gitee: https://gitee.com/b5net/b5-yii-cmf
+
+#### 使用说明
+
+1. 环境推荐使用 PHP 7.4 + Mysql 5.7 +Nginx 
+
+
+#### 内置功能
+
+1. 人员管理：人员是系统操作者，该功能主要完成系统用户配置。
+2. 组织架构：配置系统组织机构（公司、部门、小组），树结构展现支持，数据权限暂未开发。
+3. 菜单管理：配置系统菜单，操作权限，按钮权限标识等。
+4. 角色管理：角色菜单权限分配。
+5. 字典管理：对系统中经常使用的一些较为固定的数据进行维护。
+6. 参数管理：对系统动态配置常用参数，默认为文本、数据、枚举三种类型。
+7. 跳转管理：用于定义系统内跳转的模块、模块列表地址、模块信息地址，可以与推荐信息结合生成跳转链接或标识，对于多端开发又用
+8. 推荐位置：增加特定的标识用于推荐信息的分类
+9. 推荐信息：又称广告，对应推荐位置，可以添加一或多条信息，包含 标题、图片、文本及富文本信息、跳转链接等信息
+10. 通知公告：系统通知公告信息发布维护。
+11. 操作日志：系统正常操作日志记录和查询；系统异常信息日志记录和查询。
+
+
+
