@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50726
 File Encoding         : 65001
 
-Date: 2021-01-19 11:42:54
+Date: 2021-01-20 21:13:16
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -123,6 +123,23 @@ CREATE TABLE `b5net_adposition` (
 -- Records of b5net_adposition
 -- ----------------------------
 INSERT INTO `b5net_adposition` VALUES ('1', 'web_index_banner', '首页banner图片', '宽高为1920*400像素', '0', '0', '2021-01-08 06:02:11', '2021-01-18 17:06:36');
+
+-- ----------------------------
+-- Table structure for `b5net_app_token`
+-- ----------------------------
+DROP TABLE IF EXISTS `b5net_app_token`;
+CREATE TABLE `b5net_app_token` (
+  `token` varchar(255) NOT NULL DEFAULT '',
+  `user_id` int(10) NOT NULL DEFAULT '0' COMMENT '用户ID',
+  `addtime` int(11) NOT NULL DEFAULT '0' COMMENT '添加时间',
+  `type` varchar(30) NOT NULL DEFAULT '' COMMENT '类型',
+  PRIMARY KEY (`token`),
+  UNIQUE KEY `token` (`token`) USING BTREE
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of b5net_app_token
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for `b5net_config`
