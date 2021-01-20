@@ -118,11 +118,13 @@ class BaseController extends Controller
      * @throws \Exception
      */
     public function cookieLogin(){
+        if(Yii::$app->user->isGuest) return false;
         $userid=commonApi::adminLoginInfo('info.id');
         if($userid && $userid===Yii::$app->user->getId()){
             return true;
         }
         (new LoginForm())->loginMySession(Yii::$app->user->identity->toArray());
+        return true;
     }
 
     /**
