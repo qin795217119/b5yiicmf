@@ -64,6 +64,6 @@ class PublicController extends BaseController
     }
 
     public function actionNoauth(){
-        return $this->render('',['msg'=>'未获取授权','code'=>302]);
+        return $this->renderPartial('fail',['msg'=>'未获取授权','code'=>302]);
     }
 }

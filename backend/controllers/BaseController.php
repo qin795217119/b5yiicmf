@@ -6,6 +6,7 @@
 // +----------------------------------------------------------------------
 namespace backend\controllers;
 
+use backend\models\LoginForm;
 use common\helpers\commonApi;
 use common\services\MenuService;
 use yii\helpers\Url;
@@ -49,7 +50,7 @@ class BaseController extends Controller
     }
 
     /**
-     * 定义控制器名和方法名，并分配到视图
+     * 定义控制器名和方法名，并分配到视图，登陆检测，权限检测
      * @param \yii\base\Action $action
      * @return bool
      * @throws \yii\web\BadRequestHttpException
@@ -67,6 +68,9 @@ class BaseController extends Controller
             if(Yii::$app->user->isGuest && !in_array(strtolower($controller),$notLoginConArr)){
                 return $this->actionError('请先登录',['public/login']);
             }
+
+            //cookie登录判断，YII登录信息有但是自己定义的session中无数据
+            $this->cookieLogin();
 
             //锁屏判断
             $islock=$this->checkLock();
@@ -109,8 +113,22 @@ class BaseController extends Controller
     }
 
     /**
-     * 权限验证
+     * 若开启了cookie登录，则在session缺失时的处理
      * @return bool
+     * @throws \Exception
+     */
+    public function cookieLogin(){
+        $userid=commonApi::adminLoginInfo('info.id');
+        if($userid && $userid===Yii::$app->user->getId()){
+            return true;
+        }
+        (new LoginForm())->loginMySession(Yii::$app->user->identity->toArray());
+    }
+
+    /**
+     * 权限检测
+     * @return bool
+     * @throws \Exception
      */
     public function checkAuth()
     {

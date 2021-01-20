@@ -103,40 +103,50 @@ class LoginForm extends Model
                 $model->save(false);
 
                 $userInfo = $model->toArray();
-
-                //获取管理员组织
-                $structList = (new AdminStructService())->getListByAdmin($userInfo['id']);
-
-                //获取管理员分组
-                $roleList = (new AdminRoleService())->getListByAdmin($userInfo['id'], false, false);
-                $roleName = [];
-                $roleId = [];
-                foreach ($roleList as $role) {
-                    $roleId[] = $role['id'];
-                    $roleName[] = $role['name'];
-                }
-                //获取分组菜单权限ID
-                $menuIdList = (new RoleMenuService())->getRoleMenuList($roleId);
-                $sessionData = [
-                    'info' => [
-                        'id' => $userInfo['id'],
-                        'username' => $userInfo['username'],
-                        'name' => $userInfo['realname']
-                    ],
-                    'struct' => $structList,
-                    'role' => [
-                        'id' => $roleId,
-                        'name' => $roleName,
-                    ],
-                    'menu' => $menuIdList
-                ];
-                Yii::$app->session->destroy();
-                Yii::$app->session->set(Yii::$app->params['adminLoginSession'], $sessionData);
+                $this->loginMySession($userInfo);
             }
             return $isLogin;
         } else {
             return false;
         }
+    }
+
+    /**
+     * 登陆后处理自己的逻辑
+     * @param $userInfo
+     * @return bool
+     */
+    public function loginMySession($userInfo){
+        if(!$userInfo) return false;
+        //获取管理员组织
+        $structList = (new AdminStructService())->getListByAdmin($userInfo['id']);
+
+        //获取管理员分组
+        $roleList = (new AdminRoleService())->getListByAdmin($userInfo['id'], false, false);
+        $roleName = [];
+        $roleId = [];
+        foreach ($roleList as $role) {
+            $roleId[] = $role['id'];
+            $roleName[] = $role['name'];
+        }
+        //获取分组菜单权限ID
+        $menuIdList = (new RoleMenuService())->getRoleMenuList($roleId);
+        $sessionData = [
+            'info' => [
+                'id' => $userInfo['id'],
+                'username' => $userInfo['username'],
+                'name' => $userInfo['realname']
+            ],
+            'struct' => $structList,
+            'role' => [
+                'id' => $roleId,
+                'name' => $roleName,
+            ],
+            'menu' => $menuIdList
+        ];
+        Yii::$app->session->destroy();
+        Yii::$app->session->set(Yii::$app->params['adminLoginSession'], $sessionData);
+        return true;
     }
 
     /**
