@@ -37,7 +37,7 @@ class LoginlogService extends BaseService
         $os = $agent->platform() . ' ' . $agent->version($agent->platform());
         $browser = $agent->browser() . ' ' . $agent->version($agent->browser());
         $login_time = date('Y-m-d H:i:s', time());
-        $ipaddr = Yii::$app->getRequest()->getUserIP();
+        $ipaddr = commonApi::getClientIp();
         $login_location = '';
         $net='';
         if ($ipaddr) {

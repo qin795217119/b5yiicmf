@@ -11,6 +11,22 @@ use yii\helpers\ArrayHelper;
 
 class commonApi
 {
+    /**获取客户端ip
+     * @return string
+     */
+    public static function getClientIp ()
+    {
+        if (getenv('HTTP_CLIENT_IP')) {
+            $ip = getenv('HTTP_CLIENT_IP');
+        } else if (getenv('HTTP_X_FORWARDED_FOR')) {
+            $ip = getenv('HTTP_X_FORWARDED_FOR');
+        } else if (getenv('REMOTE_ADDR')) {
+            $ip = getenv('REMOTE_ADDR');
+        } else {
+            $ip = $_SERVER['REMOTE_ADDR'];
+        }
+        return $ip;
+    }
     /**
      * 获取模型错误信息
      * @param $model
