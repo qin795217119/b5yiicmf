@@ -64,13 +64,13 @@ class commonApi
     }
 
     /**
-     * 获取双MD5加密密码
-     * @param string $password 加密字符串
+     * 获取双MD5加密
+     * @param string $str 加密字符串
      * @return string 输出MD5加密字符串
      */
-    public static function get_password($password)
+    public static function get_enstr($str)
     {
-        return md5(md5($password) . 'b5net');
+        return md5(md5($str) . 'b5net');
     }
 
     /**

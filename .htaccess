@@ -8,5 +8,5 @@
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^backend backend/index.php [L]
-#    RewriteRule ^ index.php [L]
+    RewriteRule ^api api/index.php [L]
 </IfModule>

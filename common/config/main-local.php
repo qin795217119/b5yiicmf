@@ -7,9 +7,9 @@ return [
             'username' => 'root',
             'password' => 'root',
             'charset' => 'utf8',
-            'enableSchemaCache' => false,
+            'enableSchemaCache' => true,
             // Duration of schema cache.
-            'schemaCacheDuration' => -1,
+            'schemaCacheDuration' => 3600,
             // Name of the cache component used to store schema information
             'schemaCache' => 'cache',
         ],
