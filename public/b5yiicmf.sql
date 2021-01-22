@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50726
 File Encoding         : 65001
 
-Date: 2021-01-20 21:13:16
+Date: 2021-01-22 21:35:39
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -63,8 +63,8 @@ CREATE TABLE `b5net_admin` (
 -- ----------------------------
 -- Records of b5net_admin
 -- ----------------------------
-INSERT INTO `b5net_admin` VALUES ('1', 'admin', '$2y$13$xVDxPEAOJdn4FeRR3iuFa.dbdP52KcRb8QvNv6GbNVTVmjRaJoST6', '超管', '1', '超级管理员', '2020-12-24 10:50:56', '2021-01-19 11:35:50', '2021-01-19 11:07:09', '127.0.0.1');
-INSERT INTO `b5net_admin` VALUES ('2', 'ceshi', '$2y$13$d5YAdQNabdddNFKpubIJE.0sfPCPrfJHwMwZVSLSGCCxxax.FEyai', '测试1111', '1', '测试账号', '2020-12-24 13:14:57', '2021-01-19 10:26:25', '2021-01-19 11:39:53', '127.0.0.1');
+INSERT INTO `b5net_admin` VALUES ('1', 'admin', '$2y$13$xVDxPEAOJdn4FeRR3iuFa.dbdP52KcRb8QvNv6GbNVTVmjRaJoST6', '超管', '1', '超级管理员', '2020-12-24 10:50:56', '2021-01-19 11:35:50', '2021-01-20 21:36:02', '127.0.0.1');
+INSERT INTO `b5net_admin` VALUES ('2', 'ceshi', '$2y$13$d5YAdQNabdddNFKpubIJE.0sfPCPrfJHwMwZVSLSGCCxxax.FEyai', '测试1111', '1', '测试账号', '2020-12-24 13:14:57', '2021-01-19 10:26:25', '2021-01-20 21:27:23', '127.0.0.1');
 
 -- ----------------------------
 -- Table structure for `b5net_admin_role`
@@ -159,12 +159,12 @@ CREATE TABLE `b5net_config` (
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COMMENT='系统配置表';
+) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COMMENT='系统配置表';
 
 -- ----------------------------
 -- Records of b5net_config
 -- ----------------------------
-INSERT INTO `b5net_config` VALUES ('1', '配置分组', 'sys_config_group', 'array', '0', '', 'site:基本设置\r\nwx:微信设置\r\nsms:短信配置', '', '系统配置的分组配置', '0', '2020-12-30 16:17:10', '2021-01-19 11:07:30');
+INSERT INTO `b5net_config` VALUES ('1', '配置分组', 'sys_config_group', 'array', '0', '', 'site:基本设置\r\nwx:微信设置\r\nsms:短信配置\r\nemail:邮箱配置', '', '系统配置的分组配置', '0', '2020-12-30 16:17:10', '2021-01-22 15:27:12');
 INSERT INTO `b5net_config` VALUES ('2', '系统名称', 'sys_config_sysname', 'text', '0', 'site', 'B5LaravleCMF', '', '系统后台显示的名称', '0', '2020-12-31 14:01:18', '2021-01-18 17:06:10');
 INSERT INTO `b5net_config` VALUES ('3', '演示模式', 'sys_config_demo', 'select', '0', 'site', '1', '1:开启\r\n0:关闭', '开启后，除超管外不可进行非查询操作', '0', '2021-01-08 05:58:25', '2021-01-18 17:06:10');
 INSERT INTO `b5net_config` VALUES ('4', '阿里accessKeyId', 'sms_ali_key', 'text', '0', 'sms', '', '', '阿里短信-AccessKey ID', '0', '2021-01-11 19:26:13', '2021-01-17 21:27:04');
@@ -175,6 +175,11 @@ INSERT INTO `b5net_config` VALUES ('8', '聚合appkey', 'sms_juhe_appkey', 'text
 INSERT INTO `b5net_config` VALUES ('9', '聚合tempId', 'sms_juhe_temp', 'text', '0', 'sms', '', '', '聚合短信-TPLID模板', '11', '2021-01-11 19:34:26', '2021-01-17 21:27:04');
 INSERT INTO `b5net_config` VALUES ('10', '公众号appid', 'wechat_appid', 'text', '0', 'wx', '', '', '微信公众号的AppId', '0', '2021-01-12 11:05:50', '2021-01-14 17:26:05');
 INSERT INTO `b5net_config` VALUES ('11', '公众号secret', 'wechat_appsecret', 'text', '0', 'wx', '', '', '微信公众号-AppSecret', '1', '2021-01-12 11:06:24', '2021-01-14 17:26:05');
+INSERT INTO `b5net_config` VALUES ('12', '服务地址', 'sys_email_host', 'text', '0', 'email', '', '', '类似:smtp.163.com', '1', '2021-01-22 15:28:10', '2021-01-22 21:35:11');
+INSERT INTO `b5net_config` VALUES ('13', '邮箱地址', 'sys_email_username', 'text', '0', 'email', '', '', '发送邮件的邮箱地址', '2', '2021-01-22 15:28:39', '2021-01-22 21:35:11');
+INSERT INTO `b5net_config` VALUES ('14', '授权密码', 'sys_email_password', 'text', '0', 'email', '', '', '', '3', '2021-01-22 15:29:34', '2021-01-22 21:35:11');
+INSERT INTO `b5net_config` VALUES ('15', '服务端口', 'sys_email_port', 'text', '0', 'email', '', '', '', '4', '2021-01-22 15:30:05', '2021-01-22 21:35:11');
+INSERT INTO `b5net_config` VALUES ('16', '是否SSL', 'sys_email_ssl', 'select', '0', 'email', '1', '0:否\r\n1:是', '', '5', '2021-01-22 15:31:23', '2021-01-22 21:35:11');
 
 -- ----------------------------
 -- Table structure for `b5net_dict_data`
@@ -244,11 +249,13 @@ CREATE TABLE `b5net_loginlog` (
   `msg` varchar(255) DEFAULT '' COMMENT '提示消息',
   `login_time` datetime DEFAULT NULL COMMENT '访问时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='系统访问记录';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COMMENT='系统访问记录';
 
 -- ----------------------------
 -- Records of b5net_loginlog
 -- ----------------------------
+INSERT INTO `b5net_loginlog` VALUES ('1', 'ceshi', 'http://www.yiicmf.my', 'IANA', 'Chrome 86.0.4240.198', 'Windows 10.0', '保留地址', '0', '验证码不正确', '2021-01-20 21:31:07');
+INSERT INTO `b5net_loginlog` VALUES ('2', 'admin', '127.0.0.1', '本机地址', 'Chrome 86.0.4240.198', 'Windows 10.0', '', '1', '登录成功', '2021-01-20 21:36:02');
 
 -- ----------------------------
 -- Table structure for `b5net_menu`
