@@ -73,7 +73,6 @@ class PublicController extends BaseController
         //测试消息队列发送邮箱  需要先执行 cmd下  yii queue/listen
         //Yii::$app->queue->push  立即发送，  Yii::$app->queue->delay(60)延迟60秒运行
         $id=Yii::$app->queue->push(new \common\components\jobs\EmailJob([
-
             'name' => '测试用户',
             'email' => '357145480@qq.com',
             'type' => 'vemail'
