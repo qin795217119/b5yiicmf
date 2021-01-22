@@ -8,6 +8,7 @@ namespace backend\controllers;
 
 use backend\models\LoginForm;
 use common\helpers\commonApi;
+use common\helpers\MailApi;
 use Yii;
 
 /**
@@ -65,5 +66,26 @@ class PublicController extends BaseController
 
     public function actionNoauth(){
         return $this->renderPartial('fail',['msg'=>'未获取授权','code'=>302]);
+    }
+
+
+    public function actionTestqueue(){
+        //测试消息队列发送邮箱  需要先执行 cmd下  yii queue/listen
+        //Yii::$app->queue->push  立即发送，  Yii::$app->queue->delay(60)延迟60秒运行
+        $id=Yii::$app->queue->push(new \common\components\jobs\EmailJob([
+
+            'name' => '测试用户',
+            'email' => '357145480@qq.com',
+            'type' => 'vemail'
+        ]));
+
+        echo $id;
+    }
+
+    public function actionTestemail(){
+
+        //测试邮箱发送
+        $res=(new MailApi())->sendEmail('vemail',['email'=>'357145480@qq.com','name'=>'用户名111']);
+        var_dump($res);
     }
 }
