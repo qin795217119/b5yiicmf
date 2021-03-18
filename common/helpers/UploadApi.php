@@ -6,6 +6,7 @@
 // +----------------------------------------------------------------------
 namespace common\helpers;
 
+use Imagine\Image\ManipulatorInterface;
 use Yii;
 use yii\helpers\FileHelper;
 use yii\imagine\Image;
@@ -92,7 +93,7 @@ class UploadApi
             if ($this->width > 0 || $this->height > 0) {
                 $width = $this->width > 0 ? $this->width : null;
                 $height = $this->height > 0 ? $this->height : null;
-                Image::thumbnail($saveFullFile, $width, $height, 'outbound')->save($saveFullFile, ['quality' => 90]);
+                Image::thumbnail($saveFullFile, $width, $height, ManipulatorInterface::THUMBNAIL_OUTBOUND)->save($saveFullFile, ['quality' => 90]);
             }
             $data = [
                 'path' => $filePath,

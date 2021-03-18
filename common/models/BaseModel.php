@@ -105,9 +105,10 @@ class BaseModel extends ActiveRecord
     /**
      * 获取单条信息
      * @param $map
-     * @return mixed
+     * @param bool $isArr
+     * @return bool|BaseModel|mixed|null
      */
-    public function info($map)
+    public function info($map,$isArr=false)
     {
         if (!$map) return false;
         if (is_array($map)) {
@@ -115,6 +116,9 @@ class BaseModel extends ActiveRecord
             $info = $info->one();
         } else {
             $info = self::findOne($map);
+        }
+        if($isArr && $info){
+            return $info->toArray();
         }
         return $info;
     }
@@ -182,7 +186,7 @@ class BaseModel extends ActiveRecord
         $idArr = array_unique($idArr);
         if (empty($idArr)) return false;
         $field = $field ?: $this->primaryKey;
-        if (count($idArr) > 1) {
+        if (count($idArr) ==1) {
             $idArr = $idArr[0];
         }
         return self::deleteAll([$field => $idArr]);

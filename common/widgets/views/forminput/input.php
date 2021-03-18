@@ -10,6 +10,7 @@
     <?= (isset($widget_data['maxlen']) && $widget_data['maxlen'])?'maxlength="'.$widget_data['maxlen'].'"':'' ?>
     <?= isset($widget_data['required'])?'required':''?>
     <?= isset($widget_data['readonly'])?'readonly="true"':''?>
+    <?= isset($widget_data['style'])?'style="'.$widget_data['style'].'"':''?>
     autocomplete="off"
 />
 <?php if(isset($widget_data['addon']) && $widget_data['addon']): ?>

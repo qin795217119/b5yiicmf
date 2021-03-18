@@ -16,7 +16,7 @@
 <div class="btn-group-sm" id="toolbar" role="group">
     <?= $this->render('/iframe',['name'=>'addbtn'])?>
     <?= $this->render('/iframe',['name'=>'editbtn'])?>
-    <?= $this->render('/iframe',['deletebtn'=>'cachebtn','extend'=>['column'=>'type']])?>
+    <?= $this->render('/iframe',['name'=>'deletebtn','extend'=>['column'=>'type']])?>
     <?= $this->render('/iframe',['name'=>'cachebtn'])?>
 </div>
 <div class="col-sm-12 select-table table-striped">

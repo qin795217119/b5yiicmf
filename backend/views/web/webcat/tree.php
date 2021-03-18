@@ -1,11 +1,11 @@
 <?= \common\widgets\Asset::widget(['type'=>['ztree']])?>
-
 <style>
     body{height:auto;font-family: "Microsoft YaHei";background-color: #fff !important;}
     button{font-family: "SimSun","Helvetica Neue",Helvetica,Arial;}
 </style>
-<input type="hidden" name="treeId" id="treeId" value="<?=$menuId?>">
-<input type="hidden" name="treeName" id="treeName" value="">
+<input type="hidden" id="treeNodeInput" value="">
+<input type="hidden" id="treeId" name="treeId" value="<?=$menuId?>">
+<input type="hidden" id="treeName" name="treeName" value="">
 <div class="wrapper"><div class="treeShowHideButton" onclick="$.tree.toggleSearch();">
         <label id="btnShow" title="显示搜索" style="display:none;">︾</label>
         <label id="btnHide" title="隐藏搜索">︽</label>

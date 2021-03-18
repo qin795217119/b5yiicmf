@@ -109,7 +109,7 @@ class BaseService
             $list = $this->getAll($map, [], [$offset, $limit], '', $sort);
             $count = $this->model->getCount($map);
         }
-        $list = $this->after_getList($list);
+        $list = $this->after_getList($list,$param);
 
         return commonApi::message('操作成功', true, $list, 0, '', ['total' => $count]);
     }
@@ -117,9 +117,10 @@ class BaseService
     /**
      * 获取列表后对结果进行处理
      * @param $list
+     * @param $param
      * @return mixed
      */
-    public function after_getList($list)
+    public function after_getList($list,$param)
     {
         return $list;
     }

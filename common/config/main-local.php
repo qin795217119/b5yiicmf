@@ -3,11 +3,11 @@ return [
     'components' => [
         'db' => [
             'class' => 'yii\db\Connection',
-            'dsn' => 'mysql:host=localhost;dbname=b5yiicmf',
-            'username' => 'root',
-            'password' => 'root',
+            'dsn' => 'mysql:host=127.0.0.1;dbname=b5yiicmf_b5net',
+            'username' => 'b5yiicmf_b5net',
+            'password' => '7i7pz4zRa5zp8xGY',
             'charset' => 'utf8',
-            'enableSchemaCache' => true,
+            'enableSchemaCache' => false,
             // Duration of schema cache.
             'schemaCacheDuration' => 0,
             // Name of the cache component used to store schema information
