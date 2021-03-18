@@ -31,7 +31,15 @@ gitee: https://gitee.com/b5net/b5-yii-cmf
 
 1. 环境推荐使用 PHP 7.4 + Mysql 5.7 +Nginx 
 
+2.系统搭建
 
+   ①该系统使用一个域名 访问多项目的形式
+
+   ②将原来的yii2的js和css进行了去除，可参考 backend/config/main-local.php下的assetManager配置
+   
+   ③对yii2 的入口文件进行了挪移，使用域名直接解析到项目根目录，通过域名+/backend 来进行访问
+   
+   
 #### 内置功能
 
 1. 人员管理：人员是系统操作者，该功能主要完成系统用户配置。
