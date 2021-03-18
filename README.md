@@ -39,7 +39,39 @@ gitee: https://gitee.com/b5net/b5-yii-cmf
    
    ③对yii2 的入口文件进行了挪移，使用域名直接解析到项目根目录，通过域名+/backend 来进行访问
    
+   ④ apache或nginx 开启重写
    
+   apache：
+   
+    <IfModule mod_rewrite.c>
+       <IfModule mod_negotiation.c>
+           Options -MultiViews -Indexes
+       </IfModule>
+   
+       RewriteEngine On
+   
+       RewriteCond %{REQUEST_FILENAME} !-d
+       RewriteCond %{REQUEST_FILENAME} !-f
+       RewriteRule ^backend backend/index.php [L]
+       RewriteRule ^api api/index.php [L]
+   </IfModule>
+   
+   nginx:Ⅰ.
+   
+    location / {
+      if (!-e $request_filename){
+       rewrite ^/backend/(.*)$ /backend/index.php/$1 last;
+      }
+    }  
+
+   nginx:Ⅱ ，在backend/config/main.php下的components=>request 里面增加'baseUrl'=>'/admin'，然后添加nginx配置如下的。这种可以随意配置后台访问路径
+   
+     location /admin {
+         alias  D:\Apro_my\b5yii2cmf\backend;
+         rewrite  ^(/admin)/$ $1 permanent;  
+         try_files  $uri /backend/index.php?$args;  
+     }
+ 
 #### 内置功能
 
 1. 人员管理：人员是系统操作者，该功能主要完成系统用户配置。
