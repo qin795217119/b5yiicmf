@@ -148,7 +148,7 @@
     float: left;
 }
 /* 上传文件 */
-.b5uploadmainbox .uploadimg_link{display: inline-block;width: 100%;max-width: 330px;padding-right: 50px;position: relative}
+.b5uploadmainbox .uploadimg_link{display: inline-block;width: 100%;max-width: 330px;padding-right: 60px;position: relative}
 .b5uploadmainbox .uploadimg_link input{display: inline-block;}
 .b5uploadmainbox .uploadimg_link .btn{position: absolute;top: 0;right: 0}
 .b5uploadlistbox{overflow: hidden}
@@ -158,6 +158,7 @@
 .b5uploadimg_cell img{max-width: 118px;max-height: 118px;display: inline-block}
 .b5uploadimg_footer{display: flex;justify-content: space-between}
 .b5uploadimg_footer a{font-size: 13px;display: inline-block;padding: 5px;}
+.search-item-text{border: 1px solid #ddd;border-radius: 4px;height: 30px;display: inline-block;padding:0 5px;vertical-align: middle;line-height: 30px}
 /* 导航页签 */
 .nav-tabs-custom {
 	margin-bottom: 20px;
@@ -727,7 +728,7 @@ label {
 	outline: none;
     padding-left: 4px;
 	height: 30px;
-    width: 200px;
+    min-width: 120px;
 }
 
 .bootstrap-select.form-control .btn-default {

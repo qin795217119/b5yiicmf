@@ -1272,6 +1272,17 @@ var table = {
                 }
                 $.modal.open("添加" + table.options.modalName, $.operate.addUrl(id),width,height);
             },
+            //添加额外信息
+            addExt: function(args,obj,isFull,name){
+                table.set();
+                var url=table.options.createUrl.replace("id={id}", "");
+                url=url+args;
+                if(isFull){
+                    $.modal.openFull("添加" + (name?name:table.options.modalName), url);
+                }else{
+                    $.modal.open("添加" + (name?name:table.options.modalName), url);
+                }
+            },
             // 添加信息，以tab页展现
             addTab: function (id) {
                 table.set();

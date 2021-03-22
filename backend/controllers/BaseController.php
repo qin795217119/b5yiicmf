@@ -247,9 +247,16 @@ class BaseController extends Controller
         if(empty($info)){
             return $this->toError('参数或信息错误');
         }
-        return $this->render('',['info'=>$info,'input'=>$data]);
+        $res=$this->edit_before($info,$data);
+        if($res===true){
+            return $this->render('',['info'=>$info,'input'=>$data]);
+        }else{
+            return $res;
+        }
     }
-
+    public function edit_before($info,$data){
+        return true;
+    }
     /**
      * 删除
      * @return mixed

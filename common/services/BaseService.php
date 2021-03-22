@@ -167,6 +167,11 @@ class BaseService
             $data = Yii::$app->request->post();
         }
         if ($data) {
+            $bres=$this->before_op($data,'edit');
+            if(!$bres['success']){
+                return $bres;
+            }
+            $data=$bres['data'];
             if(!$this->model->load($data, '')){
                 return commonApi::message('无提交数据',false);
             }
@@ -216,6 +221,9 @@ class BaseService
     {
         return true;
     }
+    public function before_op($data,$type=''){
+        return commonApi::message('',true,$data);
+    }
 
     /**
      * 编辑
@@ -229,6 +237,11 @@ class BaseService
             $data = Yii::$app->request->post();
         }
         if ($data) {
+            $bres=$this->before_op($data,'edit');
+            if(!$bres['success']){
+                return $bres;
+            }
+            $data=$bres['data'];
             if($this->model->primaryKey){
                 if(!isset($data[$this->model->primaryKey])){
                     return commonApi::message('缺少主键参数',false);
@@ -294,7 +307,11 @@ class BaseService
             $data = Yii::$app->request->post();
         }
         if (empty($data)) return commonApi::message('未获取到数据', false);
-
+        $bres=$this->before_op($data,'drop');
+        if(!$bres['success']){
+            return $bres;
+        }
+        $data=$bres['data'];
         if (empty($data['ids'])) {
             return commonApi::message('未选择数据', false);
         }
@@ -307,7 +324,7 @@ class BaseService
 
         $result = $this->model->drop($data['ids'], $field);
         if ($result) {
-            $this->after_drop($data);
+            $this->after_drop($data,$field);
             $url = $argList[2] ?? '';
             if (!$url) {
                 return commonApi::message('删除成功', true);
@@ -323,7 +340,7 @@ class BaseService
      * @param $data
      * @return bool
      */
-    protected function after_drop($data)
+    protected function after_drop($data,$field)
     {
         return true;
     }

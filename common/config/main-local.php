@@ -4,8 +4,8 @@ return [
         'db' => [
             'class' => 'yii\db\Connection',
             'dsn' => 'mysql:host=127.0.0.1;dbname=b5yiicmf_b5net',
-            'username' => 'b5yiicmf_b5net',
-            'password' => '7i7pz4zRa5zp8xGY',
+            'username' => 'root',
+            'password' => 'root',
             'charset' => 'utf8',
             'enableSchemaCache' => false,
             // Duration of schema cache.

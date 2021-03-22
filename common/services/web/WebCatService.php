@@ -92,5 +92,22 @@ class WebCatService extends BaseService
         }
         return commonApi::message('操作成功', true, $list);
     }
-
+    /**
+     * 获取某个分类的所有子分类
+     * @param $pid
+     * @param array $reList
+     * @return array
+     */
+    public function getChildList($pid,&$reList=[]){
+        $chList=$this->getAll([['parent_id','=',$pid]],['id','parent_id']);
+        if($chList){
+            foreach ($chList as $val){
+                if($val['id']!=$val['parent_id'] && !in_array($val['id'],$reList)){
+                    $reList[]=$val['id'];
+                    $this->getChildList($val['id'],$reList);
+                }
+            }
+        }
+        return $reList;
+    }
 }

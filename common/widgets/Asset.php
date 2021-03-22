@@ -67,6 +67,10 @@ class Asset extends Widget
             'jquery-layout'=>[
                 'css'=>['jquery-layout/layout-default.css'],
                 'js'=>['jquery-layout/jquery.layout.min.js']
+            ],
+            'mypicker'=>[
+                'css'=>[],
+                'js'=>['My97DatePicker/WdatePicker.js']
             ]
         ];
         return $key?($list[$key]??[]):[];

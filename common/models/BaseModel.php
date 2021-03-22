@@ -216,6 +216,8 @@ class BaseModel extends ActiveRecord
                         $wval=new Expression('FIND_IN_SET("'.$wval[2].'", '.$wval[0].')');
                     }elseif ($wval[1]==='in'){
                         $wval=[$wval[0]=>$wval[2]];
+                    }elseif ($wval[1]==='='){
+                        $wval=[$wval[0]=>$wval[2]];
                     }
                 }
                 $query=$query->andWhere($wval);
