@@ -45,6 +45,15 @@ return [
 
             ],
         ],
+        'urlManagerWeb' => [
+            'class' => 'yii\web\urlManager',
+            'enablePrettyUrl' => true,
+            'baseUrl'=>'/web',
+            'showScriptName' => false,
+            'rules' => [
+
+            ],
+        ],
 
     ],
     'params' => $params,

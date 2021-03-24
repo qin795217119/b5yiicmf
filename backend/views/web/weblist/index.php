@@ -1,6 +1,5 @@
 <?php $this->context->layout = 'fullout'; ?>
 <?= \common\widgets\Asset::widget(['type'=>['select2','ztree','jquery-layout']])?>
-
 <div class="ui-layout-west">
     <div class="box box-main">
         <div class="box-header">
@@ -25,6 +24,10 @@
 <div class="ui-layout-center">
     <div class="container-div">
         <div class="row">
+            <div class="bs-callout bs-callout-danger" id="callout-tables-striped-ie8">
+                <h4>使用提示</h4>
+                <p>1.<a href="<?=Yii::$app->urlManagerWeb->createAbsoluteUrl('site/index')?>" target="_blank">点击跳转到网站前端页面</a></p>
+            </div>
             <div class="col-sm-12 search-collapse">
                 <form id="role-form">
                     <input type="hidden" name="catid" id="catid">
