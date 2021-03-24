@@ -18,6 +18,7 @@
     <?= $this->render('/iframe',['name'=>'addbtn'])?>
     <?= $this->render('/iframe',['name'=>'editbtn'])?>
     <?= $this->render('/iframe',['name'=>'expendbtn'])?>
+    <?= $this->render('/iframe',['name'=>'cachebtn'])?>
 </div>
 
 <div class="col-sm-12 select-table table-striped">

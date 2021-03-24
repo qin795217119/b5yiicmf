@@ -210,17 +210,22 @@ class BaseModel extends ActiveRecord
     {
         if (empty($map)) return $query;
         if(is_array($map)){
-            foreach($map as $wval){
-                if (count($wval) == 3){
-                    if($wval[1]==='findinset') {
-                        $wval=new Expression('FIND_IN_SET("'.$wval[2].'", '.$wval[0].')');
-                    }elseif ($wval[1]==='in'){
-                        $wval=[$wval[0]=>$wval[2]];
-                    }elseif ($wval[1]==='='){
-                        $wval=[$wval[0]=>$wval[2]];
+            foreach($map as $key=>$wval){
+                if(is_array($wval)){
+                    if (count($wval) == 3){
+                        if($wval[1]==='findinset') {
+                            $wval=new Expression('FIND_IN_SET("'.$wval[2].'", '.$wval[0].')');
+                        }elseif ($wval[1]==='in'){
+                            $wval=[$wval[0]=>$wval[2]];
+                        }elseif ($wval[1]==='='){
+                            $wval=[$wval[0]=>$wval[2]];
+                        }
                     }
+                    $query=$query->andWhere($wval);
+                }else{
+                    $query=$query->andWhere([$key=>$wval]);
                 }
-                $query=$query->andWhere($wval);
+
             }
         }else{
             $query=$query->andWhere($map);

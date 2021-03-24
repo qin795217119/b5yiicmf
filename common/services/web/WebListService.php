@@ -25,8 +25,9 @@ class WebListService extends BaseService
     public function after_getList($list,$param)
     {
         if($list){
+            $catList=(new WebCatService())->getAll([],['id','name'],[],'id');
             foreach ($list as $key=>$value){
-                $value['catid_name']=isset($catList[$value['catid']]['title'])?$catList[$value['catid']]['title']:'';
+                $value['catid_name']=isset($catList[$value['catid']]['name'])?$catList[$value['catid']]['name']:'';
                 $list[$key]=$value;
             }
         }

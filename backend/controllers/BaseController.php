@@ -67,7 +67,7 @@ class BaseController extends Controller
             //登录判断
             $notLoginConArr = ['public'];
             if(Yii::$app->user->isGuest && !in_array(strtolower($controller),$notLoginConArr)){
-                return $this->actionError('请先登录',['public/login']);
+                return $this->resError('请先登录',['public/login']);
             }
 
             //cookie登录判断，YII登录信息有但是自己定义的session中无数据
@@ -76,13 +76,13 @@ class BaseController extends Controller
             //锁屏判断
             $islock=$this->checkLock();
             if($islock){
-                return $this->actionError('锁屏中，无法此操作',['common/lockscreen']);
+                return $this->resError('锁屏中，无法此操作',['common/lockscreen']);
             }
 
             //权限判断
             $hasPerms = $this->checkAuth();
             if(!$hasPerms){
-                return $this->actionError('无权访问',['public/noauth']);
+                return $this->resError('无权访问',['public/noauth']);
             }
 
             if(IS_GET && !IS_AJAX){
@@ -172,8 +172,8 @@ class BaseController extends Controller
      * @param int $code
      * @return bool
      */
-    public function actionError($msg='',$url='',$code=-1){
-        $msg=$msg?$msg:'发生错误';
+    public function resError($msg='',$url='',$code=-1){
+        $msg=$msg?:"发生错误";
         if(Yii::$app->request->isGet && !Yii::$app->request->isAjax){
             if($url){
                 $url=is_array($url)?$url:(array)$url;

@@ -6,6 +6,7 @@
 // +----------------------------------------------------------------------
 namespace common\services\web;
 
+use common\cache\WebcatCache;
 use common\helpers\commonApi;
 use common\models\web\WebCat;
 use common\services\BaseService;
@@ -109,5 +110,15 @@ class WebCatService extends BaseService
             }
         }
         return $reList;
+    }
+
+    /**
+     * 清除缓存
+     * @return array
+     */
+    public function delcache()
+    {
+        WebcatCache::clear();
+        return commonApi::message('清理缓存完成', true);
     }
 }
