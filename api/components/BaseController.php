@@ -24,6 +24,20 @@ class BaseController extends Controller
     }
 
     /**
+     * 获取model的错误信息
+     * @param $model
+     * @return string
+     */
+    protected function getFerror($model){
+        $error='';
+        if($model && $model->firstErrors){
+            foreach($model->firstErrors as $val){
+                $error=$val;break;
+            }
+        }
+        return empty($error)?'发生错误了':$error;
+    }
+    /**
      * 获取并保存token
      * @param $id
      * @param string $type

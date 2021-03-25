@@ -11,7 +11,7 @@
  Target Server Version : 80023
  File Encoding         : 65001
 
- Date: 24/03/2021 15:10:34
+ Date: 25/03/2021 15:04:55
 */
 
 SET NAMES utf8mb4;
@@ -66,7 +66,7 @@ CREATE TABLE `b5net_admin`  (
 -- Records of b5net_admin
 -- ----------------------------
 INSERT INTO `b5net_admin` VALUES (1, 'admin', '$2y$13$8vnjhCPxSzfg2nR65q6vyu.GDKWRUXSp0ArRk.ClLY55ovWrhNcEu', '超管', '1', '超级管理员', '2020-12-24 10:50:56', '2021-01-19 11:35:50', '2021-03-17 13:39:31', '123.132.237.18');
-INSERT INTO `b5net_admin` VALUES (2, 'ceshi', '$2y$13$d5YAdQNabdddNFKpubIJE.0sfPCPrfJHwMwZVSLSGCCxxax.FEyai', '测试1111', '1', '测试账号', '2020-12-24 13:14:57', '2021-01-19 10:26:25', '2021-03-24 14:28:23', '115.218.107.204');
+INSERT INTO `b5net_admin` VALUES (2, 'ceshi', '$2y$13$d5YAdQNabdddNFKpubIJE.0sfPCPrfJHwMwZVSLSGCCxxax.FEyai', '测试1111', '1', '测试账号', '2020-12-24 13:14:57', '2021-01-19 10:26:25', '2021-03-25 11:23:25', '182.137.186.75');
 
 -- ----------------------------
 -- Table structure for b5net_admin_role
@@ -157,7 +157,7 @@ CREATE TABLE `b5net_config`  (
   `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 17 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '系统配置表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 18 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '系统配置表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of b5net_config
@@ -248,7 +248,7 @@ CREATE TABLE `b5net_loginlog`  (
   `msg` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '提示消息',
   `login_time` datetime(0) NULL DEFAULT NULL COMMENT '访问时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 187 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '系统访问记录' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 205 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '系统访问记录' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of b5net_loginlog
@@ -442,6 +442,21 @@ INSERT INTO `b5net_loginlog` VALUES (186, 'ceshi', '218.26.44.210', '山西省�
 INSERT INTO `b5net_loginlog` VALUES (187, 'ceshi', '117.136.54.128', '天津市', 'Chrome 88.0.4500.0', 'Windows 10.0', '移动数据上网公共出口', '1', '登录成功', '2021-03-24 13:27:20');
 INSERT INTO `b5net_loginlog` VALUES (188, 'ceshi', '115.218.107.204', '浙江省温州市', 'Firefox 86.0', 'Windows 6.1', '电信', '0', '验证码不正确', '2021-03-24 14:28:10');
 INSERT INTO `b5net_loginlog` VALUES (189, 'ceshi', '115.218.107.204', '浙江省温州市', 'Firefox 86.0', 'Windows 6.1', '电信', '1', '登录成功', '2021-03-24 14:28:23');
+INSERT INTO `b5net_loginlog` VALUES (190, 'ceshi', '183.92.248.144', '湖北省随州市', 'Chrome 88.0.4324.192', 'OS X 10_15_6', '联通', '1', '登录成功', '2021-03-24 15:34:13');
+INSERT INTO `b5net_loginlog` VALUES (191, 'ceshi', '218.249.45.162', '北京市', 'Chrome 89.0.4389.90', 'Windows 10.0', '鹏博士BGP', '1', '登录成功', '2021-03-24 15:45:39');
+INSERT INTO `b5net_loginlog` VALUES (192, 'ceshi', '222.128.93.4', '北京市', 'Safari 14.0.3', 'OS X 10_15_6', '联通', '0', '验证码不正确', '2021-03-24 17:06:20');
+INSERT INTO `b5net_loginlog` VALUES (193, 'ceshi', '222.128.93.4', '北京市', 'Safari 14.0.3', 'OS X 10_15_6', '联通', '1', '登录成功', '2021-03-24 17:06:29');
+INSERT INTO `b5net_loginlog` VALUES (194, 'ceshi', '124.200.101.10', '北京市', 'Chrome 89.0.4389.90', 'Windows 10.0', '鹏博士BGP', '1', '登录成功', '2021-03-24 18:17:49');
+INSERT INTO `b5net_loginlog` VALUES (195, 'ceshi', '223.104.10.98', '江西省', 'Safari 14.0.3', 'iOS 14_4_1', '移动数据上网公共出口', '1', '登录成功', '2021-03-24 19:29:41');
+INSERT INTO `b5net_loginlog` VALUES (196, 'ceshi', '45.135.186.140', '香港', 'Chrome 89.0.4389.90', 'OS X 11_2_3', 'LEASEWEB', '1', '登录成功', '2021-03-24 21:43:30');
+INSERT INTO `b5net_loginlog` VALUES (197, 'ceshi', '112.64.61.94', '上海市徐汇区', 'Chrome 89.0.4389.90', 'OS X 10_15_5', '联通漕河泾数据中心', '1', '登录成功', '2021-03-24 22:36:22');
+INSERT INTO `b5net_loginlog` VALUES (198, 'ceshi', '112.64.61.94', '上海市徐汇区', 'Chrome 89.0.4389.90', 'OS X 10_15_5', '联通漕河泾数据中心', '1', '登录成功', '2021-03-24 22:36:46');
+INSERT INTO `b5net_loginlog` VALUES (199, 'ceshi', '113.87.183.185', '广东省深圳市', 'Chrome 87.0.4280.141', 'Linux ', '电信', '1', '登录成功', '2021-03-24 22:58:23');
+INSERT INTO `b5net_loginlog` VALUES (200, 'ceshi', '121.8.34.190', '广东省', 'Chrome 89.0.4389.90', 'AndroidOS 10', '电信', '1', '登录成功', '2021-03-25 02:02:57');
+INSERT INTO `b5net_loginlog` VALUES (201, 'ceshi', '218.19.137.128', '广东省广州市天河区', 'Chrome 89.0.4389.90', 'Windows 10.0', '电信', '0', '验证码不正确', '2021-03-25 11:08:48');
+INSERT INTO `b5net_loginlog` VALUES (202, 'ceshi', '218.19.137.128', '广东省广州市天河区', 'Chrome 89.0.4389.90', 'Windows 10.0', '电信', '1', '登录成功', '2021-03-25 11:09:03');
+INSERT INTO `b5net_loginlog` VALUES (203, 'ceshi', '182.137.186.75', '四川省绵阳市', 'Chrome 89.0.4389.90', 'Windows 10.0', '电信', '0', '验证码不正确', '2021-03-25 11:23:17');
+INSERT INTO `b5net_loginlog` VALUES (204, 'ceshi', '182.137.186.75', '四川省绵阳市', 'Chrome 89.0.4389.90', 'Windows 10.0', '电信', '1', '登录成功', '2021-03-25 11:23:25');
 
 -- ----------------------------
 -- Table structure for b5net_menu
@@ -709,6 +724,7 @@ INSERT INTO `b5net_role_menu` VALUES (2, 12003);
 INSERT INTO `b5net_role_menu` VALUES (2, 12101);
 INSERT INTO `b5net_role_menu` VALUES (2, 12102);
 INSERT INTO `b5net_role_menu` VALUES (2, 12103);
+INSERT INTO `b5net_role_menu` VALUES (2, 12104);
 INSERT INTO `b5net_role_menu` VALUES (2, 12201);
 INSERT INTO `b5net_role_menu` VALUES (2, 12202);
 INSERT INTO `b5net_role_menu` VALUES (2, 12203);
@@ -761,6 +777,73 @@ INSERT INTO `b5net_struct` VALUES (104, '市场部门', 101, '0,100,101', 2, '�
 INSERT INTO `b5net_struct` VALUES (105, '测试部门', 101, '0,100,101', 3, '冰舞', '15888888888', '', '1', '2020-12-24 11:33:42', '2021-01-08 11:06:36');
 INSERT INTO `b5net_struct` VALUES (110, '山东分公司', 100, '0,100', 2, '冰舞', '1888888', '', '1', '2021-01-08 11:11:33', '2021-01-08 11:11:33');
 INSERT INTO `b5net_struct` VALUES (111, '销售部门', 110, '0,100,110', 1, '', '', '', '1', '2021-01-08 11:11:48', '2021-01-18 17:07:10');
+
+-- ----------------------------
+-- Table structure for b5net_test_chat
+-- ----------------------------
+DROP TABLE IF EXISTS `b5net_test_chat`;
+CREATE TABLE `b5net_test_chat`  (
+  `id` int(0) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `ip` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `addtime` int(0) NOT NULL,
+  `content` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `addtime`(`addtime`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of b5net_test_chat
+-- ----------------------------
+INSERT INTO `b5net_test_chat` VALUES (1, '123.132.237.18', 1616640078, 'asdasd');
+INSERT INTO `b5net_test_chat` VALUES (2, '123.132.237.18', 1616640346, '阿三大苏打');
+INSERT INTO `b5net_test_chat` VALUES (3, '123.132.237.18', 1616640434, '啊大苏打');
+INSERT INTO `b5net_test_chat` VALUES (4, '123.132.237.18', 1616642420, 'sads');
+INSERT INTO `b5net_test_chat` VALUES (5, '123.132.237.18', 1616642533, 'asdasd');
+INSERT INTO `b5net_test_chat` VALUES (6, '123.132.237.18', 1616642551, 'asdasda');
+INSERT INTO `b5net_test_chat` VALUES (7, '123.132.237.18', 1616642571, 'asdas');
+INSERT INTO `b5net_test_chat` VALUES (8, '123.132.237.18', 1616642574, 'asdasd');
+INSERT INTO `b5net_test_chat` VALUES (9, '123.132.237.18', 1616642634, 'asdasd');
+INSERT INTO `b5net_test_chat` VALUES (10, '123.132.237.18', 1616642638, 'asdasd');
+INSERT INTO `b5net_test_chat` VALUES (11, '123.132.237.18', 1616642641, 'asdasd');
+INSERT INTO `b5net_test_chat` VALUES (12, '123.132.237.18', 1616642667, 'asdasd');
+INSERT INTO `b5net_test_chat` VALUES (13, '123.132.237.18', 1616642687, 'asdasd');
+INSERT INTO `b5net_test_chat` VALUES (14, '123.132.237.18', 1616642732, 'sadasdasdasdasdasdasd啊萨达萨达萨达是的撒大阿萨大大');
+INSERT INTO `b5net_test_chat` VALUES (15, '123.132.237.18', 1616642780, '啊实打实');
+INSERT INTO `b5net_test_chat` VALUES (16, '123.132.237.18', 1616642782, '啊实打实');
+INSERT INTO `b5net_test_chat` VALUES (17, '123.132.237.18', 1616642784, '啊萨达萨达萨达是的啊实打实打算大苏打');
+INSERT INTO `b5net_test_chat` VALUES (18, '123.132.237.18', 1616642821, '阿三大苏打');
+INSERT INTO `b5net_test_chat` VALUES (19, '123.132.237.18', 1616642843, '阿三大苏打');
+INSERT INTO `b5net_test_chat` VALUES (20, '123.132.237.18', 1616642877, '阿三大苏打');
+INSERT INTO `b5net_test_chat` VALUES (21, '123.132.237.18', 1616642922, '萨达萨达萨达萨达是的');
+INSERT INTO `b5net_test_chat` VALUES (22, '123.132.237.18', 1616642924, '阿三大苏打aa');
+INSERT INTO `b5net_test_chat` VALUES (23, '123.132.237.18', 1616643023, '啊实打实');
+INSERT INTO `b5net_test_chat` VALUES (24, '123.132.237.18', 1616643033, '啊实打实');
+INSERT INTO `b5net_test_chat` VALUES (25, '123.132.237.18', 1616643066, '啊实打实');
+INSERT INTO `b5net_test_chat` VALUES (26, '123.132.237.18', 1616643545, 'asdasd');
+INSERT INTO `b5net_test_chat` VALUES (27, '123.132.237.18', 1616643547, '阿三大苏打撒旦撒');
+INSERT INTO `b5net_test_chat` VALUES (28, '123.132.237.18', 1616650069, '啊实打实');
+
+-- ----------------------------
+-- Table structure for b5net_test_online
+-- ----------------------------
+DROP TABLE IF EXISTS `b5net_test_online`;
+CREATE TABLE `b5net_test_online`  (
+  `ip` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '1',
+  `create_time` datetime(0) NULL DEFAULT NULL,
+  `fd` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `update_time` datetime(0) NULL DEFAULT NULL,
+  `isrun` tinyint(1) NULL DEFAULT 1,
+  `id` int(0) UNSIGNED NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of b5net_test_online
+-- ----------------------------
+INSERT INTO `b5net_test_online` VALUES ('123.132.237.18', '2021-03-25 14:32:34', '1', '2021-03-25 14:32:48', 0, 1);
+INSERT INTO `b5net_test_online` VALUES ('123.132.237.18', '2021-03-25 14:45:07', '1', '2021-03-25 14:45:10', 0, 2);
+INSERT INTO `b5net_test_online` VALUES ('123.132.237.18', '2021-03-25 14:45:10', '2', '2021-03-25 14:45:10', 0, 3);
+INSERT INTO `b5net_test_online` VALUES ('123.132.237.18', '2021-03-25 14:45:10', '3', '2021-03-25 14:48:49', 0, 4);
 
 -- ----------------------------
 -- Table structure for b5net_web_ad
