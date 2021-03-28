@@ -59,14 +59,14 @@ class BaseController extends Controller
     public function beforeAction($action)
     {
         if(parent::beforeAction($action)){
-            $controller=Yii::$app->controller->id;
-            $action=Yii::$app->controller->action->id;
-            defined('CONTROLLER_NAME') or define('CONTROLLER_NAME', $controller);
-            defined('ACTION_NAME') or define('ACTION_NAME', $action);
+            $controller_name=$action->controller->id;
+            $action_name=$action->id;
+            defined('CONTROLLER_NAME') or define('CONTROLLER_NAME', $controller_name);
+            defined('ACTION_NAME') or define('ACTION_NAME', $action_name);
 
             //登录判断
             $notLoginConArr = ['public'];
-            if(Yii::$app->user->isGuest && !in_array(strtolower($controller),$notLoginConArr)){
+            if(Yii::$app->user->isGuest && !in_array(strtolower($controller_name),$notLoginConArr)){
                 return $this->resError('请先登录',['public/login']);
             }
 

@@ -370,6 +370,14 @@ class BaseService
         }
 
         $update = [$this->model->primaryKey => $data['id'], 'status' => $data['status']];
+        $extData = $argList[1] ?? [];
+        if($extData){
+            foreach ($extData as $field => $exval){
+                if(!array_key_exists($field,$update)){
+                    $update[$field]=$exval;
+                }
+            }
+        }
         $result = $this->model->edit($update);
         $title = $data['status'] ? '启用' : '停用';
         if ($result) {

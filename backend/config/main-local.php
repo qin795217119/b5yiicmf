@@ -3,7 +3,7 @@
 $config = [
     'layout'=>'layout',
     'defaultRoute' => 'index',
-    'runtimePath' => '@approot/runtime/admin',
+    'runtimePath' => '@approot/runtime',
     'components' => [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation

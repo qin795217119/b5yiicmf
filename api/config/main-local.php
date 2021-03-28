@@ -1,7 +1,7 @@
 <?php
 
 $config = [
-
+    'runtimePath' => '@approot/runtime',
 ];
 //if(defined('SWOOLE_REQ') && SWOOLE_REQ){
 //    $config['components']['response']=[

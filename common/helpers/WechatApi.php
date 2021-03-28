@@ -25,7 +25,10 @@ class WechatApi
         $this->appid = ConfigCache::get('wechat_appid');
         $this->secret = ConfigCache::get('wechat_appsecret');
     }
-
+    public function getOpenId($redirecturl){
+        $wechaturl="https://open.weixin.qq.com/connect/oauth2/authorize?appid=".$this->appid."&redirect_uri=".urlencode($redirecturl)."&response_type=code&scope=snsapi_userinfo&state=".$this->state."#wechat_redirect";
+        return commonApi::b5redirect($wechaturl);
+    }
     /**
      * 微信授权获取用户信息
      * @return array
@@ -35,6 +38,8 @@ class WechatApi
         $input = Yii::$app->request->get();
         $code = $input['code'] ?? '';
         $state = $input['state'] ?? '';
+        $mtype = $input['mtype']??'';
+        $b5reduri = $input['b5reduri']??'';
         if (empty($code) || $state != $this->state) {
             return commonApi::message('授权参数错误', false);
         }
@@ -48,13 +53,13 @@ class WechatApi
 
         //查看数据库中是否有该openid的为微信信息  不存在插入
         $userService = new WechatUsersService();
-        $usersInfo = $userService->info([['openid' => $accessTokenResult['data']['openid']]], true);
-        if (!$usersInfo) {
+        $userInfo = $userService->info([['openid' => $accessTokenResult['data']['openid']],['appid'=>$this->appid],['type' => $mtype]], true);
+        if (!$userInfo) {
             $getResult = $this->auth_getUserinfo($accessTokenResult['data']['access_token'], $accessTokenResult['data']['openid']);
             if (!$getResult['success']) {
                 return $getResult;
             }
-            $usersInfo = [
+            $userInfo = [
                 'openid' => $accessTokenResult['data']['openid'],
                 'appid' => $this->appid,
                 'nickname' => $getResult['data']['nickname'],
@@ -63,13 +68,14 @@ class WechatApi
                 'province' => $getResult['data']['province'],
                 'city' => $getResult['data']['city'],
                 'country' => $getResult['data']['country'],
+                'type'=>$mtype
             ];
-            $res = $userService->add($usersInfo, '', '用户信息保存');
+            $res = $userService->add($userInfo, '', '用户信息保存');
             if (!$res['success']) {
                 return $res;
             }
         }
-        return commonApi::message('获取成功', true, $usersInfo);
+        return commonApi::message('获取成功', true, ['url'=>$b5reduri,'userInfo'=>$userInfo,'mtype'=>$mtype]);
     }
 
     /**
@@ -175,10 +181,10 @@ class WechatApi
      */
     private function getJsApiTicket()
     {
-        $service = new WechatAccessService();
         if (empty($this->appid)) {
             return commonApi::message('微信配置错误', false);
         }
+        $service = new WechatAccessService();
         $info = $service->info($this->appid, true);
         $lasttime = time() - 7000;
         if (empty($info) || $info['jsapi_ticket_add'] < $lasttime || empty($info['jsapi_ticket'])) {

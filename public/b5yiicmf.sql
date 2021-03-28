@@ -11,7 +11,7 @@
  Target Server Version : 80023
  File Encoding         : 65001
 
- Date: 25/03/2021 15:04:55
+ Date: 28/03/2021 16:57:11
 */
 
 SET NAMES utf8mb4;
@@ -66,7 +66,7 @@ CREATE TABLE `b5net_admin`  (
 -- Records of b5net_admin
 -- ----------------------------
 INSERT INTO `b5net_admin` VALUES (1, 'admin', '$2y$13$8vnjhCPxSzfg2nR65q6vyu.GDKWRUXSp0ArRk.ClLY55ovWrhNcEu', '超管', '1', '超级管理员', '2020-12-24 10:50:56', '2021-01-19 11:35:50', '2021-03-17 13:39:31', '123.132.237.18');
-INSERT INTO `b5net_admin` VALUES (2, 'ceshi', '$2y$13$d5YAdQNabdddNFKpubIJE.0sfPCPrfJHwMwZVSLSGCCxxax.FEyai', '测试1111', '1', '测试账号', '2020-12-24 13:14:57', '2021-01-19 10:26:25', '2021-03-25 11:23:25', '182.137.186.75');
+INSERT INTO `b5net_admin` VALUES (2, 'ceshi', '$2y$13$sHMB3vFS2dBDrIrHOqvpQO1Y7nhGEAj6/FjgorgxMd5ZVgzXxKSG2', '测试1111', '1', '测试账号', '2020-12-24 13:14:57', '2021-03-26 10:43:19', '2021-03-28 12:48:13', '113.70.230.182');
 
 -- ----------------------------
 -- Table structure for b5net_admin_role
@@ -78,13 +78,13 @@ CREATE TABLE `b5net_admin_role`  (
   `role_id` int(0) NOT NULL COMMENT '角色ID',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `admin_id`(`admin_id`, `role_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 32 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户和角色关联表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 33 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户和角色关联表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of b5net_admin_role
 -- ----------------------------
 INSERT INTO `b5net_admin_role` VALUES (30, 1, 1);
-INSERT INTO `b5net_admin_role` VALUES (31, 2, 2);
+INSERT INTO `b5net_admin_role` VALUES (32, 2, 2);
 
 -- ----------------------------
 -- Table structure for b5net_admin_struct
@@ -95,14 +95,14 @@ CREATE TABLE `b5net_admin_struct`  (
   `admin_id` int(0) NOT NULL COMMENT '用户ID',
   `struct_id` int(0) NOT NULL COMMENT '组织ID',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 23 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户与组织架构关联表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 25 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户与组织架构关联表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of b5net_admin_struct
 -- ----------------------------
 INSERT INTO `b5net_admin_struct` VALUES (20, 1, 100);
-INSERT INTO `b5net_admin_struct` VALUES (21, 2, 103);
-INSERT INTO `b5net_admin_struct` VALUES (22, 2, 105);
+INSERT INTO `b5net_admin_struct` VALUES (23, 2, 103);
+INSERT INTO `b5net_admin_struct` VALUES (24, 2, 105);
 
 -- ----------------------------
 -- Table structure for b5net_adposition
@@ -171,8 +171,8 @@ INSERT INTO `b5net_config` VALUES (6, '阿里signName', 'sms_ali_signname', 'tex
 INSERT INTO `b5net_config` VALUES (7, '阿里tempId', 'sms_ali_temp', 'text', '0', 'sms', '', '', '阿里短信-tempId模板', 3, '2021-01-11 19:30:21', '2021-01-17 21:27:04');
 INSERT INTO `b5net_config` VALUES (8, '聚合appkey', 'sms_juhe_appkey', 'text', '0', 'sms', '', '', '聚合短信-APPKEY', 10, '2021-01-11 19:33:27', '2021-01-17 21:27:04');
 INSERT INTO `b5net_config` VALUES (9, '聚合tempId', 'sms_juhe_temp', 'text', '0', 'sms', '', '', '聚合短信-TPLID模板', 11, '2021-01-11 19:34:26', '2021-01-17 21:27:04');
-INSERT INTO `b5net_config` VALUES (10, '公众号appid', 'wechat_appid', 'text', '0', 'wx', '', '', '微信公众号的AppId', 0, '2021-01-12 11:05:50', '2021-01-14 17:26:05');
-INSERT INTO `b5net_config` VALUES (11, '公众号secret', 'wechat_appsecret', 'text', '0', 'wx', '', '', '微信公众号-AppSecret', 1, '2021-01-12 11:06:24', '2021-01-14 17:26:05');
+INSERT INTO `b5net_config` VALUES (10, '公众号appid', 'wechat_appid', 'text', '0', 'wx', 'wx2dbcd1ebf29bd18f', '', '微信公众号的AppId', 0, '2021-01-12 11:05:50', '2021-03-27 23:06:59');
+INSERT INTO `b5net_config` VALUES (11, '公众号secret', 'wechat_appsecret', 'text', '0', 'wx', '8f2ea486cf4182ba9211d26cdb7c343a', '', '微信公众号-AppSecret', 1, '2021-01-12 11:06:24', '2021-03-27 23:06:59');
 INSERT INTO `b5net_config` VALUES (12, '服务地址', 'sys_email_host', 'text', '0', 'email', 'smtp.163.com', '', '类似:smtp.163.com', 1, '2021-01-22 15:28:10', '2021-01-23 13:03:59');
 INSERT INTO `b5net_config` VALUES (13, '邮箱地址', 'sys_email_username', 'text', '0', 'email', 'lyyd_lh@163.com', '', '发送邮件的邮箱地址', 2, '2021-01-22 15:28:39', '2021-01-23 13:03:59');
 INSERT INTO `b5net_config` VALUES (14, '授权密码', 'sys_email_password', 'text', '0', 'email', 'UCSMPMHNDJSALQVW', '', '', 3, '2021-01-22 15:29:34', '2021-01-23 13:03:59');
@@ -248,7 +248,7 @@ CREATE TABLE `b5net_loginlog`  (
   `msg` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '提示消息',
   `login_time` datetime(0) NULL DEFAULT NULL COMMENT '访问时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 205 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '系统访问记录' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 221 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '系统访问记录' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of b5net_loginlog
@@ -457,6 +457,27 @@ INSERT INTO `b5net_loginlog` VALUES (201, 'ceshi', '218.19.137.128', '广东省�
 INSERT INTO `b5net_loginlog` VALUES (202, 'ceshi', '218.19.137.128', '广东省广州市天河区', 'Chrome 89.0.4389.90', 'Windows 10.0', '电信', '1', '登录成功', '2021-03-25 11:09:03');
 INSERT INTO `b5net_loginlog` VALUES (203, 'ceshi', '182.137.186.75', '四川省绵阳市', 'Chrome 89.0.4389.90', 'Windows 10.0', '电信', '0', '验证码不正确', '2021-03-25 11:23:17');
 INSERT INTO `b5net_loginlog` VALUES (204, 'ceshi', '182.137.186.75', '四川省绵阳市', 'Chrome 89.0.4389.90', 'Windows 10.0', '电信', '1', '登录成功', '2021-03-25 11:23:25');
+INSERT INTO `b5net_loginlog` VALUES (205, 'ceshi', '121.15.131.171', '广东省', 'Chrome 88.0.4324.182', 'Linux ', '电信', '0', '验证码不正确', '2021-03-25 18:57:53');
+INSERT INTO `b5net_loginlog` VALUES (206, 'ceshi', '121.15.131.171', '广东省', 'Chrome 88.0.4324.182', 'Linux ', '电信', '1', '登录成功', '2021-03-25 18:58:04');
+INSERT INTO `b5net_loginlog` VALUES (207, 'ceshi', '117.147.41.85', '浙江省温州市', 'Chrome 89.0.4389.90', 'OS X 11_1_0', '移动', '1', '登录成功', '2021-03-25 22:30:30');
+INSERT INTO `b5net_loginlog` VALUES (208, 'ceshi', '123.132.237.18', '山东省临沂市', 'Chrome 70.0.3538.25', 'Windows 10.0', '联通', '0', '用户名或密码不正确', '2021-03-26 10:42:44');
+INSERT INTO `b5net_loginlog` VALUES (209, 'ceshi', '123.132.237.18', '山东省临沂市', 'Chrome 70.0.3538.25', 'Windows 10.0', '联通', '0', '用户名或密码不正确', '2021-03-26 10:42:59');
+INSERT INTO `b5net_loginlog` VALUES (210, 'ceshi', '123.132.237.18', '山东省临沂市', 'Chrome 70.0.3538.25', 'Windows 10.0', '联通', '0', '用户名或密码不正确', '2021-03-26 10:44:08');
+INSERT INTO `b5net_loginlog` VALUES (211, 'ceshi', '123.132.237.18', '山东省临沂市', 'Chrome 70.0.3538.25', 'Windows 10.0', '联通', '1', '登录成功', '2021-03-26 10:44:23');
+INSERT INTO `b5net_loginlog` VALUES (212, 'ceshi', '123.132.237.18', '山东省临沂市', 'Chrome 70.0.3538.25', 'Windows 10.0', '联通', '0', '用户名或密码不正确', '2021-03-26 10:44:48');
+INSERT INTO `b5net_loginlog` VALUES (213, 'ceshi', '123.132.237.18', '山东省临沂市', 'Chrome 70.0.3538.25', 'Windows 10.0', '联通', '0', '用户名或密码不正确', '2021-03-26 10:47:17');
+INSERT INTO `b5net_loginlog` VALUES (214, 'ceshi', '123.132.237.18', '山东省临沂市', 'Chrome 70.0.3538.25', 'AndroidOS 5.0', '联通', '0', '用户名或密码不正确', '2021-03-26 10:47:29');
+INSERT INTO `b5net_loginlog` VALUES (215, 'ceshi', '123.132.237.18', '山东省临沂市', 'Chrome 70.0.3538.25', 'Windows 10.0', '联通', '0', '验证码不正确', '2021-03-26 10:48:05');
+INSERT INTO `b5net_loginlog` VALUES (216, 'ceshi', '123.132.237.18', '山东省临沂市', 'Chrome 70.0.3538.25', 'Windows 10.0', '联通', '0', '验证码不正确', '2021-03-26 10:48:24');
+INSERT INTO `b5net_loginlog` VALUES (217, 'ceshi', '210.75.9.81', '广东省深圳市', 'Chrome 89.0.4389.90', 'OS X 11_2_1', '诺瓦科技发展有限公司', '1', '登录成功', '2021-03-26 14:36:04');
+INSERT INTO `b5net_loginlog` VALUES (218, 'ceshi', '175.7.88.127', '湖南省长沙市', 'Chrome 78.0.3904.108', 'Windows 10.0', '电信', '1', '登录成功', '2021-03-26 14:51:22');
+INSERT INTO `b5net_loginlog` VALUES (219, 'ceshi', '117.159.194.85', '河南省', 'Chrome 88.0.4324.104', 'Windows 10.0', '移动', '1', '登录成功', '2021-03-26 17:38:34');
+INSERT INTO `b5net_loginlog` VALUES (220, 'ceshi', '113.129.60.94', '山东省济南市', 'Chrome 84.0.4147.111', 'AndroidOS 7.1.1', '电信', '1', '登录成功', '2021-03-26 22:28:13');
+INSERT INTO `b5net_loginlog` VALUES (221, 'ceshi', '61.140.134.1', '广东省广州市海珠区', 'Chrome 88.0.4324.104', 'Windows 10.0', '电信', '1', '登录成功', '2021-03-27 22:23:57');
+INSERT INTO `b5net_loginlog` VALUES (222, 'ceshi', '125.34.15.95', '北京市', 'Chrome 89.0.4389.90', 'OS X 11_2_3', '联通', '1', '登录成功', '2021-03-27 23:14:31');
+INSERT INTO `b5net_loginlog` VALUES (223, 'ceshi', '119.128.113.33', '广东省东莞市', 'UCBrowser 13.3.2.1112', 'AndroidOS 10', '电信', '1', '登录成功', '2021-03-28 07:08:49');
+INSERT INTO `b5net_loginlog` VALUES (224, 'ceshi', '113.123.222.9', '山东省枣庄市', 'Chrome 70.0.3538.25', 'Windows 10.0', '电信', '1', '登录成功', '2021-03-28 10:11:21');
+INSERT INTO `b5net_loginlog` VALUES (225, 'ceshi', '113.70.230.182', '广东省佛山市', 'Chrome 91.0.4442.4', 'Windows 10.0', '电信', '1', '登录成功', '2021-03-28 12:48:13');
 
 -- ----------------------------
 -- Table structure for b5net_menu
@@ -480,7 +501,7 @@ CREATE TABLE `b5net_menu`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `parent_id`(`parent_id`) USING BTREE,
   INDEX `listsort`(`listsort`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 12304 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '菜单权限表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 12508 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '菜单权限表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of b5net_menu
@@ -505,6 +526,7 @@ INSERT INTO `b5net_menu` VALUES (120, '网站内容', 4, 1, 'weblist/index', 0, 
 INSERT INTO `b5net_menu` VALUES (121, '网站栏目', 4, 3, 'webcat/index', 0, 'C', '1', '0', 'admin:webcat:index', '', '2021-03-17 14:01:21', '2021-03-17 14:01:21', '');
 INSERT INTO `b5net_menu` VALUES (122, '广告位置', 4, 4, 'webpos/index', 0, 'C', '1', '0', 'admin:webpos:index', '', '2021-03-17 14:01:37', '2021-03-17 14:01:37', '');
 INSERT INTO `b5net_menu` VALUES (123, '广告信息', 4, 2, 'webad/index', 0, 'C', '1', '0', 'admin:webad:index', '', '2021-03-17 14:01:04', '2021-03-17 14:01:04', '');
+INSERT INTO `b5net_menu` VALUES (125, '微刮奖', 5, 0, 'scratch/index', 0, 'C', '1', '0', 'admin:scratch:index', '', '2021-03-17 14:01:04', '2021-03-26 11:35:57', '');
 INSERT INTO `b5net_menu` VALUES (10000, '用户新增', 100, 1, '', 0, 'F', '1', '0', 'admin:admin:add', '', '2021-01-03 07:25:11', '2021-01-03 07:25:11', '用户新增');
 INSERT INTO `b5net_menu` VALUES (10001, '用户修改', 100, 2, '', 0, 'F', '1', '0', 'admin:admin:edit', '', '2021-01-03 07:25:11', '2021-01-03 07:25:11', '用户修改');
 INSERT INTO `b5net_menu` VALUES (10002, '用户删除', 100, 3, '', 0, 'F', '1', '0', 'admin:admin:drop', '', '2021-01-03 07:25:11', '2021-01-03 07:25:11', '用户删除');
@@ -566,6 +588,13 @@ INSERT INTO `b5net_menu` VALUES (12203, '删除位置', 122, 3, '', 0, 'F', '1',
 INSERT INTO `b5net_menu` VALUES (12301, '添加广告', 123, 1, '', 0, 'F', '1', '0', 'admin:webad:add', '', '2021-03-17 14:04:15', '2021-03-17 14:03:32', '');
 INSERT INTO `b5net_menu` VALUES (12302, '编辑广告', 123, 2, '', 0, 'F', '1', '0', 'admin:webad:edit', '', '2021-03-17 14:04:15', '2021-03-17 14:03:41', '');
 INSERT INTO `b5net_menu` VALUES (12303, '删除广告', 123, 3, '', 0, 'F', '1', '0', 'admin:webad:drop', '', '2021-03-17 14:04:15', '2021-03-17 14:03:51', '');
+INSERT INTO `b5net_menu` VALUES (12501, '添加活动', 125, 1, '', 0, 'F', '1', '0', 'admin:scratch:add', '', '2021-03-26 11:36:29', '2021-03-26 11:36:29', '');
+INSERT INTO `b5net_menu` VALUES (12502, '编辑活动', 125, 2, '', 0, 'F', '1', '0', 'admin:scratch:edit', '', '2021-03-26 11:36:50', '2021-03-26 11:36:50', '');
+INSERT INTO `b5net_menu` VALUES (12503, '数据清除', 125, 3, '', 0, 'F', '1', '0', 'admin:scratch:initdata', '', '2021-03-26 11:37:20', '2021-03-26 11:37:20', '');
+INSERT INTO `b5net_menu` VALUES (12504, '奖品列表', 125, 10, '', 0, 'F', '1', '0', 'admin:scratchprize:index', '', '2021-03-26 11:44:31', '2021-03-26 11:44:31', '');
+INSERT INTO `b5net_menu` VALUES (12505, '添加奖品', 125, 11, '', 0, 'F', '1', '0', 'admin:scratchprize:add', '', '2021-03-26 11:44:58', '2021-03-26 11:44:58', '');
+INSERT INTO `b5net_menu` VALUES (12506, '奖品编辑', 125, 12, '', 0, 'F', '1', '0', 'admin:scratchprize:edit', '', '2021-03-26 11:45:27', '2021-03-26 11:45:27', '');
+INSERT INTO `b5net_menu` VALUES (12507, '奖品删除', 125, 13, '', 0, 'F', '1', '0', 'admin:scratchprize:drop', '', '2021-03-26 11:45:56', '2021-03-26 11:45:56', '');
 
 -- ----------------------------
 -- Table structure for b5net_notice
@@ -733,6 +762,120 @@ INSERT INTO `b5net_role_menu` VALUES (2, 12302);
 INSERT INTO `b5net_role_menu` VALUES (2, 12303);
 
 -- ----------------------------
+-- Table structure for b5net_scratch
+-- ----------------------------
+DROP TABLE IF EXISTS `b5net_scratch`;
+CREATE TABLE `b5net_scratch`  (
+  `id` int(0) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '活动名称',
+  `status` tinyint(1) NULL DEFAULT 1 COMMENT '活动状态',
+  `start_time` datetime(0) NULL DEFAULT NULL COMMENT '开始时间',
+  `end_time` datetime(0) NULL DEFAULT NULL COMMENT '结束时间',
+  `daynum` mediumint(0) NULL DEFAULT NULL COMMENT '每日刮奖次数',
+  `contents` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT '活动介绍',
+  `create_time` datetime(0) NULL DEFAULT NULL,
+  `update_time` datetime(0) NULL DEFAULT NULL,
+  `support` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '技术支持',
+  `company` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '主办单位',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '微信刮奖-活动表' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of b5net_scratch
+-- ----------------------------
+INSERT INTO `b5net_scratch` VALUES (1, '测试刮奖活动', 1, '2021-03-26 16:01:00', '2021-10-26 16:01:00', 70, '阿大撒大撒大撒大苏打是\r\n撒大苏打实打实的撒阿萨大阿大撒大撒大撒大苏打萨达萨达萨达萨达是啊实打实 大撒大阿萨大阿萨大阿大撒阿萨大阿萨大阿达阿萨大啊谁说的\r\n大撒大\r\n阿三大苏打阿萨大', '2021-03-26 16:02:11', '2021-03-28 16:23:39', 'XXXXXX科技公司', 'XXX集团');
+
+-- ----------------------------
+-- Table structure for b5net_scratch_prize
+-- ----------------------------
+DROP TABLE IF EXISTS `b5net_scratch_prize`;
+CREATE TABLE `b5net_scratch_prize`  (
+  `id` int(0) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `scratch_id` int(0) NOT NULL COMMENT '所属活动',
+  `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '奖项名称:一等奖',
+  `title` varchar(120) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '实际名称',
+  `allnumber` mediumint(0) NOT NULL COMMENT '总数，0为不限制',
+  `status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '是否显示',
+  `isuse` tinyint(1) NOT NULL COMMENT '是否可以中将',
+  `chance` int(0) NULL DEFAULT 1 COMMENT '概率',
+  `thumbimg` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '奖品图片',
+  `contents` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT '奖品介绍',
+  `get_start` datetime(0) NULL DEFAULT NULL COMMENT '兑换开始时间',
+  `get_end` datetime(0) NULL DEFAULT NULL COMMENT '兑换结束时间',
+  `create_time` datetime(0) NULL DEFAULT NULL,
+  `update_time` datetime(0) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of b5net_scratch_prize
+-- ----------------------------
+INSERT INTO `b5net_scratch_prize` VALUES (1, 1, 'iphone 12手机', '一等奖', 1, 1, 1, 100000, '/uploads/scratch/2021/03/26/ceb54319b711f63d19ade122a22a9b27.jpg', '兑奖时间：2021-05-01至2021-05-07。超出时间无效', NULL, NULL, '2021-03-26 22:50:07', '2021-03-26 22:59:37');
+INSERT INTO `b5net_scratch_prize` VALUES (2, 1, '华为运动手环', '二等奖', 2, 1, 1, 10000, '/uploads/scratch/2021/03/26/a54356f9afa67b541be268cf334e054e.jpg', '', NULL, NULL, '2021-03-26 23:00:31', '2021-03-26 23:00:31');
+INSERT INTO `b5net_scratch_prize` VALUES (3, 1, '水杯', '幸运奖', 999999, 1, 1, 1, '/uploads/scratch/2021/03/26/0934cb92cbd07a339ea53106f3fe0ad7.jpg', '', NULL, NULL, '2021-03-26 23:01:03', '2021-03-28 16:26:48');
+
+-- ----------------------------
+-- Table structure for b5net_scratch_prize_users
+-- ----------------------------
+DROP TABLE IF EXISTS `b5net_scratch_prize_users`;
+CREATE TABLE `b5net_scratch_prize_users`  (
+  `id` int(0) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `openid` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '微信标识',
+  `nickname` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '微信昵称',
+  `headimg` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '微信头像',
+  `prize_id` int(0) NOT NULL COMMENT '奖品ID',
+  `prize_name` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '奖品名称',
+  `prize_img` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '奖品图片',
+  `getcode` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '兑换码',
+  `scratch_id` int(0) NOT NULL COMMENT '所属活动',
+  `daytime` date NULL DEFAULT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 0 COMMENT '兑换状态',
+  `get_time` datetime(0) NULL DEFAULT NULL COMMENT '兑换时间',
+  `create_time` datetime(0) NULL DEFAULT NULL,
+  `update_time` datetime(0) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '微现场-中奖用户表' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of b5net_scratch_prize_users
+-- ----------------------------
+INSERT INTO `b5net_scratch_prize_users` VALUES (1, 'oHwQ-52n1phwDERwoeTWlio_vooE', '李先生', 'https://thirdwx.qlogo.cn/mmopen/vi_32/DYAIOgq83eqBURUj29IqEIsiakaJV6icmctgf8gSWibLNMUsGpUmNPGR1T6W0jYicYcelq4e1lEnwMKUvMQSvVTYCQ/132', 3, '幸运奖：水杯', '/uploads/scratch/2021/03/26/0934cb92cbd07a339ea53106f3fe0ad7.jpg', '316169201108831', 1, '2021-03-28', 0, NULL, '2021-03-28 16:28:30', NULL);
+
+-- ----------------------------
+-- Table structure for b5net_scratch_users_logs
+-- ----------------------------
+DROP TABLE IF EXISTS `b5net_scratch_users_logs`;
+CREATE TABLE `b5net_scratch_users_logs`  (
+  `id` int(0) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT ' ',
+  `openid` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `create_time` datetime(0) NULL DEFAULT NULL,
+  `scratch_id` int(0) NULL DEFAULT NULL,
+  `daytime` date NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of b5net_scratch_users_logs
+-- ----------------------------
+INSERT INTO `b5net_scratch_users_logs` VALUES (1, 'oHwQ-52n1phwDERwoeTWlio_vooE', '2021-03-28 16:28:29', 1, '2021-03-28');
+INSERT INTO `b5net_scratch_users_logs` VALUES (2, 'oHwQ-52n1phwDERwoeTWlio_vooE', '2021-03-28 16:28:30', 1, '2021-03-28');
+INSERT INTO `b5net_scratch_users_logs` VALUES (3, 'oHwQ-52n1phwDERwoeTWlio_vooE', '2021-03-28 16:31:27', 1, '2021-03-28');
+INSERT INTO `b5net_scratch_users_logs` VALUES (4, 'oHwQ-52n1phwDERwoeTWlio_vooE', '2021-03-28 16:31:29', 1, '2021-03-28');
+INSERT INTO `b5net_scratch_users_logs` VALUES (5, 'oHwQ-52n1phwDERwoeTWlio_vooE', '2021-03-28 16:31:29', 1, '2021-03-28');
+INSERT INTO `b5net_scratch_users_logs` VALUES (6, 'oHwQ-52n1phwDERwoeTWlio_vooE', '2021-03-28 16:31:30', 1, '2021-03-28');
+INSERT INTO `b5net_scratch_users_logs` VALUES (7, 'oHwQ-52n1phwDERwoeTWlio_vooE', '2021-03-28 16:31:31', 1, '2021-03-28');
+INSERT INTO `b5net_scratch_users_logs` VALUES (8, 'oHwQ-52n1phwDERwoeTWlio_vooE', '2021-03-28 16:31:32', 1, '2021-03-28');
+INSERT INTO `b5net_scratch_users_logs` VALUES (9, 'oHwQ-52n1phwDERwoeTWlio_vooE', '2021-03-28 16:31:33', 1, '2021-03-28');
+INSERT INTO `b5net_scratch_users_logs` VALUES (10, 'oHwQ-52n1phwDERwoeTWlio_vooE', '2021-03-28 16:31:33', 1, '2021-03-28');
+INSERT INTO `b5net_scratch_users_logs` VALUES (11, 'oHwQ-52n1phwDERwoeTWlio_vooE', '2021-03-28 16:31:34', 1, '2021-03-28');
+INSERT INTO `b5net_scratch_users_logs` VALUES (12, 'oHwQ-52n1phwDERwoeTWlio_vooE', '2021-03-28 16:31:35', 1, '2021-03-28');
+INSERT INTO `b5net_scratch_users_logs` VALUES (13, 'oHwQ-52n1phwDERwoeTWlio_vooE', '2021-03-28 16:31:36', 1, '2021-03-28');
+INSERT INTO `b5net_scratch_users_logs` VALUES (14, 'oHwQ-52n1phwDERwoeTWlio_vooE', '2021-03-28 16:31:36', 1, '2021-03-28');
+INSERT INTO `b5net_scratch_users_logs` VALUES (15, 'oHwQ-52n1phwDERwoeTWlio_vooE', '2021-03-28 16:31:37', 1, '2021-03-28');
+INSERT INTO `b5net_scratch_users_logs` VALUES (16, 'oHwQ-52n1phwDERwoeTWlio_vooE', '2021-03-28 16:31:38', 1, '2021-03-28');
+INSERT INTO `b5net_scratch_users_logs` VALUES (17, 'oHwQ-52n1phwDERwoeTWlio_vooE', '2021-03-28 16:53:03', 1, '2021-03-28');
+
+-- ----------------------------
 -- Table structure for b5net_smscode
 -- ----------------------------
 DROP TABLE IF EXISTS `b5net_smscode`;
@@ -789,7 +932,7 @@ CREATE TABLE `b5net_test_chat`  (
   `content` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `addtime`(`addtime`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 29 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of b5net_test_chat
@@ -835,7 +978,7 @@ CREATE TABLE `b5net_test_online`  (
   `isrun` tinyint(1) NULL DEFAULT 1,
   `id` int(0) UNSIGNED NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 102 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of b5net_test_online
@@ -844,6 +987,130 @@ INSERT INTO `b5net_test_online` VALUES ('123.132.237.18', '2021-03-25 14:32:34',
 INSERT INTO `b5net_test_online` VALUES ('123.132.237.18', '2021-03-25 14:45:07', '1', '2021-03-25 14:45:10', 0, 2);
 INSERT INTO `b5net_test_online` VALUES ('123.132.237.18', '2021-03-25 14:45:10', '2', '2021-03-25 14:45:10', 0, 3);
 INSERT INTO `b5net_test_online` VALUES ('123.132.237.18', '2021-03-25 14:45:10', '3', '2021-03-25 14:48:49', 0, 4);
+INSERT INTO `b5net_test_online` VALUES ('144.52.190.229', '2021-03-25 17:38:34', '7', '2021-03-25 17:38:43', 0, 5);
+INSERT INTO `b5net_test_online` VALUES ('144.52.190.229', '2021-03-25 17:38:43', '8', '2021-03-25 17:38:47', 0, 6);
+INSERT INTO `b5net_test_online` VALUES ('113.200.81.36', '2021-03-25 17:49:50', '9', '2021-03-25 17:51:03', 0, 7);
+INSERT INTO `b5net_test_online` VALUES ('113.200.81.36', '2021-03-25 17:51:03', '10', '2021-03-25 17:51:13', 0, 8);
+INSERT INTO `b5net_test_online` VALUES ('121.15.131.171', '2021-03-25 18:58:07', '11', '2021-03-25 18:58:17', 0, 9);
+INSERT INTO `b5net_test_online` VALUES ('121.15.131.171', '2021-03-25 18:59:31', '12', '2021-03-25 19:45:00', 0, 10);
+INSERT INTO `b5net_test_online` VALUES ('121.15.131.171', '2021-03-25 19:45:00', '13', '2021-03-25 21:28:28', 0, 11);
+INSERT INTO `b5net_test_online` VALUES ('144.52.190.229', '2021-03-25 21:58:07', '14', '2021-03-25 21:58:19', 0, 12);
+INSERT INTO `b5net_test_online` VALUES ('117.147.41.85', '2021-03-25 22:30:32', '15', '2021-03-25 22:32:54', 0, 13);
+INSERT INTO `b5net_test_online` VALUES ('180.111.248.18', '2021-03-26 10:03:33', '92', '2021-03-26 10:04:25', 0, 14);
+INSERT INTO `b5net_test_online` VALUES ('123.132.237.18', '2021-03-26 10:31:06', '93', '2021-03-26 10:43:56', 0, 15);
+INSERT INTO `b5net_test_online` VALUES ('139.226.50.22', '2021-03-26 10:39:14', '94', '2021-03-26 10:39:29', 0, 16);
+INSERT INTO `b5net_test_online` VALUES ('123.132.237.18', '2021-03-26 10:44:25', '96', '2021-03-26 10:44:42', 0, 17);
+INSERT INTO `b5net_test_online` VALUES ('123.132.237.18', '2021-03-26 11:27:29', '97', '2021-03-26 11:35:48', 0, 18);
+INSERT INTO `b5net_test_online` VALUES ('123.132.237.18', '2021-03-26 11:35:48', '98', '2021-03-26 11:51:38', 0, 19);
+INSERT INTO `b5net_test_online` VALUES ('123.132.237.18', '2021-03-26 11:51:38', '100', '2021-03-26 11:53:53', 0, 20);
+INSERT INTO `b5net_test_online` VALUES ('221.10.101.35', '2021-03-26 13:24:15', '101', '2021-03-26 13:24:19', 0, 21);
+INSERT INTO `b5net_test_online` VALUES ('221.10.101.35', '2021-03-26 13:24:47', '102', '2021-03-26 13:25:36', 0, 22);
+INSERT INTO `b5net_test_online` VALUES ('221.10.101.35', '2021-03-26 13:54:45', '103', '2021-03-26 13:55:44', 0, 23);
+INSERT INTO `b5net_test_online` VALUES ('123.132.237.18', '2021-03-26 14:31:34', '107', '2021-03-26 14:31:43', 0, 24);
+INSERT INTO `b5net_test_online` VALUES ('123.132.237.18', '2021-03-26 14:31:43', '108', '2021-03-26 14:31:45', 0, 25);
+INSERT INTO `b5net_test_online` VALUES ('123.132.237.18', '2021-03-26 14:31:45', '109', '2021-03-26 14:32:18', 0, 26);
+INSERT INTO `b5net_test_online` VALUES ('123.132.237.18', '2021-03-26 14:32:18', '110', '2021-03-26 14:33:49', 0, 27);
+INSERT INTO `b5net_test_online` VALUES ('123.132.237.18', '2021-03-26 14:33:49', '111', '2021-03-26 14:34:22', 0, 28);
+INSERT INTO `b5net_test_online` VALUES ('123.132.237.18', '2021-03-26 14:34:22', '112', '2021-03-26 14:34:42', 0, 29);
+INSERT INTO `b5net_test_online` VALUES ('123.132.237.18', '2021-03-26 14:34:42', '113', '2021-03-26 14:34:57', 0, 30);
+INSERT INTO `b5net_test_online` VALUES ('123.132.237.18', '2021-03-26 14:34:57', '114', '2021-03-26 14:35:24', 0, 31);
+INSERT INTO `b5net_test_online` VALUES ('123.132.237.18', '2021-03-26 14:35:24', '115', '2021-03-26 14:36:12', 0, 32);
+INSERT INTO `b5net_test_online` VALUES ('210.75.9.81', '2021-03-26 14:36:08', '116', '2021-03-26 14:37:19', 0, 33);
+INSERT INTO `b5net_test_online` VALUES ('123.132.237.18', '2021-03-26 14:36:12', '117', '2021-03-26 14:41:50', 0, 34);
+INSERT INTO `b5net_test_online` VALUES ('123.132.237.18', '2021-03-26 14:41:50', '118', '2021-03-26 14:42:31', 0, 35);
+INSERT INTO `b5net_test_online` VALUES ('123.132.237.18', '2021-03-26 14:42:31', '119', '2021-03-26 14:47:43', 0, 36);
+INSERT INTO `b5net_test_online` VALUES ('123.132.237.18', '2021-03-26 14:47:43', '124', '2021-03-26 14:48:34', 0, 37);
+INSERT INTO `b5net_test_online` VALUES ('123.132.237.18', '2021-03-26 14:48:35', '125', '2021-03-26 14:48:58', 0, 38);
+INSERT INTO `b5net_test_online` VALUES ('123.132.237.18', '2021-03-26 14:48:59', '126', '2021-03-26 14:49:05', 0, 39);
+INSERT INTO `b5net_test_online` VALUES ('123.132.237.18', '2021-03-26 14:49:05', '127', '2021-03-26 14:49:18', 0, 40);
+INSERT INTO `b5net_test_online` VALUES ('123.132.237.18', '2021-03-26 14:49:18', '128', '2021-03-26 14:49:41', 0, 41);
+INSERT INTO `b5net_test_online` VALUES ('123.132.237.18', '2021-03-26 14:49:41', '129', '2021-03-26 14:50:17', 0, 42);
+INSERT INTO `b5net_test_online` VALUES ('123.132.237.18', '2021-03-26 14:50:17', '130', '2021-03-26 14:50:43', 0, 43);
+INSERT INTO `b5net_test_online` VALUES ('123.132.237.18', '2021-03-26 14:50:44', '131', '2021-03-26 14:50:44', 0, 44);
+INSERT INTO `b5net_test_online` VALUES ('123.132.237.18', '2021-03-26 14:50:45', '132', '2021-03-26 14:50:50', 0, 45);
+INSERT INTO `b5net_test_online` VALUES ('123.132.237.18', '2021-03-26 14:50:50', '133', '2021-03-26 14:51:00', 0, 46);
+INSERT INTO `b5net_test_online` VALUES ('123.132.237.18', '2021-03-26 14:51:00', '134', '2021-03-26 14:51:09', 0, 47);
+INSERT INTO `b5net_test_online` VALUES ('123.132.237.18', '2021-03-26 14:51:09', '135', '2021-03-26 14:51:19', 0, 48);
+INSERT INTO `b5net_test_online` VALUES ('123.132.237.18', '2021-03-26 14:51:19', '136', '2021-03-26 14:51:26', 0, 49);
+INSERT INTO `b5net_test_online` VALUES ('175.7.88.127', '2021-03-26 14:51:25', '137', '2021-03-26 14:53:21', 0, 50);
+INSERT INTO `b5net_test_online` VALUES ('123.132.237.18', '2021-03-26 14:51:26', '138', '2021-03-26 15:05:24', 0, 51);
+INSERT INTO `b5net_test_online` VALUES ('123.132.237.18', '2021-03-26 15:05:24', '139', '2021-03-26 15:06:30', 0, 52);
+INSERT INTO `b5net_test_online` VALUES ('123.132.237.18', '2021-03-26 15:06:30', '140', '2021-03-26 15:06:40', 0, 53);
+INSERT INTO `b5net_test_online` VALUES ('123.132.237.18', '2021-03-26 15:06:40', '141', '2021-03-26 15:07:10', 0, 54);
+INSERT INTO `b5net_test_online` VALUES ('123.132.237.18', '2021-03-26 15:07:10', '142', '2021-03-26 15:07:24', 0, 55);
+INSERT INTO `b5net_test_online` VALUES ('123.132.237.18', '2021-03-26 15:07:24', '143', '2021-03-26 15:07:48', 0, 56);
+INSERT INTO `b5net_test_online` VALUES ('123.132.237.18', '2021-03-26 15:07:49', '144', '2021-03-26 15:07:56', 0, 57);
+INSERT INTO `b5net_test_online` VALUES ('123.132.237.18', '2021-03-26 15:07:56', '145', '2021-03-26 15:08:04', 0, 58);
+INSERT INTO `b5net_test_online` VALUES ('123.132.237.18', '2021-03-26 15:08:04', '146', '2021-03-26 15:08:13', 0, 59);
+INSERT INTO `b5net_test_online` VALUES ('123.132.237.18', '2021-03-26 15:08:13', '147', '2021-03-26 15:10:49', 0, 60);
+INSERT INTO `b5net_test_online` VALUES ('123.132.237.18', '2021-03-26 15:10:49', '148', '2021-03-26 15:11:58', 0, 61);
+INSERT INTO `b5net_test_online` VALUES ('123.132.237.18', '2021-03-26 15:11:59', '149', '2021-03-26 15:13:13', 0, 62);
+INSERT INTO `b5net_test_online` VALUES ('123.132.237.18', '2021-03-26 15:13:13', '150', '2021-03-26 15:17:48', 0, 63);
+INSERT INTO `b5net_test_online` VALUES ('123.132.237.18', '2021-03-26 15:17:48', '151', '2021-03-26 15:23:10', 0, 64);
+INSERT INTO `b5net_test_online` VALUES ('123.132.237.18', '2021-03-26 15:23:10', '152', '2021-03-26 15:58:32', 0, 65);
+INSERT INTO `b5net_test_online` VALUES ('123.132.237.18', '2021-03-26 15:58:32', '153', '2021-03-26 16:01:16', 0, 66);
+INSERT INTO `b5net_test_online` VALUES ('123.132.237.18', '2021-03-26 16:01:16', '154', '2021-03-26 16:03:30', 0, 67);
+INSERT INTO `b5net_test_online` VALUES ('123.132.237.18', '2021-03-26 16:03:30', '155', '2021-03-26 16:04:26', 0, 68);
+INSERT INTO `b5net_test_online` VALUES ('123.132.237.18', '2021-03-26 16:04:26', '156', '2021-03-26 16:06:21', 0, 69);
+INSERT INTO `b5net_test_online` VALUES ('123.132.237.18', '2021-03-26 16:06:21', '157', '2021-03-26 16:06:52', 0, 70);
+INSERT INTO `b5net_test_online` VALUES ('123.132.237.18', '2021-03-26 16:06:52', '158', '2021-03-26 16:08:22', 0, 71);
+INSERT INTO `b5net_test_online` VALUES ('123.132.237.18', '2021-03-26 16:08:22', '159', '2021-03-26 16:09:02', 0, 72);
+INSERT INTO `b5net_test_online` VALUES ('123.132.237.18', '2021-03-26 16:09:02', '160', '2021-03-26 16:09:16', 0, 73);
+INSERT INTO `b5net_test_online` VALUES ('123.132.237.18', '2021-03-26 16:09:16', '161', '2021-03-26 16:09:30', 0, 74);
+INSERT INTO `b5net_test_online` VALUES ('123.132.237.18', '2021-03-26 16:09:30', '162', '2021-03-26 16:15:01', 0, 75);
+INSERT INTO `b5net_test_online` VALUES ('123.132.237.18', '2021-03-26 16:15:02', '163', '2021-03-26 16:40:21', 0, 76);
+INSERT INTO `b5net_test_online` VALUES ('123.132.237.18', '2021-03-26 16:40:21', '165', '2021-03-26 16:41:47', 0, 77);
+INSERT INTO `b5net_test_online` VALUES ('123.132.237.18', '2021-03-26 16:41:47', '166', '2021-03-26 16:42:32', 0, 78);
+INSERT INTO `b5net_test_online` VALUES ('123.132.237.18', '2021-03-26 16:42:32', '167', '2021-03-26 16:56:30', 0, 79);
+INSERT INTO `b5net_test_online` VALUES ('117.159.194.85', '2021-03-26 17:38:36', '168', '2021-03-26 17:40:08', 0, 80);
+INSERT INTO `b5net_test_online` VALUES ('117.159.194.85', '2021-03-26 17:40:08', '169', '2021-03-26 17:40:14', 0, 81);
+INSERT INTO `b5net_test_online` VALUES ('117.159.194.85', '2021-03-26 17:40:14', '170', '2021-03-26 17:48:54', 0, 82);
+INSERT INTO `b5net_test_online` VALUES ('117.159.194.85', '2021-03-26 17:48:54', '171', '2021-03-26 17:48:58', 0, 83);
+INSERT INTO `b5net_test_online` VALUES ('144.52.190.229', '2021-03-26 18:08:37', '172', '2021-03-26 18:10:00', 0, 84);
+INSERT INTO `b5net_test_online` VALUES ('144.52.190.229', '2021-03-26 18:10:00', '173', '2021-03-26 18:41:55', 0, 85);
+INSERT INTO `b5net_test_online` VALUES ('144.52.190.229', '2021-03-26 18:51:30', '174', '2021-03-26 18:52:09', 0, 86);
+INSERT INTO `b5net_test_online` VALUES ('144.52.190.229', '2021-03-26 18:52:09', '175', '2021-03-26 19:26:17', 0, 87);
+INSERT INTO `b5net_test_online` VALUES ('144.52.190.229', '2021-03-26 22:14:48', '176', '2021-03-26 23:09:08', 0, 88);
+INSERT INTO `b5net_test_online` VALUES ('113.129.60.94', '2021-03-26 22:28:16', '177', '2021-03-26 22:28:54', 0, 89);
+INSERT INTO `b5net_test_online` VALUES ('113.129.60.94', '2021-03-26 22:28:54', '178', '2021-03-26 22:29:29', 0, 90);
+INSERT INTO `b5net_test_online` VALUES ('113.129.60.94', '2021-03-26 22:29:35', '179', '2021-03-26 22:31:29', 0, 91);
+INSERT INTO `b5net_test_online` VALUES ('113.129.60.94', '2021-03-26 22:31:42', '180', '2021-03-26 22:32:12', 0, 92);
+INSERT INTO `b5net_test_online` VALUES ('144.52.190.229', '2021-03-26 23:09:08', '181', '2021-03-26 23:11:44', 0, 93);
+INSERT INTO `b5net_test_online` VALUES ('144.52.190.229', '2021-03-26 23:11:44', '182', '2021-03-26 23:12:03', 0, 94);
+INSERT INTO `b5net_test_online` VALUES ('144.52.190.229', '2021-03-26 23:12:03', '183', '2021-03-26 23:18:38', 0, 95);
+INSERT INTO `b5net_test_online` VALUES ('117.159.194.85', '2021-03-27 09:42:54', '193', '2021-03-27 10:20:09', 0, 96);
+INSERT INTO `b5net_test_online` VALUES ('117.159.194.85', '2021-03-27 10:20:09', '194', '2021-03-27 11:36:06', 0, 97);
+INSERT INTO `b5net_test_online` VALUES ('144.52.190.229', '2021-03-27 15:16:24', '197', '2021-03-27 15:16:36', 0, 98);
+INSERT INTO `b5net_test_online` VALUES ('144.52.190.229', '2021-03-27 16:04:00', '199', '2021-03-27 16:56:32', 0, 99);
+INSERT INTO `b5net_test_online` VALUES ('144.52.190.229', '2021-03-27 16:56:32', '201', '2021-03-27 16:56:39', 0, 100);
+INSERT INTO `b5net_test_online` VALUES ('144.52.190.229', '2021-03-27 16:56:41', '202', '2021-03-27 17:34:37', 0, 101);
+INSERT INTO `b5net_test_online` VALUES ('144.52.190.229', '2021-03-27 22:17:47', '207', '2021-03-27 22:18:35', 0, 102);
+INSERT INTO `b5net_test_online` VALUES ('144.52.190.229', '2021-03-27 22:19:14', '208', '2021-03-27 23:07:01', 0, 103);
+INSERT INTO `b5net_test_online` VALUES ('61.140.134.1', '2021-03-27 22:23:59', '209', '2021-03-27 22:24:26', 0, 104);
+INSERT INTO `b5net_test_online` VALUES ('61.140.134.1', '2021-03-27 22:24:26', '210', '2021-03-27 22:24:27', 0, 105);
+INSERT INTO `b5net_test_online` VALUES ('144.52.190.229', '2021-03-27 23:07:01', '211', '2021-03-27 23:12:16', 0, 106);
+INSERT INTO `b5net_test_online` VALUES ('144.52.190.229', '2021-03-27 23:12:16', '212', '2021-03-27 23:14:20', 0, 107);
+INSERT INTO `b5net_test_online` VALUES ('125.34.15.95', '2021-03-27 23:14:33', '213', '2021-03-27 23:15:31', 0, 108);
+INSERT INTO `b5net_test_online` VALUES ('119.128.113.33', '2021-03-28 07:08:51', '227', '2021-03-28 07:09:44', 0, 109);
+INSERT INTO `b5net_test_online` VALUES ('144.52.190.229', '2021-03-28 09:29:58', '228', '2021-03-28 11:30:08', 0, 110);
+INSERT INTO `b5net_test_online` VALUES ('113.123.222.9', '2021-03-28 10:11:23', '229', '2021-03-28 10:27:08', 0, 111);
+INSERT INTO `b5net_test_online` VALUES ('113.123.222.9', '2021-03-28 10:11:48', '230', '2021-03-28 10:11:51', 0, 112);
+INSERT INTO `b5net_test_online` VALUES ('113.70.230.182', '2021-03-28 12:48:17', '231', '2021-03-28 12:48:34', 0, 113);
+INSERT INTO `b5net_test_online` VALUES ('144.52.190.229', '2021-03-28 14:20:00', '234', '2021-03-28 14:23:41', 0, 114);
+INSERT INTO `b5net_test_online` VALUES ('144.52.190.229', '2021-03-28 14:23:41', '235', '2021-03-28 14:24:40', 0, 115);
+INSERT INTO `b5net_test_online` VALUES ('144.52.190.229', '2021-03-28 14:24:40', '236', '2021-03-28 14:25:26', 0, 116);
+INSERT INTO `b5net_test_online` VALUES ('144.52.190.229', '2021-03-28 14:25:26', '237', '2021-03-28 14:34:50', 0, 117);
+INSERT INTO `b5net_test_online` VALUES ('144.52.190.229', '2021-03-28 14:34:50', '238', '2021-03-28 15:09:05', 0, 118);
+INSERT INTO `b5net_test_online` VALUES ('144.52.190.229', '2021-03-28 15:36:17', '239', '2021-03-28 16:13:04', 0, 119);
+INSERT INTO `b5net_test_online` VALUES ('144.52.190.229', '2021-03-28 16:13:04', '243', '2021-03-28 16:14:04', 0, 120);
+INSERT INTO `b5net_test_online` VALUES ('144.52.190.229', '2021-03-28 16:14:04', '244', '2021-03-28 16:21:39', 0, 121);
+INSERT INTO `b5net_test_online` VALUES ('144.52.190.229', '2021-03-28 16:21:40', '245', '2021-03-28 16:21:51', 0, 122);
+INSERT INTO `b5net_test_online` VALUES ('144.52.190.229', '2021-03-28 16:21:51', '246', '2021-03-28 16:24:16', 0, 123);
+INSERT INTO `b5net_test_online` VALUES ('144.52.190.229', '2021-03-28 16:24:16', '247', '2021-03-28 16:25:14', 0, 124);
+INSERT INTO `b5net_test_online` VALUES ('144.52.190.229', '2021-03-28 16:25:14', '248', '2021-03-28 16:25:21', 0, 125);
+INSERT INTO `b5net_test_online` VALUES ('144.52.190.229', '2021-03-28 16:25:21', '249', '2021-03-28 16:53:40', 0, 126);
+INSERT INTO `b5net_test_online` VALUES ('144.52.190.229', '2021-03-28 16:53:40', '250', '2021-03-28 16:56:33', 0, 127);
+INSERT INTO `b5net_test_online` VALUES ('144.52.190.229', '2021-03-28 16:56:33', '252', NULL, 1, 128);
 
 -- ----------------------------
 -- Table structure for b5net_web_ad
@@ -1007,6 +1274,7 @@ CREATE TABLE `b5net_wechat_users`  (
   `appid` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '公众号参数',
   `nickname` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '昵称',
   `headimg` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '头像地址',
+  `type` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '所属活动',
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '资料更新时间',
   `create_time` datetime(0) NULL DEFAULT NULL COMMENT '添加时间',
   `sex` tinyint(1) NOT NULL DEFAULT 0 COMMENT '性别',
@@ -1015,7 +1283,12 @@ CREATE TABLE `b5net_wechat_users`  (
   `province` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '省份',
   `status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '状态',
   PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE INDEX `openid`(`openid`) USING BTREE
+  UNIQUE INDEX `openid`(`openid`, `appid`, `type`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '微信用户信息表' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of b5net_wechat_users
+-- ----------------------------
+INSERT INTO `b5net_wechat_users` VALUES (1, 'oHwQ-52n1phwDERwoeTWlio_vooE', 'wx2dbcd1ebf29bd18f', '李先生', 'https://thirdwx.qlogo.cn/mmopen/vi_32/DYAIOgq83eqBURUj29IqEIsiakaJV6icmctgf8gSWibLNMUsGpUmNPGR1T6W0jYicYcelq4e1lEnwMKUvMQSvVTYCQ/132', 'scratch_1', '2021-03-28 10:45:05', '2021-03-28 10:45:05', 1, '临沂', '中国', '山东', 1);
 
 SET FOREIGN_KEY_CHECKS = 1;

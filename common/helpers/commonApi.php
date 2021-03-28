@@ -69,14 +69,17 @@ class commonApi
      */
     public static function system_isDemo()
     {
-        $status = \common\cache\ConfigCache::get('sys_config_demo');
-        $status == '1' ? true : false;
-        $loginId = self::adminLoginInfo('info.id');
-        $isAdmin = $loginId == '1' ? true : false;
-        if ($isAdmin) {
-            return false;
+        if(defined('MODULE_NAME') && MODULE_NAME==='admin'){
+            $status = \common\cache\ConfigCache::get('sys_config_demo');
+            $status == '1' ? true : false;
+            $loginId = self::adminLoginInfo('info.id');
+            $isAdmin = $loginId == '1' ? true : false;
+            if ($isAdmin) {
+                return false;
+            }
+            return $status;
         }
-        return $status;
+        return  false;
     }
 
     /**
@@ -230,6 +233,34 @@ class commonApi
             }
         }
         return $reArr;
+    }
+
+    /**
+     * 跳转
+     * @param $url
+     * @return bool
+     */
+    public static function b5redirect($url){
+        if(!$url) return false;
+        header("Location:{$url}");
+    }
+
+    /**
+     * 拼接域名
+     * @param $url
+     * @param string $deurl
+     * @return string
+     */
+    public static function getDomain($url,$deurl=''){
+        $url=trim($url);
+        if(!$url){
+            if(!$deurl) return '';
+            $url=$deurl;
+        }
+        if(strpos($url,'http')===0 || strpos($url,'//')===0 || filter_var($url,FILTER_VALIDATE_URL)!==false){
+            return $url;
+        }
+        return \Yii::$app->request->hostInfo.$url;
     }
 
     /**

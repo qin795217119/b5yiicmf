@@ -38,10 +38,11 @@
         .message {
             font-size: 18px;
             text-align: center;
+            border: none;
         }
     </style>
 </head>
-<body style="">
+<body style="background-color: #FFF">
 <div class="flex-center position-ref full-height">
     <div class="code">
         <?=$code??302?>

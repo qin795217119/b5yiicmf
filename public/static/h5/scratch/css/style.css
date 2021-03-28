@@ -1,0 +1,201 @@
+html,body{overflow: hidden;width: 100%;height: 100%;}
+body{font-family: "微软雅黑", Helvetica, Tahoma, Arial, sans-serif;background-color: #F4F5F5;overflow-x: hidden;overflow-y: auto}
+*{margin: 0;padding: 0;box-sizing: border-box}
+.pad0{padding: 0}
+.mt50{margin-top: 50px;}
+.mt45{margin-top: 45px;}
+.mt40{margin-top: 40px;}
+.mt35{margin-top: 35px;}
+.mt30{margin-top: 30px;}
+.mt25{margin-top: 25px;}
+.mt22{margin-top: 22px;}
+.mt20{margin-top: 20px;}
+.mt15{margin-top: 15px;}
+.mt10{margin-top: 10px;}
+.mt5{margin-top: 5px;}
+.ml10{margin-left: 10px;}
+.ml20{margin-left: 20px;}
+.mr10{margin-left: 10px;}
+.mr20{margin-left: 20px;}
+.boxcenter{margin: 0 auto}
+.overhide{overflow: hidden}
+.font12{font-size: 12px}
+.fl{float: left}
+.fr{float: right}
+.line1{height: 1px;width: 100%;background-color: #F2F2F2}
+a,a.link,a:hover,a:visited,a:active,ul a{text-decoration: none}
+ul{padding: 0;margin: 0}
+ul li{list-style-type: none}
+.layui-layer-loading .layui-layer-content{margin: 0 auto}
+.red{color: #FF0000}
+.red1{color: #FF5555}
+.blue{color: #0bb20c}
+.green{color: #214283}
+.bold{font-weight: bold}
+
+
+.box1{position: relative;height: 100%;width: 100%;top: 0;overflow: auto;}
+#bg{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #FF0000 url("../images/bg.png")  no-repeat center;
+    background-size: cover;
+}
+.guabox {
+    margin: 6.2rem auto 0;
+    background: url("../images/gua_bg.png") no-repeat center;
+    background-size: cover;
+    position: relative;
+    width: 5.96rem;
+    height: 3.37rem;
+    padding: .34rem .58rem;
+}
+.guamain{
+    width: 100%;height: 100%;overflow: hidden;position: relative;
+}
+.guabox img {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 1;
+    width: 4.8rem;height:2.97rem;
+}
+#redux {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 2;
+    width: 100%;height: 100%;
+}
+#audio_btn {position: absolute;top: .1rem;left: .1rem;width: .6rem;height: .6rem;border-radius: .6rem;overflow: hidden;text-align: center;}
+.audio_bg{position: absolute;top: 0;left: 0;width: 100%;height: 100%;background-color: #000;filter:alpha(opacity=50);-moz-opacity:0.5;-khtml-opacity:0.5;opacity: 0.5;}
+#audio_btn img{width: .3rem;height: .38rem;margin-top: .11rem;position: relative}
+.rotate {-webkit-animation: rotating 1.2s linear infinite;-moz-animation: rotating 1.2s linear infinite;-o-animation: rotating 1.2s linear infinite;animation: rotating 1.2s linear infinite}
+.rulesbtn{position: absolute;top: 0;right: 0;width: .78rem;height: .82rem;background: url("../images/rulebtn.png") no-repeat center;background-size: contain;}
+.mybtn{
+    position: absolute;
+    top: 10.5rem;
+    right: .3rem;
+    width: .7rem;
+    height: .7rem;
+    background: url("../images/mybtn.png") no-repeat center;
+    background-size: contain;
+}
+@-webkit-keyframes rotating {
+    from { -webkit-transform: rotate(0) }
+    to { -webkit-transform: rotate(360deg) }
+}
+@keyframes rotating {
+    from { transform: rotate(0) }
+    to { transform: rotate(360deg) }
+}
+@-moz-keyframes rotating {
+    from { -moz-transform: rotate(0) }
+    to { -moz-transform: rotate(360deg) }
+}
+.showinfo{font-size: .36rem;text-align: center;color: #FFF;position: relative;font-weight: 500;padding-top: .54rem;line-height: .6rem}
+.showinfo span{color: #FFDD12;font-size: .5rem;font-weight: 700}
+
+
+.box2,.box3,.box4{position: absolute;height: 100%;width: 100%;top: 0;overflow: auto;z-index: 90;display: none}
+h2{text-align: center;font-size: .32rem;color: #333;position: relative;padding: .25rem .7rem .25rem .7rem;line-height: .4rem;font-weight: 700;margin:0;border-bottom: .02rem solid #F2F2F2}
+
+.btn_back{position: absolute;top: .25rem;left: .2rem;width: .4rem;height: .4rem;background: url("../images/back.png") no-repeat left center;background-size: contain}
+.boxbg{position: fixed;top: 0;left: 0;width: 100%;height: 100%;background-color: #000;filter:alpha(opacity=60);-moz-opacity:0.6;-khtml-opacity:0.6;opacity: 0.6;}
+.mynavbox{position: relative;overflow: hidden;padding: .3rem .5rem}
+.mynavbox .mynavitem{float: left;width: 50%;text-align: center}
+.mynavbox .mynavitem:first-child{border-right: .02rem solid #FFF}
+.mynavitem a{display: inline-block;height: .6rem;padding: 0 .1rem;color: #FFF;font-size: .32rem}
+.mynavitem a.current{border-bottom: .02rem solid #FFF}
+
+.rulebox{position: relative;padding: 0 .3rem;color: #FFF;font-size: .28rem}
+.rule_item_title {width:1.46rem;height:.66rem;line-height:.66rem;font-size:.28rem;color: #000;text-align: center;background-color: #FFF}
+.rule_item_info{padding: .1rem 0 .15rem 0}
+.rule_item_info p{padding: .1rem 0;margin:0;line-height: .4rem;font-size: .28rem}
+.ruleconbox{padding: .2rem .3rem;background-color: #FFF;font-size: .3rem;}
+
+
+
+.myprizelist{padding: 0 .4rem}
+.myprize_cell{width: 100%;padding: .2rem 0 .2rem 1.8rem;position: relative;overflow: hidden}
+.myprice_img{position: absolute;width: 1.5rem;height: 1.5rem;top: .2rem;left: 0;background-position: center;background-repeat: no-repeat;background-size: contain;background-color: #FFF}
+.myprize_info{position: relative;width: 100%;height: 1.5rem;}
+.myprize_title{color: #FFF;font-size: .36rem;line-height: .6rem;height: .6rem;overflow: hidden}
+.myprize_time{font-size: .32rem;color: #FFF;line-height: .45rem;height: .45rem;overflow: hidden;}
+.myprize_status{font-size: .32rem;color: #0bb20c;line-height: .45rem;height: .45rem;overflow: hidden;}
+.myprize_status span{color: #FF0000}
+
+.rerrow{position: absolute;width: .4rem;height: .4rem;right: .1rem;top: 50%;margin-top: -.2rem;background: url("../images/rerrow.png") no-repeat center;background-size: contain}
+
+.ddbox{font-size: .32rem}
+
+.errorbox{
+    display: none;
+    position: absolute;
+    top: 50%;
+    margin-top: -1.2rem;
+    height: 2.4rem;
+    padding: 0 1rem;
+    width: 100%;
+    z-index: 999;
+}
+.errorinfo{
+    position: relative;
+    background-color: #FFF;
+    width: 100%;height: 100%;
+    border-radius: .1rem;
+}
+.errorbtn{
+    color: #2AB712;
+    text-align: center;
+    font-size: .32rem;
+    height: .9rem;
+    line-height: .88rem;
+    overflow: hidden;
+    border-top: .02rem solid #C3C3C3;
+}
+.errortitle{
+    height: 1.5rem;
+    padding: .25rem .5rem;
+    font-size: .28rem;
+    line-height: .5rem;
+    text-align: center;
+    overflow: hidden;
+    display: flex;
+    align-items: normal;
+    justify-content: space-around;
+    flex-direction: column;
+}
+#shader{background-color: #000;position: absolute;width: 100%;height: 100%;top: 0;z-index: 100;;display: none;filter:alpha(opacity=70);-moz-opacity:0.7;-khtml-opacity:0.7;opacity: 0.7;}
+
+.getprize{display:none;position: absolute;top: 50%;margin-top: -5rem;z-index: 110;width: 100%;text-align: center}
+.gethas_bg{width: 6.74rem;height: 6.67rem;background: url("../images/gethas.png") no-repeat center;background-size: contain;margin:  0 auto;position: relative}
+
+.hasget_infobox{position:absolute;top:1.3rem;overflow: hidden;width: 3.3rem;left: 1.52rem;height: 3.2rem;}
+.get_title{position:relative;line-height: .6rem;overflow: hidden;font-size: .5rem;color: #F85F30;height: .6rem;}
+.get_prize_img{width: 2.85rem;height: 2.85rem;margin: .08rem auto 0;background-repeat: no-repeat;background-position: center;background-size: cover}
+
+.list_prize_img{background-size: cover;background-repeat: no-repeat;background-position: center;width: 4.4rem;height: 2.92rem;overflow: hidden;margin: 0 auto}
+.noget{display:none;position: absolute;top: 50%;margin-top: -3rem ;z-index: 110;width:100%;text-align: center;}
+.noget_bg{width: 5.3rem;height: 4.94rem;background: url("../images/getno.png") no-repeat center;background-size: contain;margin:  0 auto;position: relative}
+
+.getclose{position: absolute;top: -.65rem;width: .65rem;height: .65rem;background: url("../images/getclose.png") no-repeat center;background-size: contain;left: 50%;margin-left: -.33rem;}
+
+.prifnobox{width: 100%;height: 100%;position: relative;background-color: #F5F5F5}
+.ddbox_top{background-color: #F14942;position: relative;padding: .2rem .4rem;min-height: 1rem}
+.btnclose{position: absolute;right: 0;top: 0;width: .7rem;height: .7rem;background: url("../images/close.png") no-repeat center;background-size: .3rem .3rem}
+.dd_prize{padding: 0 .1rem}
+.dd_company{line-height: .44rem;font-size: .3rem;color: #FFF;text-align: center}
+.dd_prize_title{padding: .15rem .3rem;font-size: .46rem;font-weight: 700;text-align: center;line-height: .65rem;color: #FFF}
+.dd_prize_code{line-height: .46rem;font-size: .28rem;color: #FFF;text-align: center}
+.dd_prize_code a{text-decoration: none;font-size: .24rem;display: inline-block;background-color: #FFF;padding: 0 .2rem;border-radius: .2rem;margin-left: .2rem;color: #6AAAF7}
+.dd_prize_time{font-size: .24rem;color: #FFF;text-align: center;margin-top: .15rem;line-height: .33rem}
+
+.ddbox_info{background-color: #FFF;padding: .3rem .44rem;margin-top: .24rem}
+.ddbox_info_title{color: #222;font-size: .28rem;font-weight: 700;line-height: .4rem;}
+.ddbox_info_item{margin-top: .12rem;color: #939393;font-size: .26rem;line-height: .37rem}
+
+

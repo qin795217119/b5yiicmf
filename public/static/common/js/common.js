@@ -124,18 +124,20 @@ function GetRequest(params) {
 
 //url跳转处理
 function urlProcess(url, isreplace) {
-    if(isFunction(url)){
-        url();
-    } else if (url == '') {
-    }  else if (url == 'reload') {
-        window.location.reload()
-    } else if (url == 'back') {
-        window.history.back();
-    } else if (isreplace) {
-        window.location.replace(url);
-    } else {
-        window.location.href=url;
+    if(url){
+        if(isFunction(url)){
+            url();
+        } else if (url == 'reload') {
+            window.location.reload()
+        } else if (url == 'back') {
+            window.history.back();
+        } else if (isreplace) {
+            window.location.replace(url);
+        } else {
+            window.location.href=url;
+        }
     }
+
 }
 
 function b5ajax(url,data,method,callback) {

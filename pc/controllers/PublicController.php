@@ -6,9 +6,6 @@
 // +----------------------------------------------------------------------
 namespace pc\controllers;
 
-use backend\models\LoginForm;
-use common\helpers\commonApi;
-use common\helpers\MailApi;
 use Yii;
 
 /**

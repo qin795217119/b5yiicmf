@@ -16,6 +16,7 @@ use Yii;
  * @property string $appid 公众号参数
  * @property string $nickname 昵称
  * @property string $headimg 头像地址
+ * @property string $type 所属活动
  * @property string|null $update_time 资料更新时间
  * @property string|null $create_time 添加时间
  * @property int $sex 性别
@@ -40,8 +41,7 @@ class WechatUsers extends BaseModel
     public function rules()
     {
         return [
-            [['openid'], 'unique', 'targetAttribute' => ['openid', 'appid']],
-            [['appid', 'nickname', 'city', 'country', 'province', 'headimg', 'sex', 'status', 'update_time', 'create_time'], 'safe'],
+            [['openid','type','appid', 'nickname', 'city', 'country', 'province', 'headimg', 'sex', 'status', 'update_time', 'create_time'], 'safe'],
         ];
     }
 
