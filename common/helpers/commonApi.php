@@ -69,7 +69,7 @@ class commonApi
      */
     public static function system_isDemo()
     {
-        if(defined('MODULE_NAME') && MODULE_NAME==='admin'){
+        if(defined('MODULES_NAME') && MODULES_NAME==='backend'){
             $status = \common\cache\ConfigCache::get('sys_config_demo');
             $status == '1' ? true : false;
             $loginId = self::adminLoginInfo('info.id');
