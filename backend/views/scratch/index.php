@@ -1,3 +1,9 @@
+
+<div class="bs-callout bs-callout-danger" id="callout-tables-striped-ie8">
+    <h4>使用提示</h4>
+    <p>1.关注首页的测试微信公众号</p>
+    <p>2.在微信打开链接 http://b5yiicmf.b5net.com/h5/scratch?act_id=1</p>
+</div>
 <div class="col-sm-12 search-collapse">
     <form id="role-form">
         <div class="select-list">
