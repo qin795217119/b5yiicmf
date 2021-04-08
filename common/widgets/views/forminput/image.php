@@ -60,7 +60,7 @@
     $(function () {
         b5uploadimginit("<?=$widget_data['id']?>");
         <?php if(isset($widget_data['drag'])):?>
-            dragula(["<?=$widget_data['name']?>_imglist"]);
+            dragula([<?=$widget_data['name']?>_imglist]);
         <?php endif;?>
     })
 </script>
