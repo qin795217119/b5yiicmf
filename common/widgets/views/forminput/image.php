@@ -3,7 +3,7 @@
     <div class="<?=(isset($widget_data['sm']) && $widget_data['sm']=='2')?'col-sm-9':'col-sm-8'?>">
         <div class="b5uploadmainbox">
             <a href="javascript:;" class="btn btn-primary btn-sm"
-               <?= $widget_data['id']?'id="'.$widget_data['id'].'"':''?>"
+               <?= $widget_data['id']?'id="'.$widget_data['id'].'"':''?>
                data-multi="<?=$widget_data['multi']??'false'?>"
                data-name="<?=$widget_data['name']??'uploadimg'?>"
                data-cat="<?=$widget_data['cat']??'images'?>"
