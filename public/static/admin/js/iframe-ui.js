@@ -701,6 +701,10 @@ var table = {
                         $("#" + tableId).bootstrapTreeTable('refresh', []);
                     }
                 }
+                //对select2等重置 需要定义方法手动操作
+                if($.common.isFunction('tableSearchReset')){
+                    tableSearchReset()
+                }
             },
             // 获取选中复选框项
             selectCheckeds: function(name) {
@@ -1091,7 +1095,7 @@ var table = {
         // 操作封装处理
         operate: {
             //ajax提交
-            b5ajax:function(url, type, dataType, data, callback){
+            b5ajax:function(url, type, dataType, data, callback, completecallback){
                 var config = {
                     url: url,
                     type: type,
@@ -1120,6 +1124,15 @@ var table = {
                                 $.modal.msg(result.msg,'',result.url);
                             }
                         }
+                    },
+                    complete:function () {
+                        if($.common.isFunction(completecallback)){
+                            if(typeof completecallback ==='string'){
+                                eval(completecallback+"()");
+                            }else{
+                                completecallback();
+                            }
+                        }
                     }
                 };
                 $.ajax(config);
@@ -1128,7 +1141,7 @@ var table = {
                 $.operate.b5ajax(url, "post", "json", data, callback,completecallback);
             },
             b5get:function(url,data,callback,completecallback){
-                $.operate.b5ajax(url, get, "json", data, callback,completecallback);
+                $.operate.b5ajax(url, "get", "json", data, callback,completecallback);
             },
             // 提交数据
             submit: function(url, type, dataType, data, callback) {
