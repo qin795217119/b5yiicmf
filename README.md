@@ -15,6 +15,9 @@
 
 系统完全开源，数据库文件在public目录下，超管默认为：admin，123456。
 
+###当前V2版本说明
+v1的service操作很麻烦，也不容易理解，所以就给去掉了。现在controller默认实例的是model
+
 #### 系统演示
 地址：<a href="http://b5yiicmf.b5net.com/" target="_blank">http://b5yiicmf.b5net.com</a>
 
