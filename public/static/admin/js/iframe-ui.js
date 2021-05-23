@@ -689,6 +689,11 @@ var table = {
                 table.set(tableId);
                 var currentId = $.common.isEmpty(formId) ? $('form').attr('id') : formId;
                 $("#" + currentId)[0].reset();
+                if ($.fn.select2 !== undefined) {
+                    $("select.select2").each(function () {
+                        $(this).val($(this).find('option').eq(0).val()).trigger('change');
+                    })
+                }
                 if($.common.isFunction('tableSearchReset')){
                     tableSearchReset()
                 }
