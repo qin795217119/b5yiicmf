@@ -71,6 +71,10 @@ class Asset extends Widget
             'mypicker'=>[
                 'css'=>[],
                 'js'=>['My97DatePicker/WdatePicker.js']
+            ],
+            'viewer'=>[
+                'css'=>['viewerjs/viewer.min.css'],
+                'js'=>['viewerjs/viewer.min.js']
             ]
         ];
         return $key?($list[$key]??[]):[];
