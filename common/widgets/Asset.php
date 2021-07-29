@@ -1,9 +1,5 @@
 <?php
-// +----------------------------------------------------------------------
-// | B5YiiCMF
-// +----------------------------------------------------------------------
-// | Author: 李恒 <357145480@qq.com>
-// +----------------------------------------------------------------------
+
 namespace common\widgets;
 
 use yii\bootstrap\Widget;
@@ -75,6 +71,14 @@ class Asset extends Widget
             'viewer'=>[
                 'css'=>['viewerjs/viewer.min.css'],
                 'js'=>['viewerjs/viewer.min.js']
+            ],
+            'echarts'=>[
+                'css'=>[],
+                'js'=>['echarts.min.js']
+            ],
+            'cropper'=>[
+                'css'=>['cropper/cropper.min.css'],
+                'js'=>['cropper/cropper.min.js','cropper/jquery-cropper.min.js']
             ]
         ];
         return $key?($list[$key]??[]):[];

@@ -228,7 +228,6 @@ $(function() {
         }
         expandFlag = expandFlag ? false: true;
     })
-
     // 按下ESC按钮关闭弹层
     $('body', document).on('keyup', function(e) {
         if (e.which === 27) {
@@ -493,7 +492,12 @@ var sub = {
 };
 function sendFile(file,data, callback) {
     var formData = new FormData();
-    formData.append("file", file);
+    if(data.hasOwnProperty('file_name')){
+        formData.append("file", file,data.file_name);
+    }else{
+        formData.append("file", file);
+    }
+
     if(data){
         for (var key in data){
             formData.append(key, data[key]);
@@ -516,10 +520,40 @@ function sendFile(file,data, callback) {
                 $.modal.alertError(result.msg);
             }
         },
-        error: function(error) {
+        error: function() {
             $.modal.alertWarning("图片上传失败。");
         }
     });
+}
+
+function b5uploadLink(id) {
+    var obj=$("#"+id);
+    var name=obj.data('name');
+    $("#"+id+"_linkbtn").click(function () {
+        var linkval=$("#"+id+"_link").val();
+        if($.common.isEmpty(linkval)){
+            $.modal.msgWarning("请输入图片链接");
+        }else{
+            var html=b5uploadimghtml(linkval,name);
+            b5uploadhtmlshow(id,html);
+            $("#"+id+"_link").val('');
+        }
+    });
+}
+function b5uploadhtmlshow(id,html) {
+    var obj=$("#"+id);
+    var listbox=obj.parents(".b5uploadmainbox").find(".b5uploadlistbox");
+    var maxnum=obj.data('multi');
+    if($.common.isEmpty(maxnum) || !maxnum || maxnum==='false'){
+        maxnum=1;
+    }
+    if(maxnum===true || maxnum==="true") maxnum=10;
+    var multi = maxnum > 1 ? true : false;
+    if(multi){
+        listbox.append(html);
+    }else{
+        listbox.html(html);
+    }
 }
 //删除上传文件
 function b5uploadRemove(obj) {
@@ -528,7 +562,6 @@ function b5uploadRemove(obj) {
 //上传文件按钮初始化
 function b5uploadimginit(id,callback) {
     var obj=$("#"+id);
-    var listbox=obj.parents(".b5uploadmainbox").find(".b5uploadlistbox");
     var name=obj.data('name');
     var maxnum=obj.data('multi');
     if($.common.isEmpty(maxnum) || !maxnum || maxnum==='false'){
@@ -537,20 +570,7 @@ function b5uploadimginit(id,callback) {
     if(maxnum===true || maxnum==="true") maxnum=10;
     var multi = maxnum > 1 ? true : false;
 
-    $("#"+id+"_linkbtn").click(function () {
-        var linkval=$("#"+id+"_link").val();
-        if($.common.isEmpty(linkval)){
-            $.modal.msgWarning("请输入图片链接");
-        }else{
-            var html=b5uploadimghtml(linkval,name);
-            if(multi){
-                listbox.append(html)
-            }else{
-                listbox.html(html)
-            }
-            $("#"+id+"_link").val('');
-        }
-    });
+    b5uploadLink(id);
     layui.use('upload', function(){
         var upload = layui.upload;
         //执行实例
@@ -570,6 +590,9 @@ function b5uploadimginit(id,callback) {
                 },
                 cat:function () {
                     return $.common.isEmpty($("#"+id).attr('data-cat'))?'':$("#"+id).attr('data-cat');
+                },
+                water:function () {
+                    return $.common.isEmpty($("#"+id).attr('data-water'))?'':$("#"+id).attr('data-water');
                 }
              }
             ,accept:'images'
@@ -580,12 +603,8 @@ function b5uploadimginit(id,callback) {
                     if($.common.isFunction(callback)){
                         callback(id,res.data);
                     }else{
-                        var html=b5uploadimghtml(res.data.path,name);
-                        if(multi){
-                            listbox.append(html)
-                        }else{
-                            listbox.html(html)
-                        }
+                        var html=b5uploadimghtml(res.data.path,name,res.data.url);
+                        b5uploadhtmlshow(id,html)
                     }
                 }else{
                     $.modal.msgError(res.msg)
@@ -598,17 +617,18 @@ function b5uploadimginit(id,callback) {
     });
 }
 //上传图片成功后的展示
-function b5uploadimghtml(path,name){
+function b5uploadimghtml(path,name,url=''){
+    url = url?url:path
     var html='<div class="b5uploadimg_li">' +
         '           <input type="hidden" name="'+name+'[]" value="'+path+'">' +
         '           <div class="b5uploadimg_con">' +
         '                <div class="b5uploadimg_cell">' +
-        '                     <img src="'+path+'" alt="">' +
+        '                     <img src="'+url+'" alt="">' +
         '                </div>' +
         '            </div>' +
         '            <div class="b5uploadimg_footer">' +
         '                 <a href="javascript:;" onclick="b5uploadRemove(this)"><i class="fa fa-trash-o"></i>删除</a>' +
-        '                  <a href="'+path+'" target="_blank"><i class="fa fa-hand-o-right"></i>查看</a>' +
+        '                  <a href="'+url+'" target="_blank"><i class="fa fa-hand-o-right"></i>查看</a>' +
         '            </div>' +
         '      </div>';
     return html;

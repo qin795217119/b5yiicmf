@@ -49,6 +49,10 @@ a:focus {
     color: #000;
 }
 
+.btn{position: relative}
+
+.b5label{font-weight: normal !important;padding: 3px !important;}
+
 .bs-callout{ padding: 15px 20px;margin: 10px 0 0 0;border: 1px solid #eee;border-left-width: 5px;border-radius: 3px;background-color: #FFF}
 .bs-callout-danger{border-left-color: #ce4844;}
 .bs-callout-danger h4 {color: #ce4844;}

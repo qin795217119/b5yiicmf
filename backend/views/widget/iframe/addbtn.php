@@ -1,6 +1,8 @@
 <a class="btn btn-success"
 <?php if(isset($widget_data['full'])): ?>
    onclick="$.operate.addFull('<?=$widget_data['opid']??''?>',this)"
+<?php elseif(isset($widget_data['tab'])): ?>
+   onclick="$.operate.addTab('<?=$widget_data['opid']??''?>',this)"
 <?php else: ?>
    onclick="$.operate.add('<?=$widget_data['opid']??''?>',this)"
 <?php endif; ?>

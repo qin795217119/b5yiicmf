@@ -1,14 +1,11 @@
 <?php
-// +----------------------------------------------------------------------
-// | B5YiiCMF
-// +----------------------------------------------------------------------
-// | Author: 李恒 <357145480@qq.com>
-// +----------------------------------------------------------------------
+
 namespace backend\controllers;
 
 use backend\helpers\CommonBack;
 use backend\models\ResetPasswordForm;
 use common\helpers\commonApi;
+use common\services\VideoClipService;
 use Yii;
 
 /**
@@ -28,9 +25,22 @@ class CommonController extends BaseController
                 'class'=>'common\actions\UploadAction',
                 'type'=>'img'
             ],
+            'uploadvideo'=>[
+                'class'=>'common\actions\UploadAction',
+                'type'=>'video'
+            ],
         ];
     }
 
+    public function actionCropper(){
+        $data=[
+            'id' => Yii::$app->request->get('id',''),
+            'name' => Yii::$app->request->get('name',''),
+            'cat' => Yii::$app->request->get('cat',''),
+            'water' => Yii::$app->request->get('water',''),
+        ];
+        return $this->render('',$data);
+    }
     /**
      * 锁屏
      * @return array|string
@@ -77,4 +87,31 @@ class CommonController extends BaseController
         }
 
     }
+
+    /**
+     * 视频处理
+     * @return array
+     */
+    public function actionVideoclip(){
+        $id = Yii::$app->request->post('id',0);
+        if($id){
+            $res=Yii::$app->queue->push(new \common\components\jobs\VideoClipJob([
+                'id' =>$id
+            ]));
+            if($res){
+                return commonApi::message('转换中，请耐心等待',true);
+            }
+        }
+        return commonApi::message('任务失败',false);
+
+    }
+
+//    public function actionVideoclip(){
+//        $id = Yii::$app->request->post('id',0);
+//        $res = VideoClipService::run($id);
+//        if($res){
+//            return commonApi::message('转换中，请耐心等待',true);
+//        }
+//        return commonApi::message('操作失败',false);
+//    }
 }

@@ -45,6 +45,7 @@ var table = {
                     removeAllUrl: bootUrl.removeAllUrl,
                     clearCacheUrl: bootUrl.clearCacheUrl,
                     cleanUrl: bootUrl.cleanUrl,
+                    exportUrl:bootUrl.url,
                     method: 'post',
                     height: undefined,
                     sidePagination: "server",
@@ -243,7 +244,7 @@ var table = {
                     $('#' + toolbar + ' .single').toggleClass('disabled', rows.length!=1);
                 });
                 // 图片预览事件
-                $(optionsIds).off("click").on("click", '.img-circle', function() {
+                $(optionsIds).off("click").on("click", '.img-preshow', function() {
                     var src = $(this).attr('src');
                     var target = $(this).data('target');
                     if($.common.equals("self", target)) {
@@ -304,7 +305,7 @@ var table = {
                 var pageNumber = $.common.isNotEmpty(tableParams.pageNumber) ? tableParams.pageNumber: table.options.pageNumber;
                 return pageSize * (pageNumber - 1) + index + 1;
             },
-            // 列超出指定长度浮动提示 target（copy单击复制文本 open弹窗打开文本）
+            // 列超出指定长度浮动提示 target（copy单击复制文本 open弹窗打开文本 link 打开链接）
             tooltip: function (value, length, target) {
                 var _length = $.common.isEmpty(length) ? 20 : length;
                 var _text = "";
@@ -312,6 +313,10 @@ var table = {
                 var _target = $.common.isEmpty(target) ? 'copy' : target;
                 if (_value.length > _length) {
                     _text = _value.substr(0, _length) + "...";
+                    if(_target == 'link'){
+                        return $.common.sprintf('<a href="%s" class="tooltip-show" data-toggle="tooltip" target="_blank" title="%s">%s</a>',_value,  _value, _text);
+                    }
+
                     _value = _value.replace(/\'/g,"&apos;");
                     _value = _value.replace(/\"/g,"&quot;");
                     var actions = [];
@@ -320,6 +325,9 @@ var table = {
                     return actions.join('');
                 } else {
                     _text = _value;
+                    if(_target == 'link'){
+                        return $.common.sprintf('<a href="%s" class="tooltip-show" target="_blank" title="%s">%s</a>',_value,  _value, _text);
+                    }
                     return _text;
                 }
             },
@@ -336,17 +344,36 @@ var table = {
                 return actions.join('');
             },
             // 图片预览
-            imageView: function (value, height, width, target) {
+            imageView: function (value, height, width, target,id,extid) {
                 if ($.common.isEmpty(width)) {
                     width = 'auto';
                 }
                 if ($.common.isEmpty(height)) {
                     height = 'auto';
                 }
-                // blank or self
+                if($.common.isEmpty(extid)){
+                    extid = '';
+                }
+                // blank or self  photos为幻灯显示
                 var _target = $.common.isEmpty(target) ? 'self' : target;
                 if ($.common.isNotEmpty(value)) {
-                    return $.common.sprintf("<img class='img-circle img-xs' data-height='%s' data-width='%s' data-target='%s' src='%s'/>", height, width, _target, value);
+                    var shtml = '';
+                    var list = value.split(',');
+                    if(_target == 'slide'){
+                        for (let i = 0; i < list.length; i++) {
+                            shtml += $.common.sprintf("<img class='img-table-show' data-height='%s' data-width='%s' src='%s'/>", height, width, list[i]);
+                        }
+                        shtml = '<div class="photospreshow" id="'+extid+'pts_'+id+'">'+shtml+'</div>';
+
+                        return shtml;
+                    }else {
+                        for (let i = 0; i < list.length; i++) {
+                            shtml += $.common.sprintf("<img class='img-preshow img-table-show' data-height='%s' data-width='%s' data-target='%s' src='%s'/>", height, width, _target, list[i]);
+                        }
+                        return shtml;
+                    }
+
+
                 } else {
                     return $.common.nullToStr(value);
                 }
@@ -371,12 +398,13 @@ var table = {
                     var dataParam = $("#" + currentId).serializeArray();
                     dataParam.push({ "name": "orderByColumn", "value": params.sortName });
                     dataParam.push({ "name": "isAsc", "value": params.sortOrder });
+                    dataParam.push({ "name": "isExport", "value": "1" });
                     $.modal.loading("正在导出数据，请稍后...");
                     $.post(table.options.exportUrl, dataParam, function(result) {
                         if (result.code == web_status.SUCCESS) {
                             window.location.href = urlcreate(bootUrl.downUrl,"fileName=" + encodeURI(result.msg) + "&delete=" + true);
                         } else if (result.code == web_status.WARNING) {
-                            $.modal.alertWarning(result.msg)
+                            $.modal.alertWarning(result.msg);
                         } else {
                             $.modal.alertError(result.msg);
                         }
@@ -695,7 +723,7 @@ var table = {
                     })
                 }
                 if($.common.isFunction('tableSearchReset')){
-                    tableSearchReset()
+                    tableSearchReset();
                 }
                 if (table.options.type == table_type.bootstrapTable) {
                     if($.common.isEmpty(tableId)){
@@ -883,11 +911,9 @@ var table = {
             close: function (index) {
                 $.modal.layerinit(function (layer) {
                     if($.common.isEmpty(index)){
-                        var index = parent.layer.getFrameIndex(window.name);
-                        parent.layer.close(index);
-                    } else {
-                        layer.close(index);
+                        index = parent.layer.getFrameIndex(window.name);
                     }
+                    parent.layer.close(index);
                 });
             },
             // 关闭全部窗体
@@ -1955,6 +1981,19 @@ var table = {
                     value = value && value[props[p]];
                 }
                 return value;
+            },
+            //获取随机字符串
+            getrandomkey: function () {
+                var  x="0123456789qwertyuioplkjhgfdsazxcvbnm";
+                var  tmp="",tm1="";
+                var timestamp = new Date().getTime();
+                for(var  i=0;i<5;i++)  {
+                    tmp  +=  x.charAt(Math.ceil(Math.random()*100000000)%x.length);
+                }
+                for(var  i=0;i<5;i++)  {
+                    tm1  +=  x.charAt(Math.ceil(Math.random()*100000000)%x.length);
+                }
+                return  tm1+timestamp+tmp;
             },
             // 指定随机数返回
             random: function (min, max) {

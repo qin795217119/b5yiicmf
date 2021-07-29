@@ -1,9 +1,5 @@
 <?php
-// +----------------------------------------------------------------------
-// | B5YiiCMF
-// +----------------------------------------------------------------------
-// | Author: 李恒 <357145480@qq.com>
-// +----------------------------------------------------------------------
+
 namespace common\actions;
 
 use common\helpers\commonApi;
@@ -19,6 +15,7 @@ class UploadAction extends Action
     public $maxSize = 0;
     public $width = 0;
     public $height = 0;
+    public $water = false;
 
     public function run()
     {
@@ -40,10 +37,16 @@ class UploadAction extends Action
             $this->cat = Yii::$app->request->post('cat', '');
         }
 
+        $water = Yii::$app->request->post('water','');
+        if($water=='true'){
+            $this->water = true;
+        }
+
         $upload = new UploadApi();
         $upload->fileName = $filename;
         $upload->type = 'img';
         $upload->cat = $this->cat;
+        $upload->water = $this->water;
         $upload->ext = $this->ext;
         $upload->width = $this->width;
         $upload->height = $this->height;
@@ -57,8 +60,14 @@ class UploadAction extends Action
 
     }
 
-    private function videoUpload($type, $rearr)
+    private function videoUpload()
     {
-
+        if (empty($this->cat)) {
+            $this->cat = Yii::$app->request->post('cat', '');
+        }
+        $upload = new UploadApi();
+        $upload->type = 'video';
+        $upload->cat = $this->cat;
+        return $upload->run();
     }
 }

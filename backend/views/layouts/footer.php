@@ -19,3 +19,10 @@
     <?= $this->blocks['script_after1']??''?>
     <?= $this->blocks['script_after2']??''?>
     <?= $this->blocks['script_after3']??''?>
+    <?= $this->blocks['script_after4']??''?>
+    <?= $this->blocks['script_after5']??''?>
+    <?= $this->blocks['script_after6']??''?>
+    <?= $this->blocks['script_after7']??''?>
+    <?= $this->blocks['script_after8']??''?>
+    <?= $this->blocks['script_after9']??''?>
+    <?= $this->blocks['script_after10']??''?>

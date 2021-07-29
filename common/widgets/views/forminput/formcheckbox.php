@@ -1,6 +1,6 @@
 <div class="form-group <?=$widget_data['name']?>_field">
     <label class="<?=(isset($widget_data['sm']) && $widget_data['sm']=='2')?'col-sm-2':'col-sm-3'?> control-label <?=(isset($widget_data['required']))?'is-required':''?>"><?=$widget_data['title']?>：</label>
-    <div class="<?=(isset($widget_data['sm']) && $widget_data['sm']=='2')?'col-sm-9':'col-sm-8'?>">
+    <div class="<?=(isset($widget_data['sm']) && $widget_data['sm']=='2')?'col-sm-9':'col-sm-8'?>" id="<?=$widget_data['name']?>_checklist">
         <?php if(isset($widget_data['data']) && $widget_data['data']): ?>
             <?php $wdradip_index=0;?>
             <?php foreach ($widget_data['data'] as $key => $val): ?>

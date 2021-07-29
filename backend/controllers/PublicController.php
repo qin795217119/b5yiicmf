@@ -67,7 +67,11 @@ class PublicController extends BaseController
     public function actionNoauth(){
         return $this->renderPartial('fail',['msg'=>'未获取授权','code'=>302]);
     }
-
+    public function actionCacheclear(){
+        Yii::$app->db->schema->refresh();
+        Yii::$app->cache->flush();
+        return commonApi::message('清除完成',true);
+    }
 
     public function actionTestqueue(){
         //测试消息队列发送邮箱  需要先执行 cmd下  yii queue/listen

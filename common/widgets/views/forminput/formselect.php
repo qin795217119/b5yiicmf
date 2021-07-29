@@ -16,15 +16,18 @@
                 <?php endif; ?>
             <?php endif; ?>
             <?php foreach ($widget_data['data']??[1=>'正常',0=>'停用'] as $key => $val): ?>
-                <?php if (is_array($val)): ?>
+                <?php
+                    if (is_array($val)):
+                        $thiskey = isset($widget_data['showvalue'])?$val[$widget_data['showvalue']]:$key;
+                ?>
                     <option
-                        value="<?=$val[$widget_data['showvalue']]?>"
+                        value="<?=$thiskey?>"
                         <?php if(isset($widget_data['value'])): ?>
-                        <?php if ($val[$widget_data['showvalue']]==$widget_data['value']  && $widget_data['value']!==''): ?>
+                        <?php if ($thiskey==$widget_data['value']  && $widget_data['value']!==''): ?>
                             selected=""
                         <?php endif; ?>
                         <?php elseif(isset($widget_data['info']) && isset($widget_data['info'][$widget_data['name']])) :?>
-                            <?php if ($val[$widget_data['showvalue']]==$widget_data['info'][$widget_data['name']]  && $widget_data['info'][$widget_data['name']]!==''):?>
+                            <?php if ($thiskey==$widget_data['info'][$widget_data['name']]  && $widget_data['info'][$widget_data['name']]!==''):?>
                                 selected=""
                             <?php endif; ?>
                         <?php endif; ?>

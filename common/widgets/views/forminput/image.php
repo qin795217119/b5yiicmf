@@ -9,6 +9,7 @@
                data-cat="<?=$widget_data['cat']??'images'?>"
                data-width="<?=$widget_data['width']??'0'?>"
                data-height="<?=$widget_data['height']??'0'?>"
+               data-water="<?=$widget_data['water']??''?>"
             ><i class="fa fa-image"></i>上传图片</a>
             <?php if(!isset($widget_data['link']) || $widget_data['link']!='false'):?>
             或
@@ -55,7 +56,7 @@
         </div>
     </div>
 </div>
-<?php $this->beginBlock('script_after'); ?>
+<?php $this->beginBlock('script_after'.($widget_data['script_after']??'')); ?>
 <script>
     $(function () {
         b5uploadimginit("<?=$widget_data['id']?>");
