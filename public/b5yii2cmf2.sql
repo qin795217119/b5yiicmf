@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50726
 File Encoding         : 65001
 
-Date: 2021-05-21 17:08:37
+Date: 2021-07-29 21:12:19
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -61,7 +61,7 @@ CREATE TABLE `b5net_admin` (
 -- ----------------------------
 -- Records of b5net_admin
 -- ----------------------------
-INSERT INTO `b5net_admin` VALUES ('1', 'admin', '$2y$13$tPD2ym10wIZOXmabzQzJPOgISq/NldKEv0FPbp0yDbd08RwS0QGQO', '超管', '1', '超级管理员', '2020-12-24 10:50:56', '2021-05-21 15:48:25', '2021-05-21 16:10:51', '127.0.0.1');
+INSERT INTO `b5net_admin` VALUES ('1', 'admin', '$2y$13$tPD2ym10wIZOXmabzQzJPOgISq/NldKEv0FPbp0yDbd08RwS0QGQO', '超管', '1', '超级管理员', '2020-12-24 10:50:56', '2021-05-21 15:48:25', '2021-07-29 20:27:32', '127.0.0.1');
 INSERT INTO `b5net_admin` VALUES ('2', 'ceshi', '$2y$13$sHMB3vFS2dBDrIrHOqvpQO1Y7nhGEAj6/FjgorgxMd5ZVgzXxKSG2', '测试1111', '1', '测试账号', '2020-12-24 13:14:57', '2021-05-21 16:57:17', '2021-05-21 15:57:43', '127.0.0.1');
 
 -- ----------------------------
@@ -157,12 +157,12 @@ CREATE TABLE `b5net_config` (
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COMMENT='系统配置表';
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COMMENT='系统配置表';
 
 -- ----------------------------
 -- Records of b5net_config
 -- ----------------------------
-INSERT INTO `b5net_config` VALUES ('1', '配置分组', 'sys_config_group', 'array', '0', '', 'site:基本设置\r\nwx:微信设置\r\nsms:短信配置\r\nemail:邮箱配置', '', '系统配置的分组配置', '0', '2020-12-30 16:17:10', '2021-05-19 11:12:52');
+INSERT INTO `b5net_config` VALUES ('1', '配置分组', 'sys_config_group', 'array', '0', '', 'site:基本设置\r\nwx:微信设置\r\nsms:短信配置\r\nemail:邮箱配置\r\nimgwater:图片水印', '', '系统配置的分组配置', '0', '2020-12-30 16:17:10', '2021-07-29 20:44:01');
 INSERT INTO `b5net_config` VALUES ('2', '系统名称', 'sys_config_sysname', 'text', '0', 'site', 'B5YiiCMF', '', '系统后台显示的名称', '0', '2020-12-31 14:01:18', '2021-05-21 16:58:00');
 INSERT INTO `b5net_config` VALUES ('4', '阿里accessKeyId', 'sms_ali_key', 'text', '0', 'sms', '', '', '阿里短信-AccessKey ID', '0', '2021-01-11 19:26:13', '2021-01-17 21:27:04');
 INSERT INTO `b5net_config` VALUES ('5', '阿里accessSecret', 'sms_ali_secret', 'text', '0', 'sms', '', '', '阿里短信-AccessKey Secret', '1', '2021-01-11 19:26:45', '2021-01-17 21:27:04');
@@ -178,6 +178,30 @@ INSERT INTO `b5net_config` VALUES ('14', '授权密码', 'sys_email_password', '
 INSERT INTO `b5net_config` VALUES ('15', '服务端口', 'sys_email_port', 'text', '0', 'email', '465', '', '', '4', '2021-01-22 15:30:05', '2021-01-23 13:03:59');
 INSERT INTO `b5net_config` VALUES ('16', '是否SSL', 'sys_email_ssl', 'select', '0', 'email', '1', '0:否\r\n1:是', '', '5', '2021-01-22 15:31:23', '2021-01-23 13:03:59');
 INSERT INTO `b5net_config` VALUES ('17', '网站标题', 'web_site_name', 'text', '0', 'site', 'XXXXXX公司', '', '', '0', '2021-03-24 15:09:24', '2021-05-21 16:58:00');
+INSERT INTO `b5net_config` VALUES ('18', '水印文字', 'img_water_text', 'text', '0', 'imgwater', 'B5YiiCMF', '', '', '0', '2021-07-29 20:44:32', '2021-07-29 20:44:32');
+INSERT INTO `b5net_config` VALUES ('19', '水印文字大小', 'img_water_text_font', 'text', '0', 'imgwater', '20', '', '', '0', '2021-07-29 20:44:48', '2021-07-29 20:44:48');
+INSERT INTO `b5net_config` VALUES ('20', '水印文字颜色', 'img_water_text_color', 'text', '0', 'imgwater', 'ff0000', '', '', '0', '2021-07-29 20:45:03', '2021-07-29 20:45:03');
+INSERT INTO `b5net_config` VALUES ('21', '水印位置', 'img_water_text_position', 'select', '0', 'imgwater', 'bottom_right', 'top_left:左上角\r\ntop_right:右上角\r\nbottom_left:左下角\r\nbottom_right:右下角', '', '0', '2021-07-29 20:45:28', '2021-07-29 20:45:28');
+
+-- ----------------------------
+-- Table structure for `b5net_demo_img`
+-- ----------------------------
+DROP TABLE IF EXISTS `b5net_demo_img`;
+CREATE TABLE `b5net_demo_img` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `img1` varchar(200) DEFAULT NULL,
+  `img2` text,
+  `img3` varchar(200) DEFAULT NULL,
+  `video` varchar(200) DEFAULT NULL,
+  `create_time` datetime DEFAULT NULL,
+  `update_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of b5net_demo_img
+-- ----------------------------
+INSERT INTO `b5net_demo_img` VALUES ('1', '/uploads/bmimage/2021/07/29/980ecade129c1711178a8e511e6c244e.jpg', '/uploads/bmimage/2021/07/29/07fa053839b2920327bcea76516c8756.jpeg,/uploads/bmimage/2021/07/29/e8198dc2d7a8470a6928163d37399f25.jpeg,/uploads/bmimage/2021/07/29/2509aa5b3a25c0343f09c05fd4c7d3f4.jpeg', '/uploads/bmimage/2021/07/29/8534eac6f8512ae8d14944b264b6b387.jpg', '/uploads/cuvideo/2021/07/29/f830da8f8ea037e786597697b96e9cc2.mp4', null, '2021-07-29 21:10:10');
 
 -- ----------------------------
 -- Table structure for `b5net_dict_data`
@@ -241,18 +265,11 @@ CREATE TABLE `b5net_loginlog` (
   `msg` varchar(255) DEFAULT '' COMMENT '提示消息',
   `login_time` datetime DEFAULT NULL COMMENT '访问时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COMMENT='系统访问记录';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='系统访问记录';
 
 -- ----------------------------
 -- Records of b5net_loginlog
 -- ----------------------------
-INSERT INTO `b5net_loginlog` VALUES ('1', 'admin', '127.0.0.1', '本机地址', 'Chrome 86.0.4240.198', 'Windows 10.0', '', '1', '登录成功', '2021-05-19 09:37:08');
-INSERT INTO `b5net_loginlog` VALUES ('2', 'admin', '127.0.0.1', '本机地址', 'Chrome 86.0.4240.198', 'Windows 10.0', '', '1', '登录成功', '2021-05-20 08:51:21');
-INSERT INTO `b5net_loginlog` VALUES ('3', 'admin', '127.0.0.1', '本机地址', 'Chrome 86.0.4240.198', 'Windows 10.0', '', '0', '用户名或密码不正确', '2021-05-21 15:48:13');
-INSERT INTO `b5net_loginlog` VALUES ('4', 'admin', '127.0.0.1', '本机地址', 'Chrome 86.0.4240.198', 'Windows 10.0', '', '0', '验证码不正确', '2021-05-21 15:48:18');
-INSERT INTO `b5net_loginlog` VALUES ('5', 'admin', '127.0.0.1', '本机地址', 'Chrome 86.0.4240.198', 'Windows 10.0', '', '1', '登录成功', '2021-05-21 15:54:22');
-INSERT INTO `b5net_loginlog` VALUES ('6', 'ceshi', '127.0.0.1', '本机地址', 'Chrome 86.0.4240.198', 'Windows 10.0', '', '1', '登录成功', '2021-05-21 15:57:43');
-INSERT INTO `b5net_loginlog` VALUES ('7', 'admin', '127.0.0.1', '本机地址', 'Chrome 86.0.4240.198', 'Windows 10.0', '', '1', '登录成功', '2021-05-21 16:10:51');
 
 -- ----------------------------
 -- Table structure for `b5net_menu`
@@ -276,7 +293,7 @@ CREATE TABLE `b5net_menu` (
   PRIMARY KEY (`id`),
   KEY `parent_id` (`parent_id`) USING BTREE,
   KEY `listsort` (`listsort`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=12508 DEFAULT CHARSET=utf8mb4 COMMENT='菜单权限表';
+) ENGINE=InnoDB AUTO_INCREMENT=11006 DEFAULT CHARSET=utf8mb4 COMMENT='菜单权限表';
 
 -- ----------------------------
 -- Records of b5net_menu
@@ -338,6 +355,8 @@ INSERT INTO `b5net_menu` VALUES ('11000', '信息新增', '110', '1', '', '0', '
 INSERT INTO `b5net_menu` VALUES ('11001', '信息编辑', '110', '2', '', '0', 'F', '1', '0', 'admin:adlist:edit', '', '2021-01-08 07:26:14', '2021-01-08 07:26:14', '信息编辑');
 INSERT INTO `b5net_menu` VALUES ('11002', '信息删除', '110', '3', '', '0', 'F', '1', '0', 'admin:adlist:drop', '', '2021-01-08 07:26:14', '2021-01-08 07:26:14', '信息删除');
 INSERT INTO `b5net_menu` VALUES ('11003', '信息批量删除', '110', '5', '', '0', 'F', '1', '0', 'admin:adlist:dropall', '', '2021-01-08 07:26:14', '2021-01-08 07:26:14', '信息批量删除');
+INSERT INTO `b5net_menu` VALUES ('11004', '操作实例', '0', '0', '', '0', 'M', '1', '0', '', 'fa fa-cloud', '2021-07-29 20:28:41', '2021-07-29 20:28:41', '');
+INSERT INTO `b5net_menu` VALUES ('11005', '图片操作', '11004', '0', 'demoimg/index', '0', 'C', '1', '0', 'admin:demoimg:index', '', '2021-07-29 20:29:15', '2021-07-29 20:29:15', '');
 
 -- ----------------------------
 -- Table structure for `b5net_notice`
@@ -359,7 +378,7 @@ CREATE TABLE `b5net_notice` (
 -- Records of b5net_notice
 -- ----------------------------
 INSERT INTO `b5net_notice` VALUES ('1', '【公告】： B5LaravelCMF新版本发布啦', '2', '<p>新版本内容</p><p><br></p><p>新版本内容</p><p>新版本内容</p><p>新版本内容<br></p>', '', '1', '2020-12-24 11:33:42', '2021-01-18 17:07:21');
-INSERT INTO `b5net_notice` VALUES ('2', '【通知】：B5LaravelCMF系统凌晨维护', '1', '<font color=\"#0000ff\">维护内容</font>', '', '1', '2020-12-24 11:33:42', '2021-01-01 15:57:22');
+INSERT INTO `b5net_notice` VALUES ('2', '【通知】：B5LaravelCMF系统凌晨维护', '1', '<p><font color=\"#0000ff\">维护内容</font><img src=\"/uploads/editor/2021/07/29/3aee1c0951212b455fb847dac4429efd.jpg\" data-filename=\"1\" style=\"width: 200px;\"></p>', '', '1', '2020-12-24 11:33:42', '2021-07-29 21:07:20');
 
 -- ----------------------------
 -- Table structure for `b5net_role`
@@ -377,7 +396,7 @@ CREATE TABLE `b5net_role` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `rolekey` (`rolekey`) USING BTREE,
   KEY `listsort` (`listsort`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COMMENT='角色信息表';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COMMENT='角色信息表';
 
 -- ----------------------------
 -- Records of b5net_role
@@ -465,26 +484,6 @@ INSERT INTO `b5net_struct` VALUES ('105', '测试部门', '冰舞科技-北京�
 INSERT INTO `b5net_struct` VALUES ('110', '山东分公司', '冰舞科技', '100', '0,100', '2', '冰舞', '1888888', '', '1', '2021-01-08 11:11:33', '2021-05-19 17:09:56');
 INSERT INTO `b5net_struct` VALUES ('111', '销售部门', '冰舞科技-山东分公司', '110', '0,100,110', '1', '', '', '', '1', '2021-01-08 11:11:48', '2021-05-19 17:09:58');
 INSERT INTO `b5net_struct` VALUES ('112', 'php开发', '冰舞科技-北京总公司-测试部门', '105', '0,100,101,105', '1', '', '', '', '1', '2021-03-29 18:02:29', '2021-05-19 17:09:53');
-
--- ----------------------------
--- Table structure for `b5net_web_pos`
--- ----------------------------
-DROP TABLE IF EXISTS `b5net_web_pos`;
-CREATE TABLE `b5net_web_pos` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `title` varchar(100) NOT NULL DEFAULT '' COMMENT '位置名称',
-  `note` varchar(255) DEFAULT '' COMMENT '备注',
-  `width` mediumint(9) NOT NULL DEFAULT '0' COMMENT '图片宽度',
-  `height` mediumint(9) NOT NULL DEFAULT '0' COMMENT '图片高度',
-  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='推荐位置表';
-
--- ----------------------------
--- Records of b5net_web_pos
--- ----------------------------
-INSERT INTO `b5net_web_pos` VALUES ('1', '首页顶部banner图', '宽度高度为1920*500像素', '1920', '500', '2021-03-18 10:44:53', '2021-03-18 10:45:16');
 
 -- ----------------------------
 -- Table structure for `b5net_wechat_access`
