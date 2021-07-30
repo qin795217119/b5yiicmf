@@ -22,9 +22,9 @@ use yii\helpers\Url;
     <link href="<?= Url::to('@appweb/public/static/admin/css/iframe-ui.css')?>" rel="stylesheet"/>
     <script>
         if (window !== top) top.location.replace(location.href);
-        var _M_ = '<?=$group?>'
-        var _C_ = '<?=$app?>';
-        var _A_ = '<?=$act?>';
+        var _M_ = '<?=$this->params['group']??''?>';
+        var _C_ = '<?=$this->params['app']??''?>';
+        var _A_ = '<?=$this->params['act']??''?>';
         var rootUrl ="/";
         var lockUrl="<?= \yii\helpers\Url::toRoute('common/lockscreen')?>";
     </script>
