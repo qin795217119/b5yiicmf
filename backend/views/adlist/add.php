@@ -33,14 +33,14 @@
         var adposList = <?=json_encode($this->params['adposList'])?>;
 
         function select2change(obj) {
+
             if(obj.attr('id')=='adtype'){
                 var val=obj.val();
-                $(".imglist_field .help-block").html('');
+                $(".imgarr_field .help-block").html('');
                 $("#adlistimgbtn").attr("data-width",0).attr("data-height",0);
-
                 if(adposList.hasOwnProperty(val)){
                     if($.common.isNotEmpty(adposList[val].note)){
-                        $(".imglist_field .help-block").html('<i class="fa fa-info-circle"></i>'+adposList[val].note+'，可拖动进行排序');
+                        $(".imgarr_field .help-block").html('<i class="fa fa-info-circle"></i>'+adposList[val].note+'，可拖动进行排序');
                     }
                     $("#adlistimgbtn").attr("data-width",adposList[val].width).attr("data-height",adposList[val].height);
                 }
