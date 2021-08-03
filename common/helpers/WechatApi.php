@@ -172,7 +172,7 @@ class WechatApi
             return commonApi::message('获取用户信息失败：2', false);
         }
         if ($rearr['errcode'] || empty($rearr['openid'])) {
-            return commonApi::message('获取用户信息失败：2', false);
+            return commonApi::message('获取用户信息失败：3', false);
         }
         return commonApi::message('获取用户信息成功', true, $rearr);
     }
@@ -199,10 +199,10 @@ class WechatApi
         }
         $rearr = json_decode($reurl, true);
         if (empty($rearr) || !is_array($rearr)) {
-            return commonApi::message('获取用户信息失败：2', false);
+            return commonApi::message('获取用户信息失败：12', false);
         }
         if ($rearr['errcode'] || empty($rearr['openid'])) {
-            return commonApi::message('获取用户信息失败：2', false);
+            return commonApi::message('获取用户信息失败：13', false);
         }
         return commonApi::message('获取用户信息成功', true, $rearr);
     }
@@ -255,8 +255,7 @@ class WechatApi
                 $info->jsapi_ticket_add = time();
                 $info->jsapi_ticket = $res['ticket'];
 
-                $res = $info->save(false);
-                if (!$res) {
+                if (!$info->save(false)) {
                     return commonApi::message('保存jsapi_ticket失败', false);
                 }
                 $ticket = $res['ticket'];
@@ -282,9 +281,10 @@ class WechatApi
         if (is_null($info)) {
             $info = WechatAccess::findOne(['appid' => $this->appid]);
         }
+
         $lasttime = time() - 7000;
         if (empty($info) || empty($info['access_token']) || $info['access_token_add'] < $lasttime) {
-            $url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=$this->appid&secret=$this->secret";
+            $url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=".$this->appid."&secret=".$this->secret;
             $res = commonApi::b5curl_get($url);
             if (empty($res)) {
                 return commonApi::message('获取AccessToken失败：1', false);
@@ -300,8 +300,7 @@ class WechatApi
                 }
                 $info->access_token = $res['access_token'];
                 $info->access_token_add = time();
-                $res = $info->save(false);
-                if (!$res) {
+                if (!$info->save(false)) {
                     return commonApi::message('保存access_token失败', false);
                 }
                 $access_token = $res['access_token'];
@@ -311,6 +310,7 @@ class WechatApi
         } else {
             $access_token = $info['access_token'];
         }
+
         return commonApi::message('获取成功', true, $access_token);
     }
 
