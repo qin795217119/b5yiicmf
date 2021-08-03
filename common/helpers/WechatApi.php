@@ -1,9 +1,5 @@
 <?php
-// +----------------------------------------------------------------------
-// | B5YiiCMF
-// +----------------------------------------------------------------------
-// | Author: 李恒 <357145480@qq.com>
-// +----------------------------------------------------------------------
+
 // | META: 微信公号号常用操作
 // +----------------------------------------------------------------------
 namespace common\helpers;
@@ -20,6 +16,8 @@ class WechatApi
     public $appid = '';
     public $secret = '';
 
+    public $authType = 'union'; // web弹窗授权，union 关注获取
+
     public function __construct()
     {
         $this->appid = ConfigCache::get('wechat_appid');
@@ -28,7 +26,11 @@ class WechatApi
 
     public function getOpenId($redirecturl)
     {
-        $wechaturl = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" . $this->appid . "&redirect_uri=" . urlencode($redirecturl) . "&response_type=code&scope=snsapi_userinfo&state=" . $this->state . "#wechat_redirect";
+        $scope = 'snsapi_userinfo';
+        if($this->authType !='web'){
+            $scope = 'snsapi_base';
+        }
+        $wechaturl = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" . $this->appid . "&redirect_uri=" . urlencode($redirecturl) . "&response_type=code&scope=".$scope."&state=" . $this->state . "#wechat_redirect";
         return commonApi::b5redirect($wechaturl);
     }
 
@@ -54,12 +56,23 @@ class WechatApi
             return $accessTokenResult;
         }
 
+
         //查看数据库中是否有该openid的为微信信息  不存在插入
+        $isNew = false;
         $userInfo = WechatUsers::findOne(['openid' => $accessTokenResult['data']['openid'], 'appid' => $this->appid, 'type' => $mtype]);
         if (!$userInfo) {
-            $getResult = $this->auth_getUserinfo($accessTokenResult['data']['access_token'], $accessTokenResult['data']['openid']);
+            $isNew = true;
+            if($this->authType != 'web'){
+                $getResult = $this->getUserInfoByOpenId($accessTokenResult['data']['openid']);
+            }else{
+                $getResult = $this->auth_getUserinfo($accessTokenResult['data']['access_token'], $accessTokenResult['data']['openid']);
+            }
             if (!$getResult['success']) {
                 return $getResult;
+            }
+
+            if($this->authType != 'web' && $getResult['data']['subscribe'] == 0){
+                return commonApi::message('请先关注微信公众号',false);
             }
             $userInfo = [
                 'openid' => $accessTokenResult['data']['openid'],
@@ -76,8 +89,9 @@ class WechatApi
             if (!$model->load($userInfo, '') || !$model->save(false)) {
                 return commonApi::message('用户信息保存失败', false);
             }
+            $userInfo['id'] = $model->id;
         }
-        return commonApi::message('获取成功', true, ['url' => $b5reduri, 'userInfo' => $userInfo, 'mtype' => $mtype]);
+        return commonApi::message('获取成功', true, ['url' => $b5reduri, 'userInfo' => $userInfo, 'mtype' => $mtype,'isNew'=>$isNew]);
     }
 
     /**
@@ -130,8 +144,9 @@ class WechatApi
         if (empty($rearr) || !is_array($rearr)) {
             return commonApi::message('获取AccessToken失败：2', false);
         }
+
         if (empty($rearr['access_token']) || empty($rearr['openid'])) {
-            return commonApi::message('获取AccessToken失败', false);
+            return commonApi::message('获取AccessToken失败:3', false);
         }
         return commonApi::message('获取AccessToken成功', true, $rearr);
     }
@@ -151,6 +166,36 @@ class WechatApi
         $reurl = commonApi::b5curl_get($url);
         if (empty($reurl)) {
             return commonApi::message('获取用户信息失败：1', false);
+        }
+        $rearr = json_decode($reurl, true);
+        if (empty($rearr) || !is_array($rearr)) {
+            return commonApi::message('获取用户信息失败：2', false);
+        }
+        if ($rearr['errcode'] || empty($rearr['openid'])) {
+            return commonApi::message('获取用户信息失败：2', false);
+        }
+        return commonApi::message('获取用户信息成功', true, $rearr);
+    }
+
+    /**
+     * 根据openid获取用户信息，必须关注
+     * @param string $openid
+     * @return array
+     */
+    public function getUserInfoByOpenId($openid=''){
+        if(empty($openid)){
+            return commonApi::message('openid参数错误', false);
+        }
+
+        $accessTokenResult = $this->global_getAccessToken();
+        if (!$accessTokenResult['success']) {
+            return $accessTokenResult;
+        }
+
+        $url = "https://api.weixin.qq.com/cgi-bin/user/info?access_token=".$accessTokenResult['data']."&openid=".$openid."&lang=zh_CN";
+        $reurl = commonApi::b5curl_get($url);
+        if (empty($reurl)) {
+            return commonApi::message('获取信息失败', false);
         }
         $rearr = json_decode($reurl, true);
         if (empty($rearr) || !is_array($rearr)) {
@@ -231,7 +276,7 @@ class WechatApi
      */
     private function global_getAccessToken($info = null)
     {
-         if (empty($this->appid) || empty($this->secret)) {
+        if (empty($this->appid) || empty($this->secret)) {
             return commonApi::message('微信配置错误', false);
         }
         if (is_null($info)) {
@@ -261,11 +306,13 @@ class WechatApi
                 }
                 $access_token = $res['access_token'];
             } else {
-                return commonApi::message('获取AccessToken失败', false);
+                return commonApi::message('获取AccessToken失败2222', false);
             }
         } else {
             $access_token = $info['access_token'];
         }
         return commonApi::message('获取成功', true, $access_token);
     }
+
+
 }
