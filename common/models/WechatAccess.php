@@ -17,7 +17,7 @@ use Yii;
  * @property int $access_token_add
  * @property int $jsapi_ticket_add
  */
-class WechatAccess extends BaseModel
+class WechatAccess extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}

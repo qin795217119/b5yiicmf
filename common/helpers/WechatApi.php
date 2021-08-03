@@ -231,7 +231,7 @@ class WechatApi
      */
     private function global_getAccessToken($info = null)
     {
-        if (empty($appid) || empty($secret)) {
+         if (empty($this->appid) || empty($this->secret)) {
             return commonApi::message('微信配置错误', false);
         }
         if (is_null($info)) {
