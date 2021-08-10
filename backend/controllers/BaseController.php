@@ -8,9 +8,12 @@ namespace backend\controllers;
 
 use backend\helpers\CommonBack;
 use backend\models\LoginForm;
+use common\helpers\AdminExportApi;
 use common\helpers\commonApi;
 use common\models\Menu;
+use moonland\phpexcel\Excel;
 use yii\db\Expression;
+use yii\helpers\FileHelper;
 use yii\helpers\Url;
 use yii\web\Controller;
 use Yii;
@@ -308,7 +311,17 @@ class BaseController extends Controller
                 $orderBy = implode(',', $orderBy);
                 $query = $query->orderBy($orderBy);
             }
-            $list = $query->asArray()->all();
+
+
+            //导出判断
+            $export = $param['isExport']??'0';
+            if($export){
+                $list = $query->all();
+                $exportData = $this->handelExport($list);
+                return AdminExportApi::run(new $this->model(),$exportData);
+            }else{
+                $list = $query->asArray()->all();
+            }
 
             if (!$pageList) {
                 $total = count($list);
@@ -318,6 +331,9 @@ class BaseController extends Controller
             $data = Yii::$app->request->get();
             return $this->render('', ['input' => $data]);
         }
+    }
+    protected function handelExport($list,$columns=[],$headers=[]){
+        return ['list'=>$list,'columns'=>$columns,'headers'=>$headers];
     }
     /**
      * 公共添加页

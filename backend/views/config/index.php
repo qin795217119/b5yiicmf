@@ -15,6 +15,7 @@
 </div>
 <div class="btn-group-sm" id="toolbar" role="group">
     <?= $this->render('/public/toolbar')?>
+    <?= $this->render('/iframe',['name'=>'exportbtn'])?>
     <?= $this->render('/iframe',['name'=>'cachebtn'])?>
 </div>
 <div class="col-sm-12 select-table table-striped">

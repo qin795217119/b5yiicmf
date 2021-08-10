@@ -7,6 +7,7 @@
 namespace backend\controllers;
 
 use backend\helpers\commonBack;
+use common\helpers\commonApi;
 use common\services\MenuService;
 
 /**
@@ -28,5 +29,16 @@ class IndexController extends BaseController
 
     public function actionHome(){
        return $this->render();
+    }
+
+
+
+    public function actionDownload(){
+        $fileName = \Yii::$app->request->get('fileName','');
+        if(!$fileName) return $this->tError('参数错误');
+        $root =\Yii::getAlias('@approot');
+        if(!file_exists($root.$fileName)) return $this->tError('文件不存在');
+        $fileUrl = commonApi::getDomain($fileName);
+        header('location:'.$fileUrl);
     }
 }
