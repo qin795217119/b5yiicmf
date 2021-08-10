@@ -42,6 +42,7 @@ class Asset extends Widget
         $list=[
 
             'export'=>[
+                'css'=>[],
                 'js'=>['bootstrap-table/extensions/export/tableExport.js','bootstrap-table/extensions/export/bootstrap-table-export.js']
             ],
             'dragula'=>[

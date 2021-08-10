@@ -1,3 +1,5 @@
+<?= \common\widgets\Asset::widget(['type'=>['export']])?>
+
 <div class="col-sm-12 search-collapse">
     <form id="role-form">
         <div class="select-list">
@@ -31,6 +33,7 @@
                 modalName: "配置",
                 sortName:'id',
                 sortOrder: "asc",
+                showExport: true,
                 columns: [
                     {checkbox: true},
                     {field: 'id', title: '配置ID',  sortable: true},
