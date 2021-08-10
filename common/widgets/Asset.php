@@ -40,6 +40,10 @@ class Asset extends Widget
      */
     private function assetList($key=''){
         $list=[
+
+            'export'=>[
+                'js'=>['bootstrap-table/extensions/export/tableExport.js','bootstrap-table/extensions/export/bootstrap-table-export.js']
+            ],
             'dragula'=>[
                 'css'=>['dragula/dragula.min.css'],
                 'js'=>['dragula/dragula.min.js']
