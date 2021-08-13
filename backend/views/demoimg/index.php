@@ -84,7 +84,9 @@
                 ],
                 onPostBody:function (data) {
                     for (let i = 0; i < data.length; i++) {
-                        new Viewer(document.getElementById('pts_'+data[i].id),{navbar:false,title:false});
+						if(data[i].img2){	
+							new Viewer(document.getElementById('pts_'+data[i].id),{navbar:false,title:false});
+						}
                     }
                 }
             };
