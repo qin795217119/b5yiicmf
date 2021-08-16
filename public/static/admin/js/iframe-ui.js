@@ -355,27 +355,23 @@ var table = {
                     extid = '';
                 }
                 // blank or self  photos为幻灯显示
-                var _target = $.common.isEmpty(target) ? 'self' : target;
-                if ($.common.isNotEmpty(value)) {
-                    var shtml = '';
-                    var list = value.split(',');
-                    if(_target == 'slide'){
-                        for (let i = 0; i < list.length; i++) {
-                            shtml += $.common.sprintf("<img class='img-table-show' data-height='%s' data-width='%s' src='%s'/>", height, width, list[i]);
-                        }
-                        shtml = '<div class="photospreshow" id="'+extid+'pts_'+id+'">'+shtml+'</div>';
-
-                        return shtml;
-                    }else {
+                var shtml = '';
+                var list = value.split(',');
+                if(_target == 'slide'){
+                    for (let i = 0; i < list.length; i++) {
+                        shtml += $.common.sprintf("<img class='img-table-show' data-height='%s' data-width='%s' src='%s'/>", height, width, list[i]);
+                    }
+                    shtml = '<div class="photospreshow" id="'+extid+'pts_'+id+'">'+shtml+'</div>';
+                    return shtml;
+                }else{
+                    if ($.common.isNotEmpty(value)) {
                         for (let i = 0; i < list.length; i++) {
                             shtml += $.common.sprintf("<img class='img-preshow img-table-show' data-height='%s' data-width='%s' data-target='%s' src='%s'/>", height, width, _target, list[i]);
                         }
                         return shtml;
+                    } else {
+                        return $.common.nullToStr(value);
                     }
-
-
-                } else {
-                    return $.common.nullToStr(value);
                 }
             },
             // 搜索-默认第一个form
