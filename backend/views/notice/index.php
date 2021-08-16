@@ -6,9 +6,9 @@
                 <li><?= \common\widgets\FormInput::widget(['name'=>'select|公告类型','extend'=>['name'=>'where[type]','value'=>'','place'=>'所有','data'=>$this->params['typeList']]])?></li>
                 <li class="select-time">
                     <label>创建时间： </label>
-                    <?= \common\widgets\FormInput::widget(['name'=>'input','extend'=>['name'=>'between[create_time][start]','id'=>'startTime','class'=>'time-input','place'=>'开始时间']])?>
+                    <?= \common\widgets\FormInput::widget(['name'=>'input','extend'=>['name'=>'between[create_time][start]','id'=>'startTime','place'=>'开始时间']])?>
                     <span>-</span>
-                    <?= \common\widgets\FormInput::widget(['name'=>'input','extend'=>['name'=>'between[create_time][end]','id'=>'endTime','class'=>'time-input','place'=>'结束时间']])?>
+                    <?= \common\widgets\FormInput::widget(['name'=>'input','extend'=>['name'=>'between[create_time][end]','id'=>'endTime','class'=>'place'=>'结束时间']])?>
                 </li>
                 <li>
                     <?= $this->render('/iframe',['name'=>'searchbtn|搜索'])?>
