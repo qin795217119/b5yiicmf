@@ -5,9 +5,9 @@
             <ul>
                 <li class="select-time">
                     <label>发布时间： </label>
-                    <?= \common\widgets\FormInput::widget(['name'=>'input','extend'=>['name'=>'between[sub_time][start]','id'=>'startTime','class'=>'time-input','place'=>'开始时间']])?>
+                    <?= \common\widgets\FormInput::widget(['name'=>'input','extend'=>['name'=>'between[sub_time][start]','id'=>'startTime','place'=>'开始时间']])?>
                     <span>-</span>
-                    <?= \common\widgets\FormInput::widget(['name'=>'input','extend'=>['name'=>'between[sub_time][end]','id'=>'endTime','class'=>'time-input','place'=>'结束时间']])?>
+                    <?= \common\widgets\FormInput::widget(['name'=>'input','extend'=>['name'=>'between[sub_time][end]','id'=>'endTime','place'=>'结束时间']])?>
                 </li>
                 <li>
                     <?= $this->render('/iframe',['name'=>'searchbtn|搜索'])?>

@@ -13,6 +13,9 @@
     <input type="hidden" name="img3" id="img3" value="">
 
     <?= \common\widgets\FormInput::widget(['name'=>'video|视频地址','extend'=>['name'=>'video','cat'=>'cuvideo','tips'=>'视频格式为mp4','required'=>1,'sm'=>2,'script_after'=>'5']])?>
+
+
+    <?= \common\widgets\FormInput::widget(['name'=>'forminput|时间选择','extend'=>['name'=>'','id'=>'','class'=>'form-control time-input','sm'=>2]])?>
 </form>
 <?= $this->render('/iframe',['name'=>'tabfooter'])?>
 <?php $this->beginBlock('script'); ?>
