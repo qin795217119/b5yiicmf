@@ -8,7 +8,7 @@
                     <label>创建时间： </label>
                     <?= \common\widgets\FormInput::widget(['name'=>'input','extend'=>['name'=>'between[create_time][start]','id'=>'startTime','place'=>'开始时间']])?>
                     <span>-</span>
-                    <?= \common\widgets\FormInput::widget(['name'=>'input','extend'=>['name'=>'between[create_time][end]','id'=>'endTime','class'=>'place'=>'结束时间']])?>
+                    <?= \common\widgets\FormInput::widget(['name'=>'input','extend'=>['name'=>'between[create_time][end]','id'=>'endTime','place'=>'结束时间']])?>
                 </li>
                 <li>
                     <?= $this->render('/iframe',['name'=>'searchbtn|搜索'])?>
