@@ -2,7 +2,7 @@
 
 <select
     name="<?=$widget_data['name']?>"
-    <?= $widget_data['id']?'id="'.$widget_data['id'].'"':''?>"
+    <?= $widget_data['id']?'id="'.$widget_data['id'].'"':''?>
     class="<?= $widget_data['class']??''?>"
     <?= isset($widget_data['required'])?'required':''?>
     <?= isset($widget_data['readonly'])?'readonly="true"':''?>
