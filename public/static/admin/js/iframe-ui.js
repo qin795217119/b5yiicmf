@@ -344,7 +344,7 @@ var table = {
                 return actions.join('');
             },
             // 图片预览
-            imageView: function (value, height, width, target,id,extid) {
+            imageView: function (value, height, width, _target,id,extid) {
                 if ($.common.isEmpty(width)) {
                     width = 'auto';
                 }
