@@ -50,12 +50,14 @@
                         formatter: function(value, row, index) {
                             var actions = [];
                             actions.push('<a class="btn btn-success btn-xs" href="javascript:;" onclick="$.operate.edit(\'' + row.id + '\')"><i class="fa fa-edit"></i>编辑</a> ');
-                            actions.push('<a class="btn btn-danger btn-xs" href="javascript:;" onclick="$.operate.remove(\'' + row.id + '\')"><i class="fa fa-remove"></i>删除</a> ');
-                            var more = [];
+                            if(row.id !='1'){
+                                actions.push('<a class="btn btn-danger btn-xs" href="javascript:;" onclick="$.operate.remove(\'' + row.id + '\')"><i class="fa fa-remove"></i>删除</a> ');
+                                var more = [];
 
-                            more.push("<a class='btn btn-default btn-xs' href='javascript:;' onclick='authMenu(" + row.id + ")'><i class='fa fa-check-square-o'></i>菜单权限</a> ");
-                            actions.push('<a tabindex="0" class="btn btn-info btn-xs" data-placement="left" data-toggle="popover" data-html="true" data-trigger="focus" data-container="body" data-content="' + more.join('') + '"><i class="fa fa-chevron-circle-right"></i>更多操作</a>');
-
+                                more.push("<a class='btn btn-default btn-xs' href='javascript:;' onclick='authMenu(" + row.id + ")'><i class='fa fa-check-square-o'></i>菜单权限</a> ");
+                                more.push("<a class='btn btn-default btn-xs' href='javascript:;' onclick='dataScope(" + row.id + ")'><i class='fa fa-check-square-o'></i>数据权限</a> ");
+                                actions.push('<a tabindex="0" class="btn btn-info btn-xs" data-placement="left" data-toggle="popover" data-html="true" data-trigger="focus" data-container="body" data-content="' + more.join('') + '"><i class="fa fa-chevron-circle-right"></i>更多操作</a>');
+                            }
                             return actions.join('');
                         }
                     }
@@ -68,6 +70,12 @@
             var url = "<?=\yii\helpers\Url::toRoute('auth')?>";
             url=urlcreate(url,'role_id=' + roleId);
             $.modal.open("菜单授权", url);
+        }
+        /* 角色管理-数据范围 */
+        function dataScope(roleId){
+            var url = "<?=\yii\helpers\Url::toRoute('datascope')?>";
+            url=urlcreate(url,'role_id=' + roleId);
+            $.modal.open("分配数据权限", url);
         }
     </script>
 <?php $this->endBlock(); ?>

@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50726
 File Encoding         : 65001
 
-Date: 2021-07-29 21:12:19
+Date: 2022-01-24 17:11:48
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -61,7 +61,7 @@ CREATE TABLE `b5net_admin` (
 -- ----------------------------
 -- Records of b5net_admin
 -- ----------------------------
-INSERT INTO `b5net_admin` VALUES ('1', 'admin', '$2y$13$tPD2ym10wIZOXmabzQzJPOgISq/NldKEv0FPbp0yDbd08RwS0QGQO', '超管', '1', '超级管理员', '2020-12-24 10:50:56', '2021-05-21 15:48:25', '2021-07-29 20:27:32', '127.0.0.1');
+INSERT INTO `b5net_admin` VALUES ('1', 'admin', '$2y$13$tPD2ym10wIZOXmabzQzJPOgISq/NldKEv0FPbp0yDbd08RwS0QGQO', '超管', '1', '超级管理员', '2020-12-24 10:50:56', '2021-05-21 15:48:25', '2022-01-24 17:08:07', '127.0.0.1');
 INSERT INTO `b5net_admin` VALUES ('2', 'ceshi', '$2y$13$sHMB3vFS2dBDrIrHOqvpQO1Y7nhGEAj6/FjgorgxMd5ZVgzXxKSG2', '测试1111', '1', '测试账号', '2020-12-24 13:14:57', '2021-05-21 16:57:17', '2021-05-21 15:57:43', '127.0.0.1');
 
 -- ----------------------------
@@ -119,7 +119,7 @@ CREATE TABLE `b5net_adposition` (
 -- ----------------------------
 -- Records of b5net_adposition
 -- ----------------------------
-INSERT INTO `b5net_adposition` VALUES ('1', 'web_index_banner', '首页banner图片', '宽高为1920*400像素', '0', '0', '2021-01-08 06:02:11', '2021-05-21 16:57:09');
+INSERT INTO `b5net_adposition` VALUES ('1', 'web_index_banner', '首页banner图片', '宽高为1920*400像素', '0', '0', '2021-01-08 06:02:11', '2021-07-30 15:23:20');
 
 -- ----------------------------
 -- Table structure for `b5net_app_token`
@@ -265,11 +265,18 @@ CREATE TABLE `b5net_loginlog` (
   `msg` varchar(255) DEFAULT '' COMMENT '提示消息',
   `login_time` datetime DEFAULT NULL COMMENT '访问时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='系统访问记录';
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COMMENT='系统访问记录';
 
 -- ----------------------------
 -- Records of b5net_loginlog
 -- ----------------------------
+INSERT INTO `b5net_loginlog` VALUES ('1', 'admin', '127.0.0.1', '本机地址', 'Chrome 86.0.4240.198', 'Windows 10.0', '', '0', '用户名或密码不正确', '2021-07-30 14:38:36');
+INSERT INTO `b5net_loginlog` VALUES ('2', 'admin', '127.0.0.1', '本机地址', 'Chrome 86.0.4240.198', 'Windows 10.0', '', '1', '登录成功', '2021-07-30 14:38:45');
+INSERT INTO `b5net_loginlog` VALUES ('3', 'admin', '127.0.0.1', '本机地址', 'Chrome 86.0.4240.198', 'Windows 10.0', '', '1', '登录成功', '2021-07-30 15:19:21');
+INSERT INTO `b5net_loginlog` VALUES ('4', 'admin', '127.0.0.1', '本机地址', 'Chrome 86.0.4240.198', 'Windows 10.0', '', '1', '登录成功', '2021-08-03 17:39:42');
+INSERT INTO `b5net_loginlog` VALUES ('5', 'admin', '127.0.0.1', '本机地址', 'Chrome 86.0.4240.198', 'Windows 10.0', '', '1', '登录成功', '2021-08-10 11:48:28');
+INSERT INTO `b5net_loginlog` VALUES ('6', 'admin', '127.0.0.1', '本机地址', 'Chrome 86.0.4240.198', 'Windows 10.0', '', '1', '登录成功', '2021-08-16 10:55:45');
+INSERT INTO `b5net_loginlog` VALUES ('7', 'admin', '127.0.0.1', '本机地址', 'Chrome 94.0.4606.61', 'Windows 10.0', '', '1', '登录成功', '2022-01-24 17:08:07');
 
 -- ----------------------------
 -- Table structure for `b5net_menu`
@@ -320,6 +327,7 @@ INSERT INTO `b5net_menu` VALUES ('10101', '角色修改', '101', '2', '', '0', '
 INSERT INTO `b5net_menu` VALUES ('10102', '角色删除', '101', '3', '', '0', 'F', '1', '0', 'admin:role:drop', '', '2021-01-03 07:25:11', '2021-01-03 07:25:11', '角色删除');
 INSERT INTO `b5net_menu` VALUES ('10104', '角色状态', '101', '4', '', '0', 'F', '1', '0', 'admin:role:setstatus', '', '2021-01-03 07:25:11', '2021-01-08 10:47:31', '角色状态');
 INSERT INTO `b5net_menu` VALUES ('10105', '菜单授权', '101', '10', '', '0', 'F', '1', '0', 'admin:role:auth', '', '2021-01-03 07:25:11', '2021-01-07 13:32:41', '菜单授权');
+INSERT INTO `b5net_menu` VALUES ('10106', '数据权限', '101', '11', '', '0', 'F', '1', '0', 'admin:role:datascope', '', '2021-01-03 07:25:11', '2021-01-03 07:25:11', '数据权限');
 INSERT INTO `b5net_menu` VALUES ('10200', '组织新增', '102', '1', '', '0', 'F', '1', '0', 'admin:struct:add', '', '2021-01-03 07:25:11', '2021-01-03 07:25:11', '组织新增');
 INSERT INTO `b5net_menu` VALUES ('10201', '组织修改', '102', '2', '', '0', 'F', '1', '0', 'admin:struct:edit', '', '2021-01-03 07:25:11', '2021-01-03 07:25:11', '组织修改');
 INSERT INTO `b5net_menu` VALUES ('10202', '组织删除', '102', '3', '', '0', 'F', '1', '0', 'admin:struct:drop', '', '2021-01-03 07:25:11', '2021-01-03 07:25:11', '组织删除');
@@ -388,6 +396,7 @@ CREATE TABLE `b5net_role` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '角色ID',
   `name` varchar(30) NOT NULL DEFAULT '' COMMENT '角色名称',
   `rolekey` varchar(50) NOT NULL DEFAULT '' COMMENT '角色权限字符串',
+  `data_scope` char(1) NOT NULL DEFAULT '1' COMMENT '数据范围（1：全部数据权限 2：自定数据权限 3：本部门数据权限 4：本部门及以下数据权限）',
   `listsort` int(11) NOT NULL DEFAULT '0' COMMENT '显示顺序',
   `status` char(1) NOT NULL DEFAULT '1' COMMENT '角色状态（1正常 0停用）',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
@@ -401,8 +410,8 @@ CREATE TABLE `b5net_role` (
 -- ----------------------------
 -- Records of b5net_role
 -- ----------------------------
-INSERT INTO `b5net_role` VALUES ('1', '超管', 'administrator', '0', '1', '2020-12-28 07:42:31', '2021-05-19 17:30:13', '超级管理员');
-INSERT INTO `b5net_role` VALUES ('2', '测试角色', 'common', '1', '1', '2020-12-28 07:44:00', '2021-01-05 06:11:52', '');
+INSERT INTO `b5net_role` VALUES ('1', '超管', 'administrator', '1', '0', '1', '2020-12-28 07:42:31', '2021-05-19 17:30:13', '超级管理员');
+INSERT INTO `b5net_role` VALUES ('2', '测试角色', 'common', '3', '1', '1', '2020-12-28 07:44:00', '2022-01-24 17:11:23', '');
 
 -- ----------------------------
 -- Table structure for `b5net_role_menu`
@@ -432,6 +441,25 @@ INSERT INTO `b5net_role_menu` VALUES ('3', '10700');
 INSERT INTO `b5net_role_menu` VALUES ('3', '10701');
 INSERT INTO `b5net_role_menu` VALUES ('3', '10702');
 INSERT INTO `b5net_role_menu` VALUES ('3', '10703');
+
+-- ----------------------------
+-- Table structure for `b5net_role_struct`
+-- ----------------------------
+DROP TABLE IF EXISTS `b5net_role_struct`;
+CREATE TABLE `b5net_role_struct` (
+  `role_id` int(10) NOT NULL COMMENT '角色ID',
+  `struct_id` int(10) NOT NULL COMMENT '部门ID',
+  PRIMARY KEY (`role_id`,`struct_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='角色和部门关联表';
+
+-- ----------------------------
+-- Records of b5net_role_struct
+-- ----------------------------
+INSERT INTO `b5net_role_struct` VALUES ('4', '101');
+INSERT INTO `b5net_role_struct` VALUES ('4', '103');
+INSERT INTO `b5net_role_struct` VALUES ('4', '104');
+INSERT INTO `b5net_role_struct` VALUES ('4', '105');
+INSERT INTO `b5net_role_struct` VALUES ('4', '111');
 
 -- ----------------------------
 -- Table structure for `b5net_smscode`

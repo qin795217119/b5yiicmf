@@ -2,11 +2,7 @@
 
 namespace backend\controllers;
 
-use common\helpers\commonApi;
-use common\models\Community;
-use common\models\cu\CuImage;
 use common\models\DemoImg;
-use common\services\task\TaskUserPostService;
 use Yii;
 
 /**
