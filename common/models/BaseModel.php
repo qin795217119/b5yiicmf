@@ -7,6 +7,7 @@
 namespace common\models;
 
 use yii\base\Model;
+use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\db\Expression;
 use Yii;
@@ -21,22 +22,6 @@ class BaseModel extends ActiveRecord
     //是否自动维护时间戳
     public $timestamps = true;
 
-    /**
-     * 更新数据
-     * @param bool $runValidation
-     * @param null $attributeNames
-     * @return bool
-     */
-    public function save($runValidation = true, $attributeNames = null)
-    {
-        if ($this->timestamps) {
-            if ($this->isNewRecord) {
-                $this->create_time = date('Y-m-d H:i:s', time());
-            }
-            $this->update_time = date('Y-m-d H:i:s', time());
-        }
-        return parent::save($runValidation, $attributeNames);
-    }
 
     /**
      * 批量插入
@@ -58,6 +43,26 @@ class BaseModel extends ActiveRecord
     {
         Yii::$app->db->createCommand()->truncateTable($this::tableName())->execute();
         return true;
+    }
+
+
+    public function behaviors()
+    {
+        if($this->timestamps){
+            return [
+                'timestamp' => [
+                    'class' => TimestampBehavior::className(),
+                    'attributes' => [
+                        ActiveRecord::EVENT_BEFORE_INSERT => ['create_time','update_time'],
+                        ActiveRecord::EVENT_BEFORE_UPDATE => ['update_time'],
+                    ],
+                    'value'=>function(){
+                        return (new \DateTime())->format('Y-m-d H:i:s');
+                    }
+                ]
+            ];
+        }
+        return [];
     }
 
 }

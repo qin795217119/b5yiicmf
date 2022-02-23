@@ -1538,17 +1538,25 @@ var table = {
             successTabCallback: function(result) {
                 if (result.code == web_status.SUCCESS) {
                     var topWindow = $(window.parent.document);
-                    var currentId = $('.page-tabs-content', topWindow).find('.active').attr('data-panel');
-                    var $contentWindow = $('.RuoYi_iframe[data-id="' + currentId + '"]', topWindow)[0].contentWindow;
-                    $.modal.close();
-                    $contentWindow.$.modal.msgSuccess(result.msg);
-                    $contentWindow.$(".layui-layer-padding").removeAttr("style");
-                    if ($contentWindow.table.options.type == table_type.bootstrapTable) {
-                        $contentWindow.$.table.refresh();
-                    } else if ($contentWindow.table.options.type == table_type.bootstrapTreeTable) {
-                        $contentWindow.$.treeTable.refresh();
+                    var activeObj = $('.page-tabs-content', topWindow).find('.active');
+                    var currentId = activeObj.attr('data-panel');
+                    if(currentId){
+                        var $contentWindow = $('.RuoYi_iframe[data-id="' + currentId + '"]', topWindow)[0].contentWindow;
+                        $.modal.close();
+                        $contentWindow.$.modal.msgSuccess(result.msg);
+                        $contentWindow.$(".layui-layer-padding").removeAttr("style");
+                        if ($contentWindow.table.options.type == table_type.bootstrapTable) {
+                            $contentWindow.$.table.refresh();
+                        } else if ($contentWindow.table.options.type == table_type.bootstrapTreeTable) {
+                            $contentWindow.$.treeTable.refresh();
+                        }
+                        $.modal.closeTab();
+                    }else{
+                        $.modal.close();
+                        $.modal.msgSuccess(result.msg,function (){
+                            $.modal.closeTab();
+                        });
                     }
-                    $.modal.closeTab();
                 } else if (result.code == web_status.WARNING) {
                     $.modal.alertWarning(result.msg)
                 } else {

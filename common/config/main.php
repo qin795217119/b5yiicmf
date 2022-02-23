@@ -9,6 +9,11 @@ return [
     'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
     'bootstrap' => ['queue'],//将queue组件注册到控制台
     'components' => [
+        'formatter'=>[
+            'dateFormat'=>'yyyy-MM-dd',
+            'datetimeFormat'=>'yyyy-MM-dd HH:mm:ss',
+            'timeFormat'=>'HH:mm:ss',
+        ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
