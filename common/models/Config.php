@@ -59,6 +59,7 @@ class Config extends BaseModel
     public function attributeLabels()
     {
         return [
+			'id' => 'ID',
             'title' => '配置名称',
             'type' => '配置标识',
             'style' => '配置类型',
@@ -66,5 +67,12 @@ class Config extends BaseModel
             'note' => '配置说明',
             'listsort' => '排序',
         ];
+    }
+	/**
+     * 导出excel的字段设置
+     */
+	public function exportField()
+    {
+        return ['id','title','type','style']
     }
 }

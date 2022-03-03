@@ -2,7 +2,7 @@
 // +----------------------------------------------------------------------
 // | B5YiiCMF
 // +----------------------------------------------------------------------
-// | Author: 李恒 <357145480@qq.com>
+// | Author: b5net <357145480@qq.com>
 // +----------------------------------------------------------------------
 namespace common\helpers;
 
@@ -13,6 +13,7 @@ use yii\helpers\FileHelper;
 class AdminExportApi
 {
     public static function run($model,$data){
+
         $rootPath = \Yii::getAlias('@approot');
         $savePath =  'uploads' . DIRECTORY_SEPARATOR . 'export'.DIRECTORY_SEPARATOR.'excel'.DIRECTORY_SEPARATOR.date('Y-m');
         $uploads = $rootPath . DIRECTORY_SEPARATOR . $savePath;
@@ -22,12 +23,20 @@ class AdminExportApi
             return commonApi::message('保存路径创建失败', false);
         }
 
+        $columns = $data['columns']??[];
+        if(!$columns){
+            $model = new $model();
+            if(method_exists($model,'exportField')){
+                $columns = $model->exportField();
+            }
+        }
+
         $fileName =  md5(time() . mt_rand(1000, 9999)).'.xlsx';
         Excel::export([
             'savePath'=>$uploads,
             'fileName'=>$fileName,
             'models'=>$data['list']??[],
-            'columns'=>$data['columns']??[],
+            'columns'=>$columns,
             'headers'=>$data['headers']??[],
         ]);
         $fileUrl = DIRECTORY_SEPARATOR.$savePath.DIRECTORY_SEPARATOR.$fileName;
