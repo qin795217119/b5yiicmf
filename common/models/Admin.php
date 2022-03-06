@@ -85,4 +85,15 @@ class Admin extends BaseModel
         AdminStructService::update($this->id,'');
         AdminRoleService::update($this->id,'');
     }
+
+    public function beforeDelete()
+    {
+        if(!parent::beforeDelete()){
+            return false;
+        }
+        if($this->id == 1){
+            return false;
+        }
+        return true;
+    }
 }

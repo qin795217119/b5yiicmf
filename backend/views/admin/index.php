@@ -94,7 +94,16 @@
             var options = {
                 modalName: "人员",
                 columns: [
-                    {checkbox: true},
+                    {
+                        checkbox: true,
+                        formatter:function(value,row,index){//设置满足条件的行可以使用复选框
+                            if(row.id =='1'){
+                                return {
+                                    disabled : true
+                                }
+                            }
+                        }
+                    },
                     {field: 'id', title: '用户ID', align: 'center', sortable: true},
                     {field: 'username', align: 'center', title: '登录名称'},
                     {field: 'realname', align: 'center', title: '用户名称'},

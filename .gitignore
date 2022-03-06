@@ -2,7 +2,8 @@
 /yii
 /yii_test
 /yii_test.bat
-
+.htaccess
+nginx.htaccess
 # phpstorm project files
 .idea
 

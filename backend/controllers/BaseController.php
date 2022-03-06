@@ -25,9 +25,9 @@ use Yii;
 class BaseController extends Controller
 {
     use commonAction;
-    public string $model;
+    public $model;
 
-    public string $view_group='';
+    public $view_group='';
 
     /**
      * 构造函数

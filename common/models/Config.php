@@ -73,6 +73,6 @@ class Config extends BaseModel
      */
 	public function exportField()
     {
-        return ['id','title','type','style']
+        return ['id','title','type','style'];
     }
 }
