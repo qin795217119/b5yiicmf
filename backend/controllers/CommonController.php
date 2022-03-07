@@ -29,6 +29,10 @@ class CommonController extends BaseController
                 'class'=>'common\actions\UploadAction',
                 'type'=>'video'
             ],
+            'uploadfile'=>[
+                'class'=>'common\actions\UploadAction',
+                'type'=>'file'
+            ],
         ];
     }
 

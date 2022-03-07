@@ -55,9 +55,15 @@ class UploadAction extends Action
         return $upload->run();
     }
 
-    private function fileUpload($type, $rearr)
+    private function fileUpload()
     {
-
+        if (empty($this->cat)) {
+            $this->cat = Yii::$app->request->post('cat', '');
+        }
+        $upload = new UploadApi();
+        $upload->type = 'file';
+        $upload->cat = $this->cat;
+        return $upload->run();
     }
 
     private function videoUpload()

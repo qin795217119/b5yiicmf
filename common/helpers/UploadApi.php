@@ -53,7 +53,21 @@ class UploadApi
      * @return array
      */
     private function videoUpload(){
+        if (!$this->cat) $this->cat = 'video';
         if (!$this->ext) $this->ext = ['mp4','m3u8','ogv','webm'];
+        if ($this->maxSize < 1) $this->maxSize = 100 * 1024;//100M
+        return $this->_upload();
+    }
+
+
+
+    /**
+     * 文件上传
+     * @return array
+     */
+    private function fileUpload()
+    {
+        if (!$this->cat) $this->cat = 'file';
         if ($this->maxSize < 1) $this->maxSize = 100 * 1024;//100M
         return $this->_upload();
     }
@@ -73,7 +87,7 @@ class UploadApi
             return commonApi::message($error, false);
         }
         $thisExt = strtolower($fileObj->getExtension());
-        if (!in_array($thisExt, $this->ext)) {
+        if ($this->ext && !in_array($thisExt, $this->ext)) {
             return commonApi::message('文件格式错误：' . implode('、', $this->ext), false);
         }
         $thisSize = $fileObj->size;
