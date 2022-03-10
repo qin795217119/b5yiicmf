@@ -14,7 +14,7 @@
     autocomplete="off"
 />
 <?php if(isset($widget_data['addon']) && $widget_data['addon']): ?>
-<span class="input-group-addon"><i class="fa {{$widget_data['addon']}}"></i></span>
+<span class="input-group-addon"><i class="fa <?=$widget_data['addon']?>"></i></span>
 <?php endif; ?>
 
 

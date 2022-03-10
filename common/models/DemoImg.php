@@ -5,7 +5,7 @@ namespace common\models;
 use Yii;
 
 /**
- * This is the model class for table "{{%b5net_demo_img}}".
+ * This is the model class for table "b5net_demo_img".
  *
  * @property int $id
  * @property string|null $img1
@@ -22,7 +22,7 @@ class DemoImg extends BaseModel
      */
     public static function tableName()
     {
-        return '{{%b5net_demo_img}}';
+        return 'b5net_demo_img';
     }
 
     /**

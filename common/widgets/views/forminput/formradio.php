@@ -52,7 +52,7 @@
             </div>
         <?php endforeach;?>
         <?php if(isset($widget_data['tips'])):?>
-            <span class="help-block m-b-none"><?php if($widget_data['tips']):?><i class="fa fa-info-circle"></i> {{$widget_data['tips']}}<?php endif;?></span>
+            <span class="help-block m-b-none"><?php if($widget_data['tips']):?><i class="fa fa-info-circle"></i> <?=$widget_data['tips']?><?php endif;?></span>
         <?php endif;?>
     </div>
 </div>
