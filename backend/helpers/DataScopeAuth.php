@@ -153,7 +153,7 @@ class DataScopeAuth
                 }
             }
         }
-        if(16 & $dataScope){//个人数据
+        if(16 == $dataScope){//个人数据 优先级最低
             $isUser = true;
         }
         $structArr = array_unique($structArr);
