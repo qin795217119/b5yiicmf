@@ -2,11 +2,12 @@
 // +----------------------------------------------------------------------
 // | B5YiiCMF
 // +----------------------------------------------------------------------
-// | Author: 李恒 <357145480@qq.com>
+// | Author: b5net <357145480@qq.com>
 // +----------------------------------------------------------------------
 namespace backend\controllers;
 
 use backend\helpers\DataScopeAuth;
+use common\cache\RoleCache;
 use common\helpers\commonApi;
 use common\models\Role;
 use common\models\Struct;
@@ -27,21 +28,23 @@ class RoleController extends BaseController
         $this->model = Role::class;
     }
 
-    public function actionAuth(){
-        if(IS_RENDER){
-            $role_id=Yii::$app->request->get('role_id',0);
-            if(!$role_id) return $this->tError('参数错误');
-            $info=Role::findOne($role_id);
-            if(empty($info)) return $this->tError('角色信息不存在');
+    //角色授权
+    public function actionAuth()
+    {
+        if (IS_RENDER) {
+            $role_id = Yii::$app->request->get('role_id', 0);
+            if (!$role_id) return $this->tError('参数错误');
+            $info = Role::findOne($role_id);
+            if (empty($info)) return $this->tError('角色信息不存在');
             $menuList = RoleMenuService::getRoleMenuList($role_id);
-            return $this->render("",['info'=>$info,'menuList'=>implode(',',$menuList)]);
-        }else{
-            $role_id=Yii::$app->request->post('id',0);
-            if(!$role_id) return $this->tError('参数错误');
-            $info=Role::findOne($role_id);
-            if(empty($info)) return $this->tError('角色信息不存在');
-            $treeId=Yii::$app->request->post('treeId','');
-            RoleMenuService::update($role_id,$treeId);
+            return $this->render("", ['info' => $info, 'menuList' => implode(',', $menuList)]);
+        } else {
+            $role_id = Yii::$app->request->post('id', 0);
+            if (!$role_id) return $this->tError('参数错误');
+            $info = Role::findOne($role_id);
+            if (empty($info)) return $this->tError('角色信息不存在');
+            $treeId = Yii::$app->request->post('treeId', '');
+            RoleMenuService::update($role_id, $treeId);
             return commonApi::message();
         }
     }
@@ -67,10 +70,13 @@ class RoleController extends BaseController
             if(!$data_scope || !array_key_exists($data_scope,$dataList)){
                 if (empty($info)) return $this->tError('请选择数据范围');
             }
+            $treeId = Yii::$app->request->post('treeId', '');
+            RoleStructService::update($role_id, $data_scope=='8'?$treeId:'');
+
+
             $info->data_scope = $data_scope;
             $info->save(false);
-            $treeId = Yii::$app->request->post('treeId', '');
-            RoleStructService::update($role_id, $treeId);
+
             return commonApi::message();
         }
     }
@@ -89,5 +95,13 @@ class RoleController extends BaseController
             $list[$key]['checked'] = in_array($value['id'],$hasList);
         }
         return commonApi::message('',true,$list);
+    }
+
+    public function afterSave($id,$type){
+        RoleCache::clear();
+    }
+    public function actionDelcache(){
+        RoleCache::clear();
+        return commonApi::message();
     }
 }

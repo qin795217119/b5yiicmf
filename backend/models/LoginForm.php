@@ -122,11 +122,13 @@ class LoginForm extends Model
         $structList = AdminStructService::getListByAdmin($userInfo['id']);
         //获取管理员分组
         $roleList = AdminRoleService::getListByAdmin($userInfo['id'], false, false);
-        $roleName = [];
+//        $roleName = [];
         $roleId = [];
+        $dataScope = 0;//数据权限值的和，根据位运算符的与操作进行处理
         foreach ($roleList as $role) {
+            $dataScope+=$role['data_scope'];
             $roleId[] = $role['id'];
-            $roleName[] = $role['name'];
+//            $roleName[] = $role['name'];
         }
         //获取分组菜单权限ID
         $menuIdList = RoleMenuService::getRoleMenuList($roleId);
@@ -135,13 +137,11 @@ class LoginForm extends Model
             'info' => [
                 'id' => $userInfo['id'],
                 'username' => $userInfo['username'],
-                'name' => $userInfo['realname']
+                'name' => $userInfo['realname'],
+                'dataScope'=>$dataScope
             ],
             'struct' => $structList,
-            'role' => [
-                'id' => $roleId,
-                'name' => $roleName,
-            ],
+            'role'=>$roleId,
             'menu' => $menuIdList
         ];
         Yii::$app->session->destroy();

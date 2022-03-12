@@ -71,7 +71,7 @@
         }
         function dataScopeChange(){
             var val = $("#data_scope_select").val()
-            if(val=='4'){
+            if(val=='8'){
                 $("#customData").show()
             }else{
                 $("#customData").hide()

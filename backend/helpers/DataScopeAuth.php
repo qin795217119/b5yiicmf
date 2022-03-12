@@ -6,7 +6,6 @@ use common\models\RoleStruct;
 use common\services\StructService;
 use yii\db\ActiveQuery;
 use yii\helpers\ArrayHelper;
-use Yii;
 
 class DataScopeAuth
 {
@@ -15,9 +14,9 @@ class DataScopeAuth
         $list = [
             1=>'全部数据权限',
             2=>'本部门及以下数据权限',
-            3=>'本部门数据权限',
-            4=>'自定数据权限',
-            5=>'仅本人数据权限'
+            4=>'本部门数据权限',
+            8=>'自定数据权限',
+            16=>'仅本人数据权限'
         ];
         return is_null($type)?$list:($list[$type]??'--');
     }
@@ -110,58 +109,55 @@ class DataScopeAuth
      * @throws \Exception
      */
     private static function getFilterStructList(){
-        $userId = CommonBack::adminLoginInfo('info.id');
-        if(!$userId) return false; //未登录返回无权限
-        if ($userId == 1) return true; //超管返回全部权限
+        $adminId = CommonBack::adminLoginInfo('info.id');
+        if(!$adminId) return false; //未登录返回无权限
+        if ($adminId == 1) return true; //超管返回全部权限
 
-        $roleList = CommonBack::adminLoginInfo('role');//用户角色列表
-        if(!$roleList) return false; //无角色 返回无权限
-        ArrayHelper::multisort($roleList,'data_scope');
+        $dataScope = CommonBack::adminLoginInfo('info.dataScope');//用户角色列表
+        if($dataScope<1) return false;
 
         $structList = CommonBack::adminLoginInfo('struct');//用户组织架构
         if(empty($structList)) return false;//无组织 返回无权限
 
+        $roleList = CommonBack::adminLoginInfo('role');
+        if(empty($roleList)) return false; //无角色返回无权限
+
         $structArr = [];//组织id列表
         $isUser = false;//是否含有本人数据
 
-        $scopeList = self::typeList();
-        foreach ($roleList as $roleInfo){
-            if($roleInfo['id']==1){//超管全部
-                return true;
-            }
-            $dataScope = $roleInfo['data_scope'];
-            if(!array_key_exists($dataScope,$scopeList)){
-                continue;
-            }
+        //全部数据权限
+        if(1 & $dataScope) return true;
 
-            if ($dataScope == 1){//全部权限
-                return true;
-            } elseif ($dataScope == 2){//本部门及以下数据权限
-                foreach ($structList as $value){
-                    array_push($structArr,$value['id']);
-                    $childList = StructService::getChildList($value['id'],true);
-                    if($childList){
-                        $structArr = [...$structArr,...$childList];
-                    }
+        ///本部门及以下数据权限
+        $scopeList = self::typeList();
+        if(2 & $dataScope){
+            foreach ($structList as $value){
+                array_push($structArr,$value['id']);
+                $childList = StructService::getChildList($value['id'],true);
+                if($childList){
+                    $structArr = [...$structArr,...$childList];
                 }
-            } elseif ($dataScope == 3){//本部门
-                foreach ($structList as $value){
-                    array_push($structArr,$value['id']);
-                }
-            } elseif ($dataScope == 4){//自定义
-                $struct = RoleStruct::find()->where(['role_id'=>$roleInfo['id']])->asArray()->all();
-                if($struct){
-                    $struct = ArrayHelper::getColumn($struct,'struct_id');
-                    if($struct){
-                        $structArr = [...$structArr,...$struct];
-                    }
-                }
-            } elseif ($dataScope == 5){//个人数据
-                $isUser = true;
             }
+        }
+        if(4 & $dataScope){//本部门数据权限
+            foreach ($structList as $value){
+                array_push($structArr,$value['id']);
+            }
+        }
+        if(8 & $dataScope){//自定义
+            $struct = RoleStruct::find()->where(['role_id'=>$roleList])->asArray()->all();
+            if($struct){
+                $struct = ArrayHelper::getColumn($struct,'struct_id');
+                if($struct){
+                    $structArr = [...$structArr,...$struct];
+                }
+            }
+        }
+        if(16 & $dataScope){//个人数据
+            $isUser = true;
         }
         $structArr = array_unique($structArr);
         if(empty($structArr)) return false;
-        return ['struct'=>$structArr,'user'=>$isUser?$userId:false];
+        return ['struct'=>$structArr,'user'=>$isUser?$adminId:false];
     }
 }

@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50726
 File Encoding         : 65001
 
-Date: 2022-01-24 17:11:48
+Date: 2022-03-12 20:17:51
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -61,7 +61,7 @@ CREATE TABLE `b5net_admin` (
 -- ----------------------------
 -- Records of b5net_admin
 -- ----------------------------
-INSERT INTO `b5net_admin` VALUES ('1', 'admin', '$2y$13$tPD2ym10wIZOXmabzQzJPOgISq/NldKEv0FPbp0yDbd08RwS0QGQO', '超管', '1', '超级管理员', '2020-12-24 10:50:56', '2021-05-21 15:48:25', '2022-01-24 17:08:07', '127.0.0.1');
+INSERT INTO `b5net_admin` VALUES ('1', 'admin', '$2y$13$tPD2ym10wIZOXmabzQzJPOgISq/NldKEv0FPbp0yDbd08RwS0QGQO', '超管', '1', '超级管理员', '2020-12-24 10:50:56', '2021-05-21 15:48:25', '2022-03-12 19:43:52', '127.0.0.1');
 INSERT INTO `b5net_admin` VALUES ('2', 'ceshi', '$2y$13$sHMB3vFS2dBDrIrHOqvpQO1Y7nhGEAj6/FjgorgxMd5ZVgzXxKSG2', '测试1111', '1', '测试账号', '2020-12-24 13:14:57', '2021-05-21 16:57:17', '2021-05-21 15:57:43', '127.0.0.1');
 
 -- ----------------------------
@@ -265,7 +265,7 @@ CREATE TABLE `b5net_loginlog` (
   `msg` varchar(255) DEFAULT '' COMMENT '提示消息',
   `login_time` datetime DEFAULT NULL COMMENT '访问时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COMMENT='系统访问记录';
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COMMENT='系统访问记录';
 
 -- ----------------------------
 -- Records of b5net_loginlog
@@ -277,6 +277,10 @@ INSERT INTO `b5net_loginlog` VALUES ('4', 'admin', '127.0.0.1', '本机地址', 
 INSERT INTO `b5net_loginlog` VALUES ('5', 'admin', '127.0.0.1', '本机地址', 'Chrome 86.0.4240.198', 'Windows 10.0', '', '1', '登录成功', '2021-08-10 11:48:28');
 INSERT INTO `b5net_loginlog` VALUES ('6', 'admin', '127.0.0.1', '本机地址', 'Chrome 86.0.4240.198', 'Windows 10.0', '', '1', '登录成功', '2021-08-16 10:55:45');
 INSERT INTO `b5net_loginlog` VALUES ('7', 'admin', '127.0.0.1', '本机地址', 'Chrome 94.0.4606.61', 'Windows 10.0', '', '1', '登录成功', '2022-01-24 17:08:07');
+INSERT INTO `b5net_loginlog` VALUES ('8', 'admin', '127.0.0.1', '本机地址', 'Chrome 94.0.4606.61', 'Windows 10.0', '', '1', '登录成功', '2022-03-03 11:24:32');
+INSERT INTO `b5net_loginlog` VALUES ('9', 'admin', '127.0.0.1', '本机地址', 'Chrome 94.0.4606.61', 'Windows 10.0', '', '1', '登录成功', '2022-03-06 09:46:17');
+INSERT INTO `b5net_loginlog` VALUES ('10', 'admin', '127.0.0.1', '本机地址', 'Chrome 94.0.4606.61', 'Windows 10.0', '', '1', '登录成功', '2022-03-10 15:47:23');
+INSERT INTO `b5net_loginlog` VALUES ('11', 'admin', '127.0.0.1', '本机地址', 'Chrome 94.0.4606.61', 'Windows 10.0', '', '1', '登录成功', '2022-03-12 19:43:52');
 
 -- ----------------------------
 -- Table structure for `b5net_menu`

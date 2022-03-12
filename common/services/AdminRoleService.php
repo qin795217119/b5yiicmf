@@ -47,24 +47,20 @@ class AdminRoleService
      * @param bool $onlyKey
      * @return array
      */
-    public static function getListByAdmin($adminId,bool $all=true,bool $onlyKey=false){
+    public static function getListByAdmin($adminId){
         $reArr=[];
         if($adminId){
             $list=AdminRole::find()->where(['admin_id' => $adminId])->asArray()->all();
             if($list){
                 foreach ($list as $value){
                     $roleInfo=Role::findOne($value['role_id']);
-                    if($roleInfo){
-                        if($all || (!$all && $roleInfo['status'])){
-                            if($onlyKey){
-                                $reArr[]=$roleInfo['id'];
-                            }else{
-                                $reArr[]=[
-                                    'id'=>$roleInfo['id'],
-                                    'name'=>$roleInfo['name']
-                                ];
-                            }
-                        }
+                    if($roleInfo && $roleInfo->status){
+                        $reArr[]=[
+                            'id'=>$roleInfo['id'],
+                            'name'=>$roleInfo['name'],
+                            'data_scope'=>$roleInfo['data_scope'],
+                            'rolekey'=>$roleInfo['rolekey'],
+                        ];
                     }
                 }
             }
