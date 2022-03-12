@@ -116,6 +116,8 @@ class DataScopeAuth
         $dataScope = CommonBack::adminLoginInfo('info.dataScope');//用户角色列表
         if($dataScope<1) return false;
 
+        if(!(31 & $dataScope)) return false;//无效的键值
+
         $structList = CommonBack::adminLoginInfo('struct');//用户组织架构
         if(empty($structList)) return false;//无组织 返回无权限
 
@@ -157,7 +159,6 @@ class DataScopeAuth
             $isUser = true;
         }
         $structArr = array_unique($structArr);
-        if(empty($structArr)) return false;
         return ['struct'=>$structArr,'user'=>$isUser?$adminId:false];
     }
 }
