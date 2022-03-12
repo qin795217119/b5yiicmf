@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50726
 File Encoding         : 65001
 
-Date: 2022-03-12 20:17:51
+Date: 2022-03-12 21:02:51
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -400,7 +400,7 @@ CREATE TABLE `b5net_role` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '角色ID',
   `name` varchar(30) NOT NULL DEFAULT '' COMMENT '角色名称',
   `rolekey` varchar(50) NOT NULL DEFAULT '' COMMENT '角色权限字符串',
-  `data_scope` char(1) NOT NULL DEFAULT '1' COMMENT '数据范围（1：全部数据权限 2：自定数据权限 3：本部门数据权限 4：本部门及以下数据权限）',
+  `data_scope` mediumint(5) NOT NULL DEFAULT '1' COMMENT '数据范围（1：全部数据权限 2：自定数据权限 3：本部门数据权限 4：本部门及以下数据权限）',
   `listsort` int(11) NOT NULL DEFAULT '0' COMMENT '显示顺序',
   `status` char(1) NOT NULL DEFAULT '1' COMMENT '角色状态（1正常 0停用）',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',

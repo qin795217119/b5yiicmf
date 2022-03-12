@@ -15,7 +15,7 @@ use Yii;
  * @property string $name 角色名称
  * @property string $rolekey 角色权限字符串
  * @property int $listsort 显示顺序
- * @property string $data_scope 数据范围
+ * @property int $data_scope 数据范围
  * @property string $status 角色状态（1正常 0停用）
  * @property string|null $create_time 创建时间
  * @property string|null $update_time 更新时间
