@@ -47,7 +47,25 @@ trait commonAction
             $map = array_merge($map, $extMap);
         }
 
-        $extSort = $extSort ?: [[$order_column, $order_sort]];// 指定排序
+		//排序合并 post参数优先级最高，若不存在id并在最后拼接 id的增序
+		if($extSort){
+            foreach ($extSort as $key=>$value){
+                if($value[0] == $order_column){
+                    unset($extSort[$key]);
+                }
+            }
+        }
+        array_unshift($extSort,[$order_column, $order_sort]);
+        $sortId = false;
+        foreach ($extSort as $sortArr){
+            if($sortArr[0] == 'id'){
+                $sortId = true;
+                break;
+            }
+        }
+        if(!$sortId){
+            $extSort[]=['id','asc'];
+        }
 
         $offset = ($pageNum - 1) * $pageSize; //分页开始
 
