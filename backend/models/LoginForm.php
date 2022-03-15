@@ -24,7 +24,7 @@ class LoginForm extends Model
 {
     public $username;
     public $password;
-    public $rememberMe = true;
+    public $remember;
     private $_user;
     public $verifycode;
 
@@ -37,7 +37,7 @@ class LoginForm extends Model
             [['username', 'password', 'verifycode'], 'required'],
             ['verifycode', 'validateCode'],
             ['password', 'validatePassword'],
-            ['rememberMe', 'boolean']
+            ['remember', 'safe']
         ];
     }
 
@@ -96,7 +96,7 @@ class LoginForm extends Model
     {
         if ($this->validate()) {
             $model = $this->getUser();
-            $isLogin = Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600 * 24 * 2 : 0);
+            $isLogin = Yii::$app->user->login($this->getUser(), $this->remember ? 3600 * 24 : 3600 * 6);
             if ($isLogin) {
                 $model->last_time = date('Y-m-d H:i:s', time());
                 $model->last_ip = Yii::$app->getRequest()->getUserIP();

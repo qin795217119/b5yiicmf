@@ -68,12 +68,19 @@ class BaseController extends Controller
             $action_name=$action->id;
             defined('CONTROLLER_NAME') or define('CONTROLLER_NAME', $controller_name);
             defined('ACTION_NAME') or define('ACTION_NAME', $action_name);
-
-            //登录判断
             $notLoginConArr = ['public'];
-            if(Yii::$app->user->isGuest && !in_array(strtolower($controller_name),$notLoginConArr)){
+
+            //登录判断 会判断cookie
+//            if(Yii::$app->user->isGuest && !in_array(strtolower($controller_name),$notLoginConArr)){
+//                return $this->bError('请先登录',['public/login']);
+//            }
+
+            //登录判断，不判断cookie
+            if(!CommonBack::adminLoginInfo('info.id') && !in_array(strtolower($controller_name),$notLoginConArr)){
+                Yii::$app->user->logout(true);
                 return $this->bError('请先登录',['public/login']);
             }
+
             //cookie登录判断，YII登录信息有但是自己定义的session中无数据
             $this->cookieLogin();
 

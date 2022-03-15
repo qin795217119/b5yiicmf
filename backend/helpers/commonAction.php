@@ -389,6 +389,9 @@ trait commonAction
         $result = $info->save(false);
         $title = $data['status'] ? '启用' : '停用';
         if ($result) {
+            if(method_exists($this,'afterSave')){
+                $this->afterSave($info->id,'status');
+            }
             return commonApi::message($title.'成功', true);
         }
         return commonApi::message($title . '失败', false);
