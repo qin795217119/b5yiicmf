@@ -55,9 +55,10 @@ $(function() {
     if ($.fn.select2 !== undefined) {
         $.fn.select2.defaults.set( "theme", "bootstrap" );
         $("select.select2").each(function () {
-            $(this).select2().on("change", function () {
+            var option = select2Option($(this));
+            $(this).select2(option).on("change", function () {
                 if($.common.isFunction('select2change')){
-                    select2change($(this))
+                    select2change($(this));
                 }
             })
         })
@@ -277,6 +278,38 @@ $(function() {
         });
     };
 })(jQuery);
+
+//获取select2默认配置
+function select2Option(obj){
+    var search_type=obj.attr("data-searchType") || '&';
+    var width=obj.attr("data-width") || '200px';
+    var placeholder = obj.attr("data-place") || '';
+    var clear = obj.attr("data-clear") || '';
+    var option = {
+        searchtype:search_type,
+        width:width
+    }
+    if(placeholder) {
+        option.placeholder = placeholder
+    }
+    if(clear){
+        option.placeholder = placeholder?placeholder:'请选择'
+        option.placeholderOption = ''
+        option.allowClear = true
+    }
+    return option;
+}
+//select设置默认值
+function select2Default(id,change,value){
+    value = value || ''
+    change = value || false
+    var option = select2Option($("#"+id));
+    if(change){
+        $("#"+id).select2(option).val(value);
+    }else{
+        $("#"+id).select2(option).val(value).trigger('change');
+    }
+}
 //自定义事件方法
 function b5event(obj) {
     var type=obj.attr("b5-event");
