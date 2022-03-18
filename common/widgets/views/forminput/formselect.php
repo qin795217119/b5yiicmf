@@ -3,7 +3,7 @@
     <div class="<?=(isset($widget_data['sm']) && $widget_data['sm']=='2')?'col-sm-9':'col-sm-8'?>">
         <select
             name="<?=$widget_data['name']?>"
-            <?= $widget_data['id']?'id="'.$widget_data['id'].'"':''?>"
+            <?= $widget_data['id']?'id="'.$widget_data['id'].'"':''?>
             class="<?=$widget_data['class']?:'form-control'?>"
             <?= isset($widget_data['required'])?'required':''?>
             <?= isset($widget_data['readonly'])?'readonly="true"':''?>
