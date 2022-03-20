@@ -51,7 +51,7 @@ class Asset extends Widget
             ],
             'select2'=>[
                 'css'=>['select2/select2.min.css','select2/select2-bootstrap.css'],
-                'js'=>['select2/select2.min.js']
+                'js'=>['select2/select2.js']
             ],
             'summernote'=>[
                 'css'=>['summernote/summernote.min.css'],
