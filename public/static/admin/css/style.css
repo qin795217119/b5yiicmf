@@ -64,6 +64,9 @@ a:focus {
 .layui-laydate-footer {height: 38px !important;padding: 6px 20px !important;}
 .laydate-footer-btns{top: 6px !important;}
 
+/** autocomplete **/
+.autocomplete-suggestion{font-size: 12px;padding: 4px;line-height: 13px;word-wrap: break-word;white-space: pre-wrap}
+
 /** jquery-layout **/
 .ui-layout-pane{border: none;padding: 0;}
 .gray-bg .ui-layout-pane .container-div{background-color: #f3f3f4}
@@ -71,6 +74,8 @@ a:focus {
 .ui-layout-toggler{background-color: #eee;border-color: #eee}
 .ui-layout-toggler:hover{background-color: #FFCC66}
 .help-block{color: #888;font-size: 12px}
+
+.icheckbox-blue.checked.disabled{border-radius: 4px;overflow: hidden;background-color: rgba(14,118,168,.4)}
 
 .note-editor .note-modal{background: rgba(0,0,0,.2)}
 .note-modal .modal-dialog{margin: 60px auto}

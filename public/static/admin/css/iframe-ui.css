@@ -700,7 +700,7 @@ label {
 
 .select-list li p, .select-list li label:not(.radio-box){
 	float: left;
-	width: 65px;
+	width: auto;
 	margin: 5px 0px 0px 0px;
 	text-align:right;
 }
@@ -803,7 +803,7 @@ label {
 }
 
 .select-list .select2-container--bootstrap {
-	width: 200px!important;
+	min-width: 200px!important;
 	display: inline-block;
 }
 

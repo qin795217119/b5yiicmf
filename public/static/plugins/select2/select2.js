@@ -3418,8 +3418,7 @@ S2.define('select2/data/select',[
 
   SelectAdapter.prototype.matches = function (params, data) {
     var matcher = this.options.get('matcher');
-
-    return matcher(params, data);
+    return matcher(params, data,this.options.get('searchtype'));
   };
 
   return SelectAdapter;
@@ -4942,7 +4941,7 @@ S2.define('select2/defaults',[
       return text.replace(/[^\u0000-\u007E]/g, match);
     }
 
-    function matcher (params, data) {
+    function matcher (params, data, searchtype) {
       // Always return the object if there is nothing to compare
       if ($.trim(params.term) === '') {
         return data;
@@ -4958,7 +4957,7 @@ S2.define('select2/defaults',[
         for (var c = data.children.length - 1; c >= 0; c--) {
           var child = data.children[c];
 
-          var matches = matcher(params, child);
+          var matches = matcher(params, child, searchtype);
 
           // If there wasn't a match, remove the object in the array
           if (matches == null) {
@@ -4972,11 +4971,34 @@ S2.define('select2/defaults',[
         }
 
         // If there were no matching children, check just the plain object
-        return matcher(params, match);
+        return matcher(params, match, searchtype);
       }
 
       var original = stripDiacritics(data.text).toUpperCase();
       var term = stripDiacritics(params.term).toUpperCase();
+
+
+      //李恒添加增加搜索类型 & 全满足  || 一个满足
+      if(searchtype === '&' || searchtype === '||'){
+          var term_arr = term.split(" ");
+          var deData = searchtype==='&'?data:null;
+          for (var i = 0; i < term_arr.length; i++) {
+              if(!term_arr){
+                  continue;
+              }
+              if(searchtype === "&"){
+                  if(original.indexOf(term_arr[i]) === -1){
+                      return null;
+                  }
+              }else{
+                  if(original.indexOf(term_arr[i]) > -1){
+                      return data;
+                  }
+              }
+          }
+          return deData;
+      }
+
 
       // Check if the text contains the term
       if (original.indexOf(term) > -1) {
@@ -4988,6 +5010,7 @@ S2.define('select2/defaults',[
     }
 
     this.defaults = {
+      searchtype:'&', //李恒新增查询类型， 根据空格却分 (& 为全部包含)  (|| 只有一个包含就可以)  (= 原来的含有)
       amdBase: './',
       amdLanguageBase: './i18n/',
       closeOnSelect: true,
