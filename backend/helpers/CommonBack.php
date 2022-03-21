@@ -51,7 +51,7 @@ class CommonBack
         $notAuthController = ['public', 'common'];
         $notAuthAction = ['tree'];
         $notAuthPermission = ['admin:index:index', 'admin:index:home'];
-        if (in_array($controller_name, $notAuthController) || in_array($action_name, $notAuthAction) || in_array($permission, $notAuthPermission)) {
+        if (in_array($controller_name, $notAuthController) || in_array($action_name, $notAuthAction) || in_array($permission, $notAuthPermission) || substr($action_name,0,4) === 'ajax') {
             return true;
         }
         //获取登录时的授权菜单Id
