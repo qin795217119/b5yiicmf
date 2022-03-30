@@ -34,3 +34,5 @@ phpunit.phar
 
 # ignore generated files
 /*.htaccess
+/backend/web/.htaccess
+/backend/web/robots.txt
