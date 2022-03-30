@@ -1,0 +1,270 @@
+2022-03-28 12:26:55 [127.0.0.1][10000][s7r1981rabie7m3fac62j23mnp][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request: system/admin/setstatus in D:\Apro_my\b5-yii2-cmf\vendor\yiisoft\yii2\base\Controller.php:149
+Stack trace:
+#0 D:\Apro_my\b5-yii2-cmf\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('setstatus', Array)
+#1 D:\Apro_my\b5-yii2-cmf\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('system/admin/se...', Array)
+#2 D:\Apro_my\b5-yii2-cmf\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#3 D:\Apro_my\b5-yii2-cmf\backend\web\index.php(18): yii\base\Application->run()
+#4 {main}
+
+Next yii\web\NotFoundHttpException: é¡µé¢æœªæ‰¾åˆ°ã€‚ in D:\Apro_my\b5-yii2-cmf\vendor\yiisoft\yii2\web\Application.php:115
+Stack trace:
+#0 D:\Apro_my\b5-yii2-cmf\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 D:\Apro_my\b5-yii2-cmf\backend\web\index.php(18): yii\base\Application->run()
+#2 {main}
+2022-03-28 12:26:55 [127.0.0.1][10000][s7r1981rabie7m3fac62j23mnp][info][application] $_GET = [
+    'r' => 'system/admin/setstatus'
+]
+
+$_POST = [
+    'id' => '10000'
+    'status' => '0'
+    'name' => 'åœç”¨'
+]
+
+$_FILES = []
+
+$_COOKIE = [
+    'b5yiicmf_identity' => '3ef80727990697d5020825f761deb74ccd5e1a5b984bbf81bcadcbedeab089fea:2:{i:0;s:17:\"b5yiicmf_identity\";i:1;s:14:\"[1,\"\",2592000]\";}'
+    '_identity-backend' => '7d152001bc5235d53664be746010de518196b50f607de24ed071d8ce77d27a27a:2:{i:0;s:17:\"_identity-backend\";i:1;s:18:\"[10000,\"\",2592000]\";}'
+    'b5yii2cmf-app-backend' => 's7r1981rabie7m3fac62j23mnp'
+    'b5yii2cmf' => '03c5db42f38588c02cfff17c328c17548d106a72739133bf9ed2e1a720c5965aa:2:{i:0;s:9:\"b5yii2cmf\";i:1;s:32:\"4IOvnpL9JtxJd5-BOXw9st3eKKtDPdLU\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 10000
+    '__authKey' => ''
+    'adminLoginInfo' => [
+        'info' => [
+            'id' => 10000
+            'username' => 'admin'
+            'name' => 'è¶…ç®¡'
+            'is_admin' => 1
+        ]
+        'dataScope' => 0
+        'struct' => [
+            0 => [
+                'id' => '100'
+                'name' => 'å†°èˆžç§‘æŠ€'
+            ]
+        ]
+        'role' => []
+        'menu' => []
+    ]
+]
+
+$_SERVER = [
+    'ALLUSERSPROFILE' => 'C:\\ProgramData'
+    'ANDROID_HOME' => 'D:\\Program_Appdata\\AndroidSdk'
+    'APPDATA' => 'C:\\Users\\lenovo\\AppData\\Roaming'
+    'CLASS_PATH' => '.;D:\\Program_Appdata\\jdk-8u251\\lib;D:\\Program_Appdata\\jdk-8u251\\lib\\tool.jar'
+    'CommonProgramFiles' => 'C:\\Program Files\\Common Files'
+    'CommonProgramFiles(x86)' => 'C:\\Program Files (x86)\\Common Files'
+    'CommonProgramW6432' => 'C:\\Program Files\\Common Files'
+    'COMPUTERNAME' => 'LIHENG'
+    'ComSpec' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'configsetroot' => 'C:\\WINDOWS\\ConfigSetRoot'
+    'DriverData' => 'C:\\Windows\\System32\\Drivers\\DriverData'
+    'FLUTTER_STORAGE_BASE_URL' => 'https://storage.flutter-io.cn'
+    'GOPATH' => 'C:\\Users\\lenovo\\go'
+    'HOMEDRIVE' => 'C:'
+    'HOMEPATH' => '\\Users\\lenovo'
+    'JAVA_HOME' => 'D:\\Program_Appdata\\jdk-8u251'
+    'LOCALAPPDATA' => 'C:\\Users\\lenovo\\AppData\\Local'
+    'LOGONSERVER' => '\\\\LIHENG'
+    'MAVEN_HOME' => 'D:\\Program_Appdata\\apache-maven-3.6.3'
+    'NUMBER_OF_PROCESSORS' => '12'
+    'OneDrive' => 'C:\\Users\\lenovo\\OneDrive'
+    'OS' => 'Windows_NT'
+    'Path' => 'D:\\dev_env_soft\\ImageMagick-7.0.10-Q16;D:\\Program_Appdata\\jdk-8u251\\bin;D:\\Program_Appdata\\jdk-8u251\\jre\\bin;C:\\Program Files (x86)\\Common Files\\Oracle\\Java\\javapath;D:\\Program Files (x86)\\xftp\\;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;C:\\Windows\\System32\\OpenSSH\\;C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common;C:\\Program Files\\NVIDIA Corporation\\NVIDIA NGX;C:\\Program Files\\NVIDIA Corporation\\NVIDIA NvDLISR;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\System32\\Wbem;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\;C:\\WINDOWS\\System32\\OpenSSH\\;D:\\Program Files\\PuTTY\\;D:\\dev_env_soft\\go\\bin;D:\\Program Files\\TortoiseGit\\bin;D:\\phpstudy_pro\\Extensions\\php\\php7.4.3nts;C:\\ProgramData\\ComposerSetup\\bin;.;D:\\Program_Appdata\\jdk-8u251\\lib;D:\\Program_Appdata\\jdk-8u251\\lib\\tool.jar;D:\\Program_Appdata\\apache-maven-3.6.3\\bin;D:\\Program Files\\nodejs\\;d:\\Program Files (x86)\\Tencent\\Î¢ÐÅweb¿ª·¢Õß¹¤¾ß\\dll;;;d:\\Program Files\\Git\\cmd;C:\\Users\\lenovo\\AppData\\Local\\Microsoft\\WindowsApps;d:\\Program Files\\JetBrains\\WebStorm 2019.3.4\\bin;D:\\program files\\JetBrains\\PhpStorm 2020.3.1\\bin;D:\\program files\\Microsoft VS Code\\bin;D:\\dev_env_soft\\flutter_1.12.13_9\\flutter\\bin;d:\\Program Files\\JetBrains\\IntelliJ IDEA 2019.3.3\\bin;C:\\Users\\lenovo\\go\\bin;D:\\program files\\nodejs\\node_global;C:\\Users\\lenovo\\AppData\\Roaming\\Composer\\vendor\\bin;D:\\Program_Appdata\\AndroidSdk\\platform-tools;D:\\Program_Appdata\\AndroidSdk\\emulator;D:\\Program_Appdata\\AndroidSdk\\tools;D:\\Program_Appdata\\AndroidSdk\\tools\\bin;C:\\Users\\lenovo\\AppData\\Roaming\\npm'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'PhpStorm' => 'D:\\program files\\JetBrains\\PhpStorm 2020.3.1\\bin;'
+    'PROCESSOR_ARCHITECTURE' => 'AMD64'
+    'PROCESSOR_IDENTIFIER' => 'Intel64 Family 6 Model 158 Stepping 10, GenuineIntel'
+    'PROCESSOR_LEVEL' => '6'
+    'PROCESSOR_REVISION' => '9e0a'
+    'ProgramData' => 'C:\\ProgramData'
+    'ProgramFiles' => 'C:\\Program Files'
+    'ProgramFiles(x86)' => 'C:\\Program Files (x86)'
+    'ProgramW6432' => 'C:\\Program Files'
+    'PSModulePath' => 'C:\\Program Files\\WindowsPowerShell\\Modules;C:\\WINDOWS\\system32\\WindowsPowerShell\\v1.0\\Modules'
+    'PUBLIC' => 'C:\\Users\\Public'
+    'PUB_HOSTED_URL' => 'https://pub.flutter-io.cn'
+    'SystemDrive' => 'C:'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'TEMP' => 'C:\\Users\\lenovo\\AppData\\Local\\Temp'
+    'TMP' => 'C:\\Users\\lenovo\\AppData\\Local\\Temp'
+    'USERDOMAIN' => 'LIHENG'
+    'USERDOMAIN_ROAMINGPROFILE' => 'LIHENG'
+    'USERNAME' => 'lenovo'
+    'USERPROFILE' => 'C:\\Users\\lenovo'
+    'WebStorm' => 'd:\\Program Files\\JetBrains\\WebStorm 2019.3.4\\bin;'
+    'windir' => 'C:\\WINDOWS'
+    'HTTP_COOKIE' => 'b5yiicmf_identity=3ef80727990697d5020825f761deb74ccd5e1a5b984bbf81bcadcbedeab089fea%3A2%3A%7Bi%3A0%3Bs%3A17%3A%22b5yiicmf_identity%22%3Bi%3A1%3Bs%3A14%3A%22%5B1%2C%22%22%2C2592000%5D%22%3B%7D; _identity-backend=7d152001bc5235d53664be746010de518196b50f607de24ed071d8ce77d27a27a%3A2%3A%7Bi%3A0%3Bs%3A17%3A%22_identity-backend%22%3Bi%3A1%3Bs%3A18%3A%22%5B10000%2C%22%22%2C2592000%5D%22%3B%7D; b5yii2cmf-app-backend=s7r1981rabie7m3fac62j23mnp; b5yii2cmf=03c5db42f38588c02cfff17c328c17548d106a72739133bf9ed2e1a720c5965aa%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22b5yii2cmf%22%3Bi%3A1%3Bs%3A32%3A%224IOvnpL9JtxJd5-BOXw9st3eKKtDPdLU%22%3B%7D'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.9'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_REFERER' => 'http://www.yiicmf.my/index.php?r=system%2Fadmin%2Findex'
+    'HTTP_ORIGIN' => 'http://www.yiicmf.my'
+    'HTTP_CONTENT_TYPE' => 'application/x-www-form-urlencoded; charset=UTF-8'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.74 Safari/537.36'
+    'HTTP_X_REQUESTED_WITH' => 'XMLHttpRequest'
+    'HTTP_X_CSRF_TOKEN' => '-qQg6KGZq-QGdsEE5hNNGPd7mZWJSTwaC6Xc_WUTo0vO7W-ez-nn3UwCuU6CJmBauCPurPo9D39A7qi5NXfvHg=='
+    'HTTP_ACCEPT' => 'application/json, text/javascript, */*; q=0.01'
+    'HTTP_CONTENT_LENGTH' => '41'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_HOST' => 'www.yiicmf.my'
+    'REDIRECT_STATUS' => '200'
+    'SERVER_NAME' => 'www.yiicmf.my'
+    'SERVER_PORT' => '80'
+    'SERVER_ADDR' => '127.0.0.1'
+    'REMOTE_PORT' => '56613'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'SERVER_SOFTWARE' => 'nginx/1.15.11'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'REQUEST_SCHEME' => 'http'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'DOCUMENT_ROOT' => 'D:/Apro_my/b5-yii2-cmf/backend/web'
+    'DOCUMENT_URI' => '/index.php'
+    'REQUEST_URI' => '/index.php?r=system%2Fadmin%2Fsetstatus'
+    'SCRIPT_NAME' => '/index.php'
+    'CONTENT_LENGTH' => '41'
+    'CONTENT_TYPE' => 'application/x-www-form-urlencoded; charset=UTF-8'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => 'r=system%2Fadmin%2Fsetstatus'
+    'PATH_TRANSLATED' => 'D:/Apro_my/b5-yii2-cmf/backend/web'
+    'PATH_INFO' => ''
+    'SCRIPT_FILENAME' => 'D:/Apro_my/b5-yii2-cmf/backend/web/index.php'
+    'FCGI_ROLE' => 'RESPONDER'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1648441615.8016
+    'REQUEST_TIME' => 1648441615
+]
+2022-03-28 13:22:54 [127.0.0.1][-][bq4enun2s9j3mk7npgjeaqnuu0][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request "demo/server/index". in D:\Apro_my\b5-yii2-cmf\vendor\yiisoft\yii2\base\Module.php:561
+Stack trace:
+#0 D:\Apro_my\b5-yii2-cmf\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('demo/server/ind...', Array)
+#1 D:\Apro_my\b5-yii2-cmf\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#2 D:\Apro_my\b5-yii2-cmf\backend\web\index.php(18): yii\base\Application->run()
+#3 {main}
+
+Next yii\web\NotFoundHttpException: é¡µé¢æœªæ‰¾åˆ°ã€‚ in D:\Apro_my\b5-yii2-cmf\vendor\yiisoft\yii2\web\Application.php:115
+Stack trace:
+#0 D:\Apro_my\b5-yii2-cmf\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 D:\Apro_my\b5-yii2-cmf\backend\web\index.php(18): yii\base\Application->run()
+#2 {main}
+2022-03-28 13:22:54 [127.0.0.1][-][bq4enun2s9j3mk7npgjeaqnuu0][info][application] $_GET = [
+    'r' => 'demo/server/index'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = [
+    'b5yiicmf_identity' => '3ef80727990697d5020825f761deb74ccd5e1a5b984bbf81bcadcbedeab089fea:2:{i:0;s:17:\"b5yiicmf_identity\";i:1;s:14:\"[1,\"\",2592000]\";}'
+    'b5yii2cmf' => '03c5db42f38588c02cfff17c328c17548d106a72739133bf9ed2e1a720c5965aa:2:{i:0;s:9:\"b5yii2cmf\";i:1;s:32:\"4IOvnpL9JtxJd5-BOXw9st3eKKtDPdLU\";}'
+    'b5yii2cmf-app-backend' => 'bq4enun2s9j3mk7npgjeaqnuu0'
+]
+
+$_SESSION = [
+    '__flash' => []
+    'adminLoginInfo' => [
+        'info' => [
+            'id' => 10000
+            'username' => 'admin'
+            'name' => 'è¶…ç®¡'
+            'is_admin' => 1
+        ]
+        'dataScope' => 0
+        'struct' => [
+            0 => [
+                'id' => '100'
+                'name' => 'å†°èˆžç§‘æŠ€'
+            ]
+        ]
+        'role' => []
+        'menu' => []
+    ]
+]
+
+$_SERVER = [
+    'ALLUSERSPROFILE' => 'C:\\ProgramData'
+    'ANDROID_HOME' => 'D:\\Program_Appdata\\AndroidSdk'
+    'APPDATA' => 'C:\\Users\\lenovo\\AppData\\Roaming'
+    'CLASS_PATH' => '.;D:\\Program_Appdata\\jdk-8u251\\lib;D:\\Program_Appdata\\jdk-8u251\\lib\\tool.jar'
+    'CommonProgramFiles' => 'C:\\Program Files\\Common Files'
+    'CommonProgramFiles(x86)' => 'C:\\Program Files (x86)\\Common Files'
+    'CommonProgramW6432' => 'C:\\Program Files\\Common Files'
+    'COMPUTERNAME' => 'LIHENG'
+    'ComSpec' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'configsetroot' => 'C:\\WINDOWS\\ConfigSetRoot'
+    'DriverData' => 'C:\\Windows\\System32\\Drivers\\DriverData'
+    'FLUTTER_STORAGE_BASE_URL' => 'https://storage.flutter-io.cn'
+    'GOPATH' => 'C:\\Users\\lenovo\\go'
+    'HOMEDRIVE' => 'C:'
+    'HOMEPATH' => '\\Users\\lenovo'
+    'JAVA_HOME' => 'D:\\Program_Appdata\\jdk-8u251'
+    'LOCALAPPDATA' => 'C:\\Users\\lenovo\\AppData\\Local'
+    'LOGONSERVER' => '\\\\LIHENG'
+    'MAVEN_HOME' => 'D:\\Program_Appdata\\apache-maven-3.6.3'
+    'NUMBER_OF_PROCESSORS' => '12'
+    'OneDrive' => 'C:\\Users\\lenovo\\OneDrive'
+    'OS' => 'Windows_NT'
+    'Path' => 'D:\\dev_env_soft\\ImageMagick-7.0.10-Q16;D:\\Program_Appdata\\jdk-8u251\\bin;D:\\Program_Appdata\\jdk-8u251\\jre\\bin;C:\\Program Files (x86)\\Common Files\\Oracle\\Java\\javapath;D:\\Program Files (x86)\\xftp\\;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;C:\\Windows\\System32\\OpenSSH\\;C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common;C:\\Program Files\\NVIDIA Corporation\\NVIDIA NGX;C:\\Program Files\\NVIDIA Corporation\\NVIDIA NvDLISR;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\System32\\Wbem;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\;C:\\WINDOWS\\System32\\OpenSSH\\;D:\\Program Files\\PuTTY\\;D:\\dev_env_soft\\go\\bin;D:\\Program Files\\TortoiseGit\\bin;D:\\phpstudy_pro\\Extensions\\php\\php7.4.3nts;C:\\ProgramData\\ComposerSetup\\bin;.;D:\\Program_Appdata\\jdk-8u251\\lib;D:\\Program_Appdata\\jdk-8u251\\lib\\tool.jar;D:\\Program_Appdata\\apache-maven-3.6.3\\bin;D:\\Program Files\\nodejs\\;d:\\Program Files (x86)\\Tencent\\Î¢ÐÅweb¿ª·¢Õß¹¤¾ß\\dll;;;d:\\Program Files\\Git\\cmd;C:\\Users\\lenovo\\AppData\\Local\\Microsoft\\WindowsApps;d:\\Program Files\\JetBrains\\WebStorm 2019.3.4\\bin;D:\\program files\\JetBrains\\PhpStorm 2020.3.1\\bin;D:\\program files\\Microsoft VS Code\\bin;D:\\dev_env_soft\\flutter_1.12.13_9\\flutter\\bin;d:\\Program Files\\JetBrains\\IntelliJ IDEA 2019.3.3\\bin;C:\\Users\\lenovo\\go\\bin;D:\\program files\\nodejs\\node_global;C:\\Users\\lenovo\\AppData\\Roaming\\Composer\\vendor\\bin;D:\\Program_Appdata\\AndroidSdk\\platform-tools;D:\\Program_Appdata\\AndroidSdk\\emulator;D:\\Program_Appdata\\AndroidSdk\\tools;D:\\Program_Appdata\\AndroidSdk\\tools\\bin;C:\\Users\\lenovo\\AppData\\Roaming\\npm'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'PhpStorm' => 'D:\\program files\\JetBrains\\PhpStorm 2020.3.1\\bin;'
+    'PROCESSOR_ARCHITECTURE' => 'AMD64'
+    'PROCESSOR_IDENTIFIER' => 'Intel64 Family 6 Model 158 Stepping 10, GenuineIntel'
+    'PROCESSOR_LEVEL' => '6'
+    'PROCESSOR_REVISION' => '9e0a'
+    'ProgramData' => 'C:\\ProgramData'
+    'ProgramFiles' => 'C:\\Program Files'
+    'ProgramFiles(x86)' => 'C:\\Program Files (x86)'
+    'ProgramW6432' => 'C:\\Program Files'
+    'PSModulePath' => 'C:\\Program Files\\WindowsPowerShell\\Modules;C:\\WINDOWS\\system32\\WindowsPowerShell\\v1.0\\Modules'
+    'PUBLIC' => 'C:\\Users\\Public'
+    'PUB_HOSTED_URL' => 'https://pub.flutter-io.cn'
+    'SystemDrive' => 'C:'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'TEMP' => 'C:\\Users\\lenovo\\AppData\\Local\\Temp'
+    'TMP' => 'C:\\Users\\lenovo\\AppData\\Local\\Temp'
+    'USERDOMAIN' => 'LIHENG'
+    'USERDOMAIN_ROAMINGPROFILE' => 'LIHENG'
+    'USERNAME' => 'lenovo'
+    'USERPROFILE' => 'C:\\Users\\lenovo'
+    'WebStorm' => 'd:\\Program Files\\JetBrains\\WebStorm 2019.3.4\\bin;'
+    'windir' => 'C:\\WINDOWS'
+    'HTTP_COOKIE' => 'b5yiicmf_identity=3ef80727990697d5020825f761deb74ccd5e1a5b984bbf81bcadcbedeab089fea%3A2%3A%7Bi%3A0%3Bs%3A17%3A%22b5yiicmf_identity%22%3Bi%3A1%3Bs%3A14%3A%22%5B1%2C%22%22%2C2592000%5D%22%3B%7D; b5yii2cmf=03c5db42f38588c02cfff17c328c17548d106a72739133bf9ed2e1a720c5965aa%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22b5yii2cmf%22%3Bi%3A1%3Bs%3A32%3A%224IOvnpL9JtxJd5-BOXw9st3eKKtDPdLU%22%3B%7D; b5yii2cmf-app-backend=bq4enun2s9j3mk7npgjeaqnuu0'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.9'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_REFERER' => 'http://www.yiicmf.my/'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.74 Safari/537.36'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_HOST' => 'www.yiicmf.my'
+    'REDIRECT_STATUS' => '200'
+    'SERVER_NAME' => 'www.yiicmf.my'
+    'SERVER_PORT' => '80'
+    'SERVER_ADDR' => '127.0.0.1'
+    'REMOTE_PORT' => '60100'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'SERVER_SOFTWARE' => 'nginx/1.15.11'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'REQUEST_SCHEME' => 'http'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'DOCUMENT_ROOT' => 'D:/Apro_my/b5-yii2-cmf/backend/web'
+    'DOCUMENT_URI' => '/index.php'
+    'REQUEST_URI' => '/index.php?r=demo%2Fserver%2Findex'
+    'SCRIPT_NAME' => '/index.php'
+    'CONTENT_LENGTH' => ''
+    'CONTENT_TYPE' => ''
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=demo%2Fserver%2Findex'
+    'PATH_TRANSLATED' => 'D:/Apro_my/b5-yii2-cmf/backend/web'
+    'PATH_INFO' => ''
+    'SCRIPT_FILENAME' => 'D:/Apro_my/b5-yii2-cmf/backend/web/index.php'
+    'FCGI_ROLE' => 'RESPONDER'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1648444974.5851
+    'REQUEST_TIME' => 1648444974
+]
