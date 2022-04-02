@@ -29,20 +29,26 @@
                     <input type="hidden" name="structId" id="structId" value="">
                     <div class="select-list">
                         <ul>
-                            <li>人员名称：<input type="text" name="like[realname]" value=""></li>
-                            <li>角色分组：
-                                <select name="role_id" class="select2">
+                            <li>人员名称 <input type="text" name="like[realname]" value=""></li>
+                            <li>角色分组
+                                <select name="role_id" class="select2" data-width="150px">
                                     <option value="0">全部</option>
                                     <?php foreach($roleList as $value):?>
                                     <option value="<?=$value['id']?>"><?=$value['name']?></option>
                                     <?php endforeach;?>
                                 </select>
                             </li>
-                            <li>人员状态：
+                            <li>人员状态
                                 <select name="where[status]">
                                     <option value="">全部</option>
                                     <option value="1">有效</option>
                                     <option value="0">无效</option>
+                                </select>
+                            <li>
+                            <li>子部门
+                                <select name="contains">
+                                    <option value="1">包含</option>
+                                    <option value="0">不包含</option>
                                 </select>
                             <li>
                             <li>

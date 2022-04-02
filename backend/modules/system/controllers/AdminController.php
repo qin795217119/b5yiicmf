@@ -55,19 +55,30 @@ class AdminController extends BaseController
         }
 
         //组织架构处理
+        $contains = $params['contains']??0;
         $root_struct_id = intval($this->app->params['root_struct_id']);
         $struct_id = $params['structId'] ?? '';
-        if ($struct_id && $root_struct_id != $struct_id) {
-            //获取所有子组织
-            $structList = StructService::getChildList($struct_id,true);
-            $structList[] = $struct_id;
-            //获取组织下的用户
-            $list = (new AdminStructService())->getAdminIdByStructId($structList);
-            if(!$list){
-                $params['where']['id'] = 0;
-                return $params;
+        if ($struct_id) {
+            $structList = [];
+            if($contains){
+                if($root_struct_id != $struct_id){
+                    //获取所有子组织
+                    $structList = StructService::getChildList($struct_id,true);
+                    $structList[] = $struct_id;
+                }
+            }else{
+                $structList[] = $struct_id;
+
             }
-            $userIdList = array_merge($userIdList,$list);
+            if($structList){
+                //获取组织下的用户
+                $list = (new AdminStructService())->getAdminIdByStructId($structList);
+                if(!$list){
+                    $params['where']['id'] = 0;
+                    return $params;
+                }
+                $userIdList = array_merge($userIdList,$list);
+            }
         }
         if($userIdList){
             $params['in']['id'] = array_unique($userIdList);
