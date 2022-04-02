@@ -15,6 +15,7 @@ B5YiiCMF
 ### 下载地址：
 
 gitee: https://gitee.com/b5net/b5-yii-cmf
+github: https://github.com/qin795217119/b5yiicmf
 
 前端采用java的若依框架前端并进行了一定的修改，使用文档可参考 http://doc.ruoyi.vip/ruoyi/document/qdsc.html
 
