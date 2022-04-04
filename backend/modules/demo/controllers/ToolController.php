@@ -108,16 +108,16 @@ class ToolController extends BaseController
         $attribute='';
         $fieldArr = [];
         foreach ($fields as $value){
-            $data_type = $this->fieldType($value['data_type']);
-            if(is_null($value['column_default']) && $value['column_name']!='id'){
+            $data_type = $this->fieldType($value['DATA_TYPE']);
+            if(is_null($value['COLUMN_DEFAULT']) && $value['COLUMN_NAME']!='id'){
                 $data_type.='|null';
             }
-            $property.=" * @property ".$data_type." $".$value['column_name']."  ".$value['column_comment']."\r\n";
-            if($value['column_name']!='id'){
-                $rules.="'".$value['column_name']."',";
+            $property.=" * @property ".$data_type." $".$value['COLUMN_NAME']."  ".$value['COLUMN_COMMENT']."\r\n";
+            if($value['COLUMN_NAME']!='id'){
+                $rules.="'".$value['COLUMN_NAME']."',";
             }
-            $attribute.="            '".$value['column_name']."' => '".($value['column_comment']?:Str::ucWords($value['column_name']))."',\r\n";
-            $fieldArr[]=$value['column_name'];
+            $attribute.="            '".$value['COLUMN_NAME']."' => '".($value['COLUMN_COMMENT']?:Str::ucWords($value['COLUMN_NAME']))."',\r\n";
+            $fieldArr[]=$value['COLUMN_NAME'];
         }
         $rules = trim($rules,',');
         if(in_array('create_time',$fieldArr) && in_array('update_time',$fieldArr)){
@@ -202,11 +202,11 @@ class ToolController extends BaseController
         $html='';
         $fieldArr = [];
         foreach ($fields as $value){
-            $fieldArr[] = $value['column_name'];
-            if($value['column_name'] =='id' || $value['column_name'] =='create_time' || $value['column_name'] =='update_time'){
+            $fieldArr[] = $value['COLUMN_NAME'];
+            if($value['COLUMN_NAME'] =='id' || $value['COLUMN_NAME'] =='create_time' || $value['COLUMN_NAME'] =='update_time'){
                 continue;
             }
-            $html.="                {field: '".$value['column_name']."', title: '".($value['column_comment']?:$value['column_name'])."', align: 'center'},\r\n";
+            $html.="                {field: '".$value['COLUMN_NAME']."', title: '".($value['COLUMN_COMMENT']?:$value['COLUMN_NAME'])."', align: 'center'},\r\n";
         }
         if(in_array('create_time',$fieldArr) && in_array('update_time',$fieldArr)){
             $time = "                {field: 'create_time', title: '创建时间', align: 'center', sortable: true},
@@ -241,13 +241,13 @@ class ToolController extends BaseController
         $temp_add_str = fread($tem_add_f,filesize($temp_add_path));
         $html='';
         foreach ($fields as $value){
-            if($value['column_name'] =='id' || $value['column_name'] =='create_time' || $value['column_name'] =='update_time'){
+            if($value['COLUMN_NAME'] =='id' || $value['COLUMN_NAME'] =='create_time' || $value['COLUMN_NAME'] =='update_time'){
                 continue;
             }
             $html.='    <div class="form-group">
-        <label class="col-sm-3 control-label is-required">'.($value['column_comment']?:$value['column_name']).'：</label>
+        <label class="col-sm-3 control-label is-required">'.($value['COLUMN_COMMENT']?:$value['COLUMN_NAME']).'：</label>
         <div class="col-sm-8">
-            <input type="text" name="'.$value['column_name'].'" value="" class="form-control" required autocomplete="off"/>
+            <input type="text" name="'.$value['COLUMN_NAME'].'" value="" class="form-control" required autocomplete="off"/>
         </div>
     </div>'."\r\n";
         }
@@ -275,13 +275,13 @@ class ToolController extends BaseController
         $temp_edit_str = fread($tem_edit_f,filesize($temp_edit_path));
         $html='';
         foreach ($fields as $value){
-            if($value['column_name'] =='id' || $value['column_name'] =='create_time' || $value['column_name'] =='update_time'){
+            if($value['COLUMN_NAME'] =='id' || $value['COLUMN_NAME'] =='create_time' || $value['COLUMN_NAME'] =='update_time'){
                 continue;
             }
             $html.='    <div class="form-group">
-        <label class="col-sm-3 control-label is-required">'.($value['column_comment']?:$value['column_name']).'：</label>
+        <label class="col-sm-3 control-label is-required">'.($value['COLUMN_COMMENT']?:$value['COLUMN_NAME']).'：</label>
         <div class="col-sm-8">
-            <input type="text" name="'.$value['column_name'].'" value="<?=$info[\''.$value['column_name'].'\']?>" class="form-control" required autocomplete="off"/>
+            <input type="text" name="'.$value['COLUMN_NAME'].'" value="<?=$info[\''.$value['COLUMN_NAME'].'\']?>" class="form-control" required autocomplete="off"/>
         </div>
     </div>'."\r\n";
         }
@@ -310,7 +310,7 @@ class ToolController extends BaseController
             return false;
         }
 
-        $result = \Yii::$app->db->createCommand("select column_name,column_comment,data_type,column_default from INFORMATION_SCHEMA.Columns where table_name='".$table."' and table_schema='".$dbname."'")->queryAll();
+        $result = \Yii::$app->db->createCommand("select COLUMN_NAME,COLUMN_COMMENT,DATA_TYPE,COLUMN_DEFAULT from INFORMATION_SCHEMA.Columns where table_name='".$table."' and table_schema='".$dbname."'")->queryAll();
         if(!$result){
             return false;
         }
