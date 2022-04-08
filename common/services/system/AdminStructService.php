@@ -65,7 +65,7 @@ class AdminStructService
 
         $list = array_unique(array_column($list,'struct_id'));
 
-        $list = Struct::find()->where(['id'=>$list,'status'=>1])->select(['id','name'])->orderBy('parent_id asc,listsort asc,id asc')->asArray()->all();
+        $list = Struct::find()->where(['id'=>$list,'status'=>1])->select(['id','name','parent_name','status'])->orderBy('parent_id asc,listsort asc,id asc')->asArray()->all();
         if(!$showStruct){
            return $list?array_column($list,'id'):[];
         }

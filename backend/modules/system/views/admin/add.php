@@ -1,4 +1,5 @@
 <?php $this->context->layout = '/form';?>
+<?= \backend\extend\widgets\Asset::widget(['type'=>['select2']])?>
 
 <div class="main-content">
     <form class="form-horizontal m" id="form-add">
@@ -27,6 +28,18 @@
                     <input type="checkbox" name="role" value="<?=$value['id']?>" required/> <?=$value['name']?>
                 </label>
                 <?php endforeach;?>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label is-required">岗位职位：</label>
+            <div class="col-sm-8">
+                <select class="select2" data-width="90%" id="posSelect" name="pos">
+                    <option value="">选择岗位</option>
+                    <?php foreach($posList as $value):?>
+                    <option value="<?=$value['id']?>"><?=$value['name']?></option>
+                    <?php endforeach;?>
+                </select>
             </div>
         </div>
         <div class="form-group">

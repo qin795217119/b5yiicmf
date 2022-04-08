@@ -63,6 +63,9 @@
                 <a class="btn btn-success" onclick="$.operate.add(this)"><i class="fa fa-plus"></i> 新增</a>
                 <a class="btn btn-primary single disabled" onclick="$.operate.edit('',this)"><i class="fa fa-edit"></i> 修改</a>
                 <a class="btn btn-danger multiple disabled" onclick="$.operate.removeAll(this)"><i class="fa fa-trash"></i> 批量删除</a>
+
+                <input type="hidden" id="checkUserList" value="">
+                <a class="btn btn-default" onclick="userTree()"><i class="fa fa-check"></i> 测试选择人员</a>
             </div>
             <div class="col-sm-12 select-table table-striped">
                 <table id="bootstrap-table"></table>
@@ -142,6 +145,13 @@
                         field: 'struct_name',
                         title: '组织部门',
                         formatter:function (value, row, index) {
+                            return $.table.tooltip(value,15);
+                        }
+                    },
+                    {
+                        field: 'pos_name',
+                        title: '岗位',
+                        formatter:function (value, row, index) {
                             return $.table.tooltip(value,9);
                         }
                     },
@@ -180,6 +190,34 @@
             };
             $.table.init(options);
         }
+        //显示选择人员弹窗
+        function userTree(){
+            var treeId= $("#checkUserList").val();
+            //mult 1多选 0 单选
+            var url = urlcreate("<?=\yii\helpers\Url::toRoute('tree')?>","ids="+treeId+"&mult=1");
+            var options = {
+                title: '人员选择',
+                width: "800",
+                url: url,
+                callBack: doSubmit
+            };
+            $.modal.openOptions(options);
+        }
+        function doSubmit(index, layero){
+            // var body = layer.getChildFrame('body', index);
+            var iframeWin = window[layero.find('iframe')[0]['name']];//得到iframe页的窗口对象，执行iframe页的方法：
+            var list = iframeWin.getCheckRows();
+            var idList = [];
+            if(list.length>0){
+                for (let i = 0; i < list.length; i++) {
+                    idList.push(list[i].id)
+                }
+            }
+            $("#checkUserList").val(idList.join(','))
+            console.log(list)
+            layer.close(index);
+        }
+
     </script>
 <?php $this->endBlock(); ?>
 
