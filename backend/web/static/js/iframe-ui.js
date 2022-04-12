@@ -79,6 +79,7 @@ var table = {
                     queryParams: $.table.queryParams,
                     rowStyle: {}
                 };
+                var options = $.extend(defaults, options);
                 options.exportUrl = options.url
                 if(!options.showToolbar){
                     options.showExport = false;
@@ -87,7 +88,6 @@ var table = {
                     options.showColumns = false;
                     options.showSearch = false;
                 }
-                var options = $.extend(defaults, options);
                 table.options = options;
                 table.config[options.id] = options;
                 $.table.initEvent();
