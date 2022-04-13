@@ -32,9 +32,8 @@ class DemoFilter extends ActionFilter
         $noCheckAction = ['index'];
         if((Yii::$app->request->isPost || Yii::$app->request->isAjax) && !in_array($action_name,$noCheckAction)){
             $model = ConfigCache::get('demo_mode');
-            $admin_id = LoginAuthHelper::adminLoginInfo('info.id');
-            $root_id = intval(Yii::$app->params['root_admin_id']);
-            if($model == '1' && $admin_id!=$root_id){
+            $is_admin = LoginAuthHelper::adminLoginInfo('info.is_admin');
+            if($model == '1' && !$is_admin){
                 Yii::$app->response->data = Result::error('演示中，无法此操作');
                 return false;
             }

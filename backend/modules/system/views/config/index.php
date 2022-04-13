@@ -52,7 +52,7 @@
                     {
                         checkbox: true,
                         formatter:function (value,row,index){
-                            if(row.id == 1){
+                            if(row.is_sys == 1){
                                 return {
                                     disabled : true
                                 }
