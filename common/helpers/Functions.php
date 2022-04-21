@@ -89,4 +89,58 @@ class Functions
         }
         return $value;
     }
+
+    /**
+     * curl的POST请求
+     * @param $url
+     * @param $array
+     * @return bool|string
+     */
+    public static function b5curl_post($url, $array)
+    {
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_HEADER, 0);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($curl, CURLOPT_POST, 1);
+        $post_data = $array;
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $post_data);
+        $data = curl_exec($curl);
+        curl_close($curl);
+        return $data;
+    }
+
+    /**curl的GET请求
+     * @param $url
+     * @return bool|string
+     */
+    public static function b5curl_get($url)
+    {
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_TIMEOUT, 5);
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
+        curl_setopt($ch, CURLOPT_HEADER, FALSE);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+        $r = curl_exec($ch);
+        curl_close($ch);
+        return $r;
+    }
+
+    /**
+     * url拼接
+     * @param $url
+     * @param string $param
+     * @return string
+     */
+    public static function urlContact($url,$param=''){
+        if(!$param) return $url;
+        if(strpos($url,'?')!==false){
+            $url=$url.'&'.$param;
+        }else{
+            $url=$url.'?'.$param;
+        }
+        return $url;
+    }
 }

@@ -11,6 +11,7 @@ namespace backend\controllers;
 use backend\extend\BaseController;
 use backend\extend\models\LoginForm;
 use common\helpers\Functions;
+use common\helpers\Result;
 use common\models\system\Loginlog;
 
 class PublicController extends BaseController
@@ -82,27 +83,20 @@ class PublicController extends BaseController
         return $this->renderPartial('fail',['msg'=>'未获取授权','code'=>302]);
     }
     public function actionCacheclear(){
-        $this->db->schema->refresh();
-        $this->cache->flush();
-        return commonApi::message('清除完成',true);
+        $this->app->db->schema->refresh();
+        $this->app->cache->flush();
+        return Result::success('清除完成');
     }
 
-    public function actionTestqueue(){
-        //测试消息队列发送邮箱  需要先执行 cmd下  yii queue/listen
-        //$this->queue->push  立即发送，  $this->queue->delay(60)延迟60秒运行
-        $id=$this->queue->push(new \common\components\jobs\EmailJob([
-            'name' => '测试用户',
-            'email' => '357145480@qq.com',
-            'type' => 'vemail'
-        ]));
-
-        echo $id;
-    }
-
-    public function actionTestemail(){
-
-        //测试邮箱发送
-        $res=(new MailApi())->sendEmail('vemail',['email'=>'357145480@qq.com','name'=>'用户名111']);
-        var_dump($res);
-    }
+//    public function actionTestqueue(){
+//        //测试消息队列发送邮箱  需要先执行 cmd下  yii queue/listen
+//        //$this->app->queue->push  立即发送，  $this->app->queue->delay(60)延迟60秒运行
+//        $id=$this->app->queue->push(new \common\components\jobs\EmailJob([
+//            'name' => '测试用户',
+//            'email' => '357145480@qq.com',
+//            'type' => 'vemail'
+//        ]));
+//
+//        echo $id;
+//    }
 }

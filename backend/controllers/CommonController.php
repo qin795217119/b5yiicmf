@@ -9,6 +9,10 @@ declare (strict_types=1);
 namespace backend\controllers;
 
 use backend\extend\BaseController;
+use backend\extend\helpers\LoginAuthHelper;
+use backend\extend\models\ResetPasswordForm;
+use common\helpers\Functions;
+use common\helpers\Result;
 use Yii;
 
 class CommonController extends BaseController
@@ -53,43 +57,38 @@ class CommonController extends BaseController
      * @throws \Exception
      */
     public function actionLockscreen(){
-        if (IS_RENDER){
-            Yii::$app->session->set('islock',true);
-            $user=CommonBack::adminLoginInfo('info');
-            return $this->renderPartial('lockscreen',['user'=>$user]);
-        }else{
+        if (Yii::$app->request->isPost){
             $password=Yii::$app->request->post('password','');
             if(empty($password)){
-                return commonApi::message('请输入密码',false);
+                return Result::error('请输入密码');
             }
             $userInfo=Yii::$app->user->identity;
             if(!$userInfo){
-                return commonApi::message('用户信息丢失，请重新登录',false);
+                return Result::error('用户信息丢失，请重新登录');
             }
             if(!$userInfo->validatePassword($password)){
-                return commonApi::message('密码错误',false);
-            }
-            if($userInfo->status!=1){
-                return commonApi::message('用户状态错误，请重新登录',false);
+                return Result::error('密码错误');
             }
             Yii::$app->session->remove('islock');
-            return commonApi::message('登录成功',true);
+            return Result::success('登录成功');
+
+        }else{
+            Yii::$app->session->set('islock',true);
+            $user=LoginAuthHelper::adminLoginInfo('info');
+            return $this->renderPartial('lockscreen',['user'=>$user]);
         }
     }
 
     //修改密码
     public function actionRepass(){
-        if(IS_RENDER){
-            return $this->render('',['name'=>CommonBack::adminLoginInfo('info.name')]);
-        }else{
+        if(Yii::$app->request->isPost){
             $model = new ResetPasswordForm();
-            if(!$model->load(Yii::$app->request->post(),'')){
-                return commonApi::message('未获取到表单数据',false);
+            if($model->load(Yii::$app->request->post(),'') && $model->resetPassword()){
+                return Result::success('密码设置成功');
             }
-            if ($model->resetPassword()) {
-                return commonApi::message('密码设置成功',true,[],null,'closeOpen');
-            }
-            return commonApi::message(commonApi::getModelError($model),false);
+            return Result::error(Functions::getModelError($model));
+        }else{
+            return $this->render('');
         }
 
     }
@@ -105,19 +104,11 @@ class CommonController extends BaseController
                 'id' =>$id
             ]));
             if($res){
-                return commonApi::message('转换中，请耐心等待',true);
+                return Result::success('转换中，请耐心等待');
             }
         }
-        return commonApi::message('任务失败',false);
+        return Result::error('任务失败');
 
     }
 
-//    public function actionVideoclip(){
-//        $id = Yii::$app->request->post('id',0);
-//        $res = VideoClipService::run($id);
-//        if($res){
-//            return commonApi::message('转换中，请耐心等待',true);
-//        }
-//        return commonApi::message('操作失败',false);
-//    }
 }
