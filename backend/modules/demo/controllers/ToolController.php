@@ -206,6 +206,39 @@ class ToolController extends BaseController
             if($value['COLUMN_NAME'] =='id' || $value['COLUMN_NAME'] =='create_time' || $value['COLUMN_NAME'] =='update_time'){
                 continue;
             }
+            if($value['COLUMN_NAME'] =='status'){
+                $html.="                {
+                    field: '".$value['COLUMN_NAME']."',
+                    title: '".($value['COLUMN_COMMENT']?:$value['COLUMN_NAME'])."',
+                    sortable: true,
+                    formatter: function (value, row, index) {
+                        return $.view.statusShow(row,true);
+                    }
+                },\r\n";
+                continue;
+            }
+            if($value['COLUMN_NAME'] =='title' || $value['COLUMN_NAME'] =='name' || $value['COLUMN_NAME'] =='remark' || $value['COLUMN_NAME'] =='note' || $value['COLUMN_NAME'] =='desc'){
+                $html.="                {
+                    field: '".$value['COLUMN_NAME']."',
+                    title: '".($value['COLUMN_COMMENT']?:$value['COLUMN_NAME'])."',
+                    sortable: true,
+                    formatter: function (value, row, index) {
+                        return $.table.tooltip(value,25);
+                    }
+                },\r\n";
+                continue;
+            }
+            if($value['COLUMN_NAME'] =='link' || $value['COLUMN_NAME'] =='url' || $value['COLUMN_NAME'] =='path'){
+                $html.="                {
+                    field: '".$value['COLUMN_NAME']."',
+                    title: '".($value['COLUMN_COMMENT']?:$value['COLUMN_NAME'])."',
+                    sortable: true,
+                    formatter: function (value, row, index) {
+                        return $.table.tooltip(value,25,'link');
+                   }
+                },\r\n";
+                continue;
+            }
             $html.="                {field: '".$value['COLUMN_NAME']."', title: '".($value['COLUMN_COMMENT']?:$value['COLUMN_NAME'])."', align: 'center'},\r\n";
         }
         if(in_array('create_time',$fieldArr) && in_array('update_time',$fieldArr)){
@@ -244,6 +277,29 @@ class ToolController extends BaseController
             if($value['COLUMN_NAME'] =='id' || $value['COLUMN_NAME'] =='create_time' || $value['COLUMN_NAME'] =='update_time'){
                 continue;
             }
+            if($value['COLUMN_NAME'] =='status'){
+                $html.='    <div class="form-group">
+        <label class="col-sm-3 control-label is-required">'.($value['COLUMN_COMMENT']?:$value['COLUMN_NAME']).'：</label>
+        <div class="col-sm-8">
+            <label class="radio-box">
+                <input type="radio" name="status" value="0"/> 隐藏
+            </label>
+            <label class="radio-box">
+                <input type="radio" name="status" value="1" checked/> 显示
+            </label>
+        </div>
+    </div>'."\r\n";
+                continue;
+            }
+            if($value['COLUMN_NAME'] =='remark' || $value['COLUMN_NAME'] =='note' || $value['COLUMN_NAME'] =='desc'){
+                $html.= '    <div class="form-group">
+        <label class="col-sm-3 control-label is-required">' .($value['COLUMN_COMMENT']?:$value['COLUMN_NAME']).'：</label>
+        <div class="col-sm-8">
+            <textarea type="text" name="'.$value['COLUMN_NAME'].'" class="form-control"></textarea>
+        </div>
+    </div>'."\r\n";
+                continue;
+            }
             $html.='    <div class="form-group">
         <label class="col-sm-3 control-label is-required">'.($value['COLUMN_COMMENT']?:$value['COLUMN_NAME']).'：</label>
         <div class="col-sm-8">
@@ -276,6 +332,29 @@ class ToolController extends BaseController
         $html='';
         foreach ($fields as $value){
             if($value['COLUMN_NAME'] =='id' || $value['COLUMN_NAME'] =='create_time' || $value['COLUMN_NAME'] =='update_time'){
+                continue;
+            }
+            if($value['COLUMN_NAME'] =='status'){
+                $html.='    <div class="form-group">
+        <label class="col-sm-3 control-label is-required">'.($value['COLUMN_COMMENT']?:$value['COLUMN_NAME']).'：</label>
+        <div class="col-sm-8">
+            <label class="radio-box">
+                <input type="radio" name="status" value="0" <?=$info[\''.$value['COLUMN_NAME'].'\'] == 0?\'checked\':\'\'?>/> 隐藏
+            </label>
+            <label class="radio-box">
+                <input type="radio" name="status" value="1" <?=$info[\''.$value['COLUMN_NAME'].'\'] == 1?\'checked\':\'\'?>/> 显示
+            </label>
+        </div>
+    </div>'."\r\n";
+                continue;
+            }
+            if($value['COLUMN_NAME'] =='remark' || $value['COLUMN_NAME'] =='note' || $value['COLUMN_NAME'] =='desc'){
+                $html.= '    <div class="form-group">
+        <label class="col-sm-3 control-label is-required">' .($value['COLUMN_COMMENT']?:$value['COLUMN_NAME']).'：</label>
+        <div class="col-sm-8">
+            <textarea type="text" name="'.$value['COLUMN_NAME'].'" class="form-control" ><?=$info[\''.$value['COLUMN_NAME'].'\']?></textarea>
+        </div>
+    </div>'."\r\n";
                 continue;
             }
             $html.='    <div class="form-group">
