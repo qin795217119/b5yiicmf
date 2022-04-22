@@ -260,19 +260,10 @@ class WechatHelper
 
             //保存信息
             $saveData = ['jsapi_ticket_add' => time(), 'jsapi_ticket' => $res['ticket']];
-            if ($info) {
-                try {
-                    $result = \Yii::$app->db->createCommand()->update($this->access_table, $saveData, "id = " . $info['id'])->execute();
-                } catch (\yii\db\Exception $e) {
-                    $result = false;
-                }
-            } else {
-                $saveData['appid'] = $this->appid;
-                try {
-                    $result = \Yii::$app->db->createCommand()->insert($this->access_table, $saveData)->execute();
-                } catch (\yii\db\Exception $e) {
-                    $result = false;
-                }
+            try {
+                $result = \Yii::$app->db->createCommand()->update($this->access_table, $saveData, "appid = '" . $this->appid."'")->execute();
+            } catch (\yii\db\Exception $e) {
+                $result = false;
             }
             if (!$result) {
                 return Result::error('保存jsapi_ticket失败');
