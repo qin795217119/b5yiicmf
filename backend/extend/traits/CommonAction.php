@@ -359,7 +359,9 @@ trait CommonAction
         //表单的条件 findinset 的条件
         if (isset($params['findinset']) && is_array($params['findinset'])) {
             foreach ($params['findinset'] as $key => $value) {
-                $query = $query->andWhere(new Expression('FIND_IN_SET("' . $value . '", ' . $key . ')'));
+                if($key && $value){
+                    $query = $query->andWhere(new Expression('FIND_IN_SET("' . $value . '", ' . $key . ')'));
+                }
             }
         }
 
