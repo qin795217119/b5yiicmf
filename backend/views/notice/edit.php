@@ -12,8 +12,8 @@
     <div class="form-group">
         <label class="col-sm-2 control-label is-required">公告内容：</label>
         <div class="col-sm-9">
-            <textarea class="summernote_content hide" id="content" name="content"><?=$info['content']?></textarea>
-            <div class="summernote" data-place="请输入公告内容" id="contentEditor"></div>
+            <textarea class="summernote_content hide" id="content" name="content"><?=htmlspecialchars($info['content'])?></textarea>
+            <div class="summernote" id="contentEditor"></div>
         </div>
     </div>
     <div class="form-group">
