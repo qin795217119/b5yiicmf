@@ -1,5 +1,5 @@
 <?php
 return [
     //文件域名地址，如果网站运行目录时根目录则不需要配置；否则需要配置单独的域名地址
-    'fileDomain'=>''
+    'fileDomain'=>'/assets'
 ];

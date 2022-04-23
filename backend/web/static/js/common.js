@@ -588,7 +588,10 @@ function getExtClass(url){
 
 //获取文件名称
 function getFileName(url){
-    var index=url.lastIndexOf("\\");
+    var index=url.lastIndexOf("/");
+    if(index<0) {
+        index=url.lastIndexOf("\\");
+    }
     if(index<0) return url;
     return url.substring(index+1);
 }

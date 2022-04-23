@@ -47,6 +47,28 @@ class Functions
         return $file;
     }
 
+    /**
+     * 将数组或,隔开的处理返回
+     * @param $list
+     * @param bool $isArray
+     * @return array|string
+     */
+    public static function getFileUrlList($list,$isArray = true)
+    {
+        if($list){
+            if(!is_array($list)){
+                $list = explode(',',$list);
+            }
+            foreach ($list as $key=>$value){
+                $value = self::getFileUrl($value);
+                $list[$key] = $value;
+            }
+        }else{
+            $list = [];
+        }
+        return $isArray?$list:implode(',',$list);
+    }
+
     /**获取客户端ip
      * @return string
      */

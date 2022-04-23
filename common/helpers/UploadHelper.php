@@ -104,7 +104,7 @@ class UploadHelper
 
 
         //根路径
-        $root = \Yii::getAlias('@root_path');
+        $root = \Yii::getAlias('@root_path').DIRECTORY_SEPARATOR.'assets';
         //保存前地址
         $saveRoot = DIRECTORY_SEPARATOR.'uploads'.DIRECTORY_SEPARATOR;
         //保存路径
