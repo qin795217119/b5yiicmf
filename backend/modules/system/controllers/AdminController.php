@@ -270,9 +270,11 @@ class AdminController extends BaseController
         if ($type == 'add' || $type == 'edit') {
             $roles = $this->request->post('roles', '');
             $struct = $this->request->post('struct', '');
+            $pos = $this->request->post('pos', '');
 
             (new AdminRoleService())->update($model['id'], $roles);
             (new AdminStructService())->update($model['id'], $struct);
+            (new AdminPosService())->update($model['id'], $pos);
         }
     }
 
