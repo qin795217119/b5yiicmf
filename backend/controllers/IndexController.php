@@ -22,8 +22,15 @@ class IndexController extends BaseController
      */
     public function actionIndex()
     {
+        //是否开启横向菜单
+        $topNav = false;
+
         $userInfo = LoginAuthHelper::adminLoginInfo();
-        $menuHtml = $this->getMenuListByLogin();
+        $menuTree = $this->getMenuListByLogin();
+        if($topNav){
+            return $this->renderPartial('indextop', ['user_info' => $userInfo, 'menuList' => $menuTree]);
+        }
+        $menuHtml = $this->menuToHtml($menuTree);
         return $this->renderPartial('', ['user_info' => $userInfo, 'menuHtml' => $menuHtml]);
     }
 
@@ -47,12 +54,11 @@ class IndexController extends BaseController
     }
     /**
      * 根据登录session获取菜单
-     * @return string
+     * @return array
      */
-    protected function getMenuListByLogin(): string
+    protected function getMenuListByLogin(): array
     {
-        $menuHtml = '';
-        $menuList = [];
+        $menuTree = $menuList = [];
         $adminId = LoginAuthHelper::adminLoginInfo('info.id');
         if ($adminId) {
             $isAdmin = LoginAuthHelper::adminLoginInfo('info.is_admin');
@@ -70,11 +76,8 @@ class IndexController extends BaseController
 
         if ($menuList) {
             $menuTree = $this->getMenuTree($menuList);
-            if ($menuTree) {
-                $menuHtml = $this->menuToHtml($menuTree);
-            }
         }
-        return $menuHtml;
+        return $menuTree?:[];
     }
 
 
@@ -91,6 +94,10 @@ class IndexController extends BaseController
         foreach ($list as $key => $row) {
             if ($row['parent_id'] == $pid) {
                 $row['deep'] = $deep;
+                $url = $row['url'];
+                if ($url && strpos($url, 'http') !== 0) {
+                    $row['url'] = Url::toRoute($url);
+                }
                 unset($list[$key]);
                 $row['child'] = $this->getMenuTree($list, $row['id'], $deep + 1);
                 $tree[] = $row;
@@ -113,9 +120,6 @@ class IndexController extends BaseController
                 if ($t['deep'] == $deep) {
                     if ($t['type'] == 'C') {
                         $url = $t['url'];
-                        if ($url && strpos($url, 'http') !== 0) {
-                            $url = Url::toRoute($url);
-                        }
                         if ($t['parent_id'] == 0) {
                             $html .= '<li><a class="' . ($t['target'] == '1' ? 'menuBlank' : 'menuItem') . '" href="' . $url . '" data-refresh="' . ($t['is_refresh'] ? 'true' : 'false') . '">' . ($t['icon'] ? '<i class="' . $t['icon'] . '"></i>' : '') . ' <span class="nav-label">' . $t['name'] . '</span></a></li>';
                         } else {
