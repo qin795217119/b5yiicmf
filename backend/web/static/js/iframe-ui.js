@@ -79,8 +79,9 @@ var table = {
                     queryParams: $.table.queryParams,
                     rowStyle: {}
                 };
+
                 var options = $.extend(defaults, options);
-                options.exportUrl = options.url
+                options.exportUrl = options.url;
                 if(!options.showToolbar){
                     options.showExport = false;
                     options.showRefresh = false;
@@ -88,6 +89,7 @@ var table = {
                     options.showColumns = false;
                     options.showSearch = false;
                 }
+
                 table.options = options;
                 table.config[options.id] = options;
                 $.table.initEvent();
@@ -198,7 +200,7 @@ var table = {
                                 row.state = $.inArray(row[column], table.rememberSelectedIds[table.options.id]) !== -1;
                             })
                         }
-                        return { rows: res.data, total: res.total, extend: res.hasOwnProperty('extend')?res.extend:{}};
+                          return { rows: res.data, total: res.total, extend: res.hasOwnProperty('extend')?res.extend:{}};
                     }
                 } else {
                     $.modal.alertWarning(res.msg);
@@ -215,8 +217,10 @@ var table = {
                 });
                 // 在表格体渲染完成，并在 DOM 中可见后触发（事件）
                 $(optionsIds).on("post-body.bs.table", function (e, args) {
-                    // 浮动提示框特效
+                     // 浮动提示框特效
                     $(".table [data-toggle='tooltip']").tooltip();
+                    // 气泡弹出框特效
+                    $('.table [data-toggle="popover"]').popover();
                 });
                 // 选中、取消、全部选中、全部取消（事件）
                 $(optionsIds).on("check.bs.table check-all.bs.table uncheck.bs.table uncheck-all.bs.table", function (e, rowsAfter, rowsBefore) {
@@ -1134,7 +1138,7 @@ var table = {
                 return url;
             },
             //清除缓存
-            clearCache:function(){
+            clearcache:function(){
                 table.set();
                 var url=table.options.clearCacheUrl;
                 $.operate.submit(url, "post");
@@ -1227,13 +1231,6 @@ var table = {
                         id=dataid;
                     }
                 }
-                var width='';
-                var height='';
-                if(obj){
-                    width=$(obj).data('width');
-                    height=$(obj).data('height');
-                }
-
                 if($.common.isEmpty(id) && table.options.type == table_type.bootstrapTreeTable) {
                     var row = $("#" + table.options.id).bootstrapTreeTable('getSelections')[0];
                     if ($.common.isEmpty(row)) {
@@ -1241,9 +1238,9 @@ var table = {
                         return;
                     }
                     var url = table.options.updateUrl.replace("%id%", row[table.options.uniqueId]);
-                    $.modal.open("修改" + table.options.modalName, url,width,height);
+                    $.modal.open("修改" + table.options.modalName, url);
                 } else {
-                    $.modal.open("修改" + table.options.modalName, $.operate.editUrl(id),width,height);
+                    $.modal.open("修改" + table.options.modalName, $.operate.editUrl(id));
                 }
             },
             // 修改信息，以tab页展现
@@ -1309,9 +1306,8 @@ var table = {
                     success: function(result) {
                         if (typeof callback == "function") {
                             callback(result);
-                        }else{
-                            $.operate.successCallback(result);
                         }
+                        $.operate.successCallback(result);
                     }
                 };
                 $.ajax(config)
@@ -1355,9 +1351,8 @@ var table = {
                     success: function(result) {
                         if (typeof callback == "function") {
                             callback(result);
-                        }else{
-                            $.operate.successTabCallback(result);
                         }
+                        $.operate.successTabCallback(result);
                     }
                 };
                 $.ajax(config)

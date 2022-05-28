@@ -105,9 +105,9 @@ $(function() {
     }
 
     // 气泡弹出框特效
-    $(document).on("click", '.table [data-toggle="popover"]', function() {
-        $(this).popover("toggle")
-    });
+    //$(document).on("click", '.table [data-toggle="popover"]', function() {
+    //    $(this).popover("toggle")
+    //});
     // 取消回车自动提交表单
     $(document).on("keypress", ":input:not(textarea):not([type=submit])", function(event) {
         if (event.keyCode == 13) {
@@ -296,9 +296,6 @@ function select2Option(obj){
         option.placeholder = placeholder
     }
     if(clear){
-        if(!placeholder){
-            placeholder = obj.find("option[value='']").text()
-        }
         option.placeholder = placeholder?placeholder:'请选择'
         option.placeholderOption = ''
         option.allowClear = true
@@ -308,6 +305,7 @@ function select2Option(obj){
 //select设置默认值
 function select2Default(id,change,value){
     value = value || ''
+    change = value || false
     var option = select2Option($("#"+id));
     if(change){
         $("#"+id).select2(option).val(value).trigger('change');
@@ -588,10 +586,7 @@ function getExtClass(url){
 
 //获取文件名称
 function getFileName(url){
-    var index=url.lastIndexOf("/");
-    if(index<0) {
-        index=url.lastIndexOf("\\");
-    }
+    var index=url.lastIndexOf("\\");
     if(index<0) return url;
     return url.substring(index+1);
 }
