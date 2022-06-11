@@ -34,6 +34,14 @@ class FilterLogin extends ActionFilter
     public string $key = 'token';
 
     /**
+     * 是否允许未登录
+     * true时未登录不会直接返回未登录，需自己根据__token进行判断
+     * 主要用于某个控制器中登录或者未登录都可以进行的操作
+     * @var bool
+     */
+    public bool $noLogin = false;
+
+    /**
      * 方法前执行操作
      * @param yii\base\Action $action
      * @return bool
@@ -46,7 +54,7 @@ class FilterLogin extends ActionFilter
         $token = Yii::$app->request->post($this->key, '');
         if (!$token) $token = Yii::$app->request->get($this->key, '');
         $token_record = $this->getToken($token,$this->type);
-        if (!$token_record) {
+        if (!$token_record && !$this->noLogin) {
             Yii::$app->response->data = Result::error('请先登录', 305);
             return false;
         }
