@@ -10,7 +10,9 @@ namespace backend\controllers;
 
 use backend\extend\BaseController;
 use backend\extend\models\LoginForm;
+use common\extend\jobs\EmailJob;
 use common\helpers\Functions;
+use common\helpers\MaiSend;
 use common\helpers\Result;
 use common\models\system\Loginlog;
 
@@ -88,15 +90,28 @@ class PublicController extends BaseController
         return Result::success('清除完成');
     }
 
-//    public function actionTestqueue(){
-//        //测试消息队列发送邮箱  需要先执行 cmd下  yii queue/listen
-//        //$this->app->queue->push  立即发送，  $this->app->queue->delay(60)延迟60秒运行
-//        $id=$this->app->queue->push(new \common\components\jobs\EmailJob([
-//            'name' => '测试用户',
-//            'email' => '357145480@qq.com',
-//            'type' => 'vemail'
-//        ]));
-//
-//        echo $id;
-//    }
+    public function actionTestqueue(){
+        //测试消息队列发送邮箱  需要先执行 cmd下  yii queue/listen
+        //$this->app->queue->push  立即发送，  $this->app->queue->delay(60)延迟60秒运行
+        $id=$this->app->queue->delay(5)->push(new EmailJob([
+            'name' => '你好啊',
+            'email' => '357145480@qq.com',
+            'type' => 'vemail',
+            'id'=>0
+        ]));
+
+        echo $id;
+    }
+
+    //手动发送邮箱，先进行测试
+    public function actionEmail(){
+        $data=[
+            'id' => 0,
+            'name' => '你好',
+            'email' => '357145480@qq.com',
+        ];
+
+        $result = (new MaiSend())->sendEmail('vemail',$data);
+        var_dump($result);
+    }
 }

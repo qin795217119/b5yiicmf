@@ -36,3 +36,4 @@ phpunit.phar
 /*.htaccess
 /backend/web/.htaccess
 /backend/web/robots.txt
+/composer.lock

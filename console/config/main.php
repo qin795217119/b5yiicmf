@@ -31,6 +31,15 @@ return [
                 ],
             ],
         ],
+
+        //console中使用createAbsoluteUrl 需配置 class 和scriptUrl ，若开启美化 需要开启 如下
+        'urlManager' => [
+            'enablePrettyUrl' => true,
+            'showScriptName' => false,
+            'class' => 'yii\web\UrlManager',
+            'baseUrl'=>'',
+            'hostInfo' => 'http://www.yiicmf.my'
+        ],
     ],
     'params' => $params,
 ];

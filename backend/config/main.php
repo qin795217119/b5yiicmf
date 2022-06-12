@@ -38,6 +38,14 @@ return [
         'session' => [
             // this is the name of the session cookie used for login on the backend
             'name' => 'b5yii2cmf-app-backend',
+//            'class' => 'yii\redis\Session',
+//            //若common中的redis组件配置了，可以省略下面的配置
+//            'redis' => [
+//                'hostname' => '127.0.0.1',
+//                'port' => 6379,
+//                'password' => '123456',
+//                'database' => 2
+//            ]
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
