@@ -58,7 +58,60 @@ class WechatHelper
 
         $this->secret = ConfigCache::get('wechat_appsecret', '');
     }
+    /**
+     * 获取小程序openid
+     * @param string $code
+     * @return false|mixed
+     */
+    public function getSmallOpenId(string $code = '')
+    {
+        $wechat_url = "https://api.weixin.qq.com/sns/jscode2session?appid=".$this->appid."&secret=".$this->secret."&js_code=".$code."&grant_type=authorization_code";
+        $res = Functions::b5curl_get($wechat_url);
+        if (empty($res)) {
+            return Result::error('请求失败');
+        }
+        $res = json_decode($res, true);
+        if (empty($res) || !is_array($res)) {
+            return Result::error('请求失败1');
+        }
+        if (!isset($res['openid']) || empty($res['openid'])) {
+            return Result::error($res['errmsg']??'请求失败2');
+        }
+        return Result::success('',$res);
+    }
 
+    /**
+     * 获取手机号码，最新
+     * @param string $code
+     * @return array
+     */
+    public function getSmallPhone(string $code = ''){
+        if(!$code) return Result::error('请求参数错误');
+        $accessTokenResult = $this->global_getAccessToken();
+        if (!$accessTokenResult['success']) {
+            return $accessTokenResult;
+        }
+
+        $wechat_url = "https://api.weixin.qq.com/wxa/business/getuserphonenumber?access_token=".$accessTokenResult['data']['access_token'];
+        $res = Functions::b5curl_post($wechat_url,json_encode(['code'=>$code]));
+        if (empty($res)) {
+            return Result::error('请求返回值错误');
+        }
+        $res = json_decode($res, true);
+        if (empty($res) || !is_array($res)) {
+            return Result::error('请求返回值错误1');
+        }
+        if (!isset($res['phone_info']) || empty($res['phone_info'])) {
+            return Result::error($res['errmsg']??'获取失败');
+        }
+        return Result::success('',$res['phone_info']);
+    }
+
+    /**
+     * 获取公众号用户信息
+     * @param string $auth_url
+     * @return \yii\console\Response|\yii\web\Response
+     */
     public function getOpenId(string $auth_url = '')
     {
         $scope = 'snsapi_base';
