@@ -385,4 +385,32 @@ class WechatHelper
         }
         return Result::success('获取成功', ['access_token'=>$access_token]);
     }
+
+    /**
+     * 检验数据的真实性，并且获取解密后的明文.
+     * @param $sessionKey string 用户在小程序登录后获取的会话密钥
+     * @param $encryptedData string 加密的用户数据
+     * @param $iv string 与用户数据一同返回的初始向量
+     * @param $data string 解密后的原文
+     * @return array
+     */
+    public function decryptData($sessionKey, $encryptedData, $iv, &$data )
+    {
+        if (strlen($sessionKey) != 24)  return Result::error('sessionKey 非法');
+        $aesKey=base64_decode($sessionKey);
+
+
+        if (strlen($iv) != 24)  return Result::error('iv 非法');
+        $aesIV=base64_decode($iv);
+
+        $aesCipher=base64_decode($encryptedData);
+
+        $result=openssl_decrypt( $aesCipher, "AES-128-CBC", $aesKey, 1, $aesIV);
+
+        $dataObj=json_decode( $result );
+        if( $dataObj  == NULL )  return Result::error('解密失败');
+        if( $dataObj->watermark->appid != $this->appid ) return Result::error('解密失败');
+        $data = $result;
+        return Result::success();
+    }
 }
