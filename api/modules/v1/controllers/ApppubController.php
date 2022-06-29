@@ -29,7 +29,7 @@ class ApppubController extends Controller
     public function actionLogin(){
         $user_id = 112;
         //调用trait的设置token
-        $token = $this->setToken($user_id,'app');
+        $token = $this->setToken($user_id,'admin','wxsmall');
         if($token){
             return Result::success('登录成功',['token'=>$token]);
         }else{

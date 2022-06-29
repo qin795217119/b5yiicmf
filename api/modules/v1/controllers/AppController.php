@@ -25,7 +25,8 @@ class AppController extends Controller
             //登录判断
             'FilterLogin'=>[
                 'class' => \api\components\FilterLogin::class,
-                'type'=>'app'
+                'type'=>'admin',
+                'plat'=>'wxsmall',
             ]
         ];
     }
@@ -34,6 +35,7 @@ class AppController extends Controller
 
         //获取token记录信息
         $token = \Yii::$app->request->getBodyParam('__token');
+        var_dump($token);
         /**
          * array(4) {
                 ["token"]=>

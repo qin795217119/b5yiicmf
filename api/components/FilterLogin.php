@@ -25,7 +25,13 @@ class FilterLogin extends ActionFilter
      * 平台类型
      * @var string
      */
-    public string $type = '';
+    public string $plat = 'app';
+
+    /**
+     * 用户类型
+     * @var string
+     */
+    public string $type = 'user';
 
     /**
      * 接口登录参数
@@ -53,14 +59,14 @@ class FilterLogin extends ActionFilter
         }
         $token = Yii::$app->request->post($this->key, '');
         if (!$token) $token = Yii::$app->request->get($this->key, '');
-        $token_record = $this->getToken($token,$this->type);
+        $token_record = $this->getToken($token,$this->type,$this->plat);
         if (!$token_record && !$this->noLogin) {
             Yii::$app->response->data = Result::error('请先登录', 305);
             return false;
         }
         //将token信息传递
         $bodyParams = Yii::$app->request->bodyParams;
-        $bodyParams['__token'] = $token_record;
+        $bodyParams['__token'] = $token_record?:[];
         Yii::$app->request->setBodyParams($bodyParams);
         return true;
     }

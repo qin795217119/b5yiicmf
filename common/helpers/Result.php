@@ -40,11 +40,12 @@ class Result
      * @param string $msg
      * @param array $data
      * @param array $extend
+     * @param int $code
      * @return array
      */
-    public static function success(string $msg = '', array $data = [], array $extend = []): array
+    public static function success(string $msg = '', array $data = [], array $extend = [],int $code = 0): array
     {
-        return static::message($msg, true, $data, 0, $extend);
+        return static::message($msg, true, $data, $code, $extend);
     }
 
     /**
