@@ -41,6 +41,19 @@
                 <span class="help-block m-b-none"><i class="fa fa-info-circle"></i> 创建的控制器和视图将在选择模块内，模型文件默认放在common\models下的模块名文件夹内</span>
             </div>
         </div>
+		<div class="form-group">
+            <label class="col-sm-3 control-label">创建模式：</label>
+            <div class="col-sm-6">
+                <select class="form-control" name="create_type">
+                    <option value="0">全部</option>
+                    <option value="1">控制器</option>
+                    <option value="2">视图</option>
+                    <option value="3">控制器+视图</option>
+                    <option value="4">模型</option>
+                </select>
+                <span class="help-block m-b-none"><i class="fa fa-info-circle"></i> 默认创建为控制器+视图+模型</span>
+            </div>
+        </div>
         <div class="row m-t-md">
             <div class="col-sm-offset-5 col-sm-10">
                 <button type="button" class="btn btn-sm btn-primary" onclick="submitHandler()"><i class="fa fa-check"></i>保 存</button>

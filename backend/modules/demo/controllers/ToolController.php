@@ -31,21 +31,23 @@ class ToolController extends BaseController
             $table = $params['table']??'';
             $class = $params['class']??'';
             $dir = $params['dir']??'';
+			$create_type = intval($params['create_type']??0);
             if(empty($table)) return $this->error('请选择表名');
             if(empty($class)) return $this->error('请输入类名称');
 
             $table_exists = \Yii::$app->db->createCommand("show tables like '".$table."'")->query();
             if(!$table_exists) return $this->error('表'.$table.'不存在');
 
-            return $this->genCode($table,$class,$dir);
+            return $this->genCode($table,$class,$dir,$create_type);
 
         }else{
-            $systemList = ['b5net_admin','b5net_admin_role','b5net_admin_struct','b5net_config','b5net_loginlog','b5net_menu','b5net_notice','b5net_role','b5net_role_menu','b5net_role_struct','b5net_struct','b5net_wechat_users','b5net_wechat_access','b5net_smscode','demo_media'];
+			$hasOkList = \Yii::$app->db->createCommand("select name from demo_table")->queryAll();
+            $hasOkList=$hasOkList?array_column($hasOkList,'name'):[];
             $tables = \Yii::$app->db->createCommand("show tables")->queryAll();
             $tableList = [];
             foreach ($tables as $value){
                 $table = current($value);
-                if(!in_array($table,$systemList)){
+                if(strpos($table,'b5net_') !== 0 && strpos($table,'demo_') !== 0 && !in_array($table,$hasOkList)){
                     $tableList[]=$table;
                 }
             }
@@ -61,28 +63,39 @@ class ToolController extends BaseController
 
     }
 
-    private function genCode($table,$class,$dir){
+    private function genCode($table,$class,$dir,$create_type){
         $model_name = Str::studly($class);//生成模型的名称大驼峰
 
         $fields = $this->getFields($table);
         if(!$fields){
             return $this->error('获取表结构失败');
         }
-        if(true !== $res = $this->createModel($fields,$table,$model_name,$dir)){
-            return $res;
+        if($create_type == 0 || $create_type == 4){
+            if(true !== $res = $this->createModel($fields,$table,$model_name,$dir)){
+                return $res;
+            }
         }
-        if(true !== $res = $this->createController($model_name,$dir)){
-            return $res;
+
+        if($create_type == 0 || $create_type == 1 || $create_type == 3){
+            if(true !== $res = $this->createController($model_name,$dir)){
+                return $res;
+            }
         }
-        if(true !== $res = $this->createIndex($fields,$model_name,$dir)){
-            return $res;
+
+        if($create_type == 0 || $create_type == 2 || $create_type == 3) {
+            if (true !== $res = $this->createIndex($fields, $model_name, $dir)) {
+                return $res;
+            }
+            if (true !== $res = $this->createAdd($fields, $model_name, $dir)) {
+                return $res;
+            }
+            if (true !== $res = $this->createEdit($fields, $model_name, $dir)) {
+                return $res;
+            }
         }
-        if(true !== $res = $this->createAdd($fields,$model_name,$dir)){
-            return $res;
-        }
-        if(true !== $res = $this->createEdit($fields,$model_name,$dir)){
-            return $res;
-        }
+		 \Yii::$app->db->createCommand()->insert('demo_table', [
+            'name' => $table
+        ])->execute();
         return $this->success('生成完成');
     }
 
