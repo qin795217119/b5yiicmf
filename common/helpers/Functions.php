@@ -37,7 +37,7 @@ class Functions
     public static function getFileUrl(string $file = null){
         if(!$file) return '';
         if(strpos($file,'http')!==0){
-            $domain = \Yii::$app->params['fileDomain'];
+            $domain = \Yii::$app->params['file_domain'];
             if(!$domain){
                 $domain = \Yii::$app->request->hostInfo;
             }

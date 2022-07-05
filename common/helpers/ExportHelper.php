@@ -61,8 +61,9 @@ class ExportHelper
 
         //保存文档
         if($this->saveFile){
+            $root = \Yii::getAlias('@root_path').\Yii::$app->params['file_path_prefix'];
             $savePath = '/uploads/excel/'.date('Ymd');
-            $path = str_replace('/',DIRECTORY_SEPARATOR,\Yii::getAlias('@root_path').$savePath);
+            $path = str_replace('/',DIRECTORY_SEPARATOR,$root.$savePath);
             if (!is_dir($path)) {
                 if (false === @mkdir($path, 0777, true) && !is_dir($path)) {
                     throw new HttpException(500,'存储文件夹创建失败：'.$path);
