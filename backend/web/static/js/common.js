@@ -308,7 +308,7 @@ function select2Default(id,change,value,callback = false){
     change = value || false
     var option = select2Option($("#"+id));
     if(callback){
-        $("#"+id).on("change", function () {
+        $("#"+id).unbind("change").on("change", function () {
             if($.common.isFunction('select2change')){
                 select2change($(this));
             }
