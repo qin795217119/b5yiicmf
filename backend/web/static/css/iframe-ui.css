@@ -176,7 +176,7 @@
 .search-item-text{border: 1px solid #ddd;border-radius: 4px;height: 30px;display: inline-block;padding:0 5px;vertical-align: middle;line-height: 30px}
 .img-table-show{height: 32px;margin: 2px 2px 0 0}
 
-.Wdate{height: 31px;border-color: #e5e6e7}
+.Wdate{height: 31px !important;border-color: #e5e6e7 !important}
 /* 导航页签 */
 .nav-tabs-custom {
 	margin-bottom: 20px;
