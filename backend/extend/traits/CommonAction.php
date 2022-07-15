@@ -36,7 +36,8 @@ trait CommonAction
             //是否为导出excel，展示所有数据
             $isExport = $params['isExport'] ?? 0;
 
-            $query = (new Query())->from($this->model::tableName());
+//            $query = (new Query())->from($this->model::tableName());
+            $query = $this->model::find();
             $query = $this->indexWhere($query, $params);
 
             //操作查询对象，可以进行语句处理以及数据权限处理
@@ -54,10 +55,11 @@ trait CommonAction
                 $pageNum = intval($params['pageNum'] ?? 1);
                 $pageNum = $pageNum < 1 ? 1 : $pageNum;
                 $offset = ($pageNum - 1) * $pageSize;
-                $count = $query->count();
+                $count = (clone $query)->count();
                 $query = $query->offset($offset)->limit($pageSize);
             }
-            $list = $query->all();
+//            $list = $query->all();
+            $list = $query->asArray()->all();
             if ($isTree || $isExport) {
                 $count = count($list);
             }
