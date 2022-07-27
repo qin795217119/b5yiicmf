@@ -572,26 +572,21 @@ var table = {
                     var dataval = row[field] == 1 ? 0 : 1;
                     var datatitle = row[field] == 1 ? statusArr[0]:statusArr[1];
                     datatitle=datatitle==='正常'?'启用':datatitle;
-                    clickHtml = 'b5-event="tablestatus" data-id="' + row.id + '" data-val="' + dataval + '" data-name="'+datatitle+'"';
+                    clickHtml = 'b5-event="tablestatus" data-id="' + row.id + '" data-val="' + dataval + '" data-name="'+datatitle+'" data-field="'+field+'"';
                 }
                 var classs = row[field] == 1 ? 'fa-toggle-on' : 'fa-toggle-off';
                 return '<i class="fa '+classs+' text-info fa-2x" '+clickHtml+'></i> ';
             },
             //lable状态显示
-            statusShow:function (row,click,statusArr,field) {
-                if($.common.isEmpty(statusArr)) {
-                    statusArr=['停用','正常'];
-                }
+            statusShow:function (row,click,statusArr,field,titles = ['启用','停用'],classes=['warning','primary']) {
+                if($.common.isEmpty(statusArr)) statusArr=['停用','正常'];
                 field=$.common.isEmpty(field)?'status':field;
                 var clickHtml = '';
                 if(click){
                     var dataval = row[field] == 1 ? 0 : 1;
-                    var datatitle = row[field] == 1 ? statusArr[0]:statusArr[1];
-                    datatitle=datatitle==='正常'?'启用':datatitle;
-                    clickHtml = 'b5-event="tablestatus" data-id="' + row.id + '" data-val="' + dataval + '" data-name="'+datatitle+'"';
+                    clickHtml = 'b5-event="tablestatus" data-id="' + row.id + '" data-val="' + dataval + '" data-name="'+titles[row[field]]+'" data-field="'+field+'" style="cursor:pointer"';
                 }
-                var classs = row[field] == 1 ? 'badge-primary' : 'badge-warning';
-                return '<span class="badge '+classs+'" '+clickHtml+'>'+statusArr[row[field]]+'</span>';
+                return '<span class="badge badge-'+classes[row[field]]+'" '+clickHtml+'>'+statusArr[row[field]]+'</span>';
             }
         },
         // 表单封装处理
@@ -1098,11 +1093,12 @@ var table = {
                 var title = table.options.modalName;
                 title = title ? title : '信息';
                 var name = obj.data('name');
+				var field = obj.data('field');
                 if (!name) {
                     name = status == '1' ? '启用' : '停用';
                 }
                 $.modal.confirm("确认要" + name + "该" + title + "吗？", function() {
-                    $.operate.post(bootUrl.statusUrl, { "id": id, "status": status, name:name });
+                    $.operate.post(bootUrl.statusUrl, { "id": id, "status": status, name:name, field:field });
                 });
             },
             // 详细信息

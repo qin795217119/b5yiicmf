@@ -189,6 +189,7 @@ trait CommonAction
             $status = intval($data['status']) ? 1 : 0;
             $title = $data['name'] ?? '';
             $title = $title ?: ($status ? '启用' : '停用');
+			$field = ($data['field']??'')?:'status';
             if(empty($data)) {
                 return $this->error('无提交数据');
             }
@@ -199,12 +200,12 @@ trait CommonAction
             if(!$model){
                 return $this->error('信息不存在');
             }
-            if ($model['status'] == $status) {
+            if ($model[$field] == $status) {
                 return $this->success($title . '成功');
             }
 
-            $model['status'] = $status;
-            $saveBeforeRes = $this->saveBefore($model,'status');
+            $model[$field] = $status;
+            $saveBeforeRes = $this->saveBefore($model,$field);
             if(true !== $saveBeforeRes){
                 return $this->error($saveBeforeRes);
             }
@@ -214,7 +215,7 @@ trait CommonAction
                 return $this->error($title.'失败');
             }
             if ($result) {
-                $this->saveAfter($model, 'status',$oldData);
+                $this->saveAfter($model, $field,$oldData);
             }
             return $this->success($title.'成功');
 
