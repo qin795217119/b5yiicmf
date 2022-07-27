@@ -165,4 +165,33 @@ class Functions
         }
         return $url;
     }
+	
+	/**
+     * 获取数组中特定键
+     * @param array $arr
+     * @param array $keys
+     * @return array|mixed
+     */
+    public static function getArrayByKey($arr = [],$keys = []){
+        if(!$arr || !$keys) return $arr;
+        $return = [];
+        foreach ($arr as $key=>$value){
+            if(in_array($key,$keys)) $return[$key] = $value;
+        }
+        return $return;
+    }
+
+    /**
+     * 移除数组特定键
+     * @param array $arr
+     * @param array $keys
+     * @return array|mixed
+     */
+    public static function removeArrayByKey($arr = [],$keys = []){
+        if(!$arr || !$keys) return $arr;
+        foreach ($arr as $key=>$value){
+            if(in_array($key,$keys)) unset($arr[$key]);
+        }
+        return $arr;
+    }
 }
