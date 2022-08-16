@@ -10,6 +10,7 @@ namespace common\helpers;
 
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use yii\helpers\ArrayHelper;
 use yii\web\HttpException;
 
 class ExportHelper
@@ -53,7 +54,7 @@ class ExportHelper
             $column_index = 0;
             foreach ($this->attributes as $field=>$name){
                 $column_index++;
-                $worksheet->setCellValueByColumnAndRow($column_index, $row_index, $value[$field]);
+                $worksheet->setCellValueByColumnAndRow($column_index, $row_index, ArrayHelper::getValue($value,$field));
             }
         }
 
