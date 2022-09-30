@@ -27,6 +27,7 @@ return [
             'bundles'=>false
         ],
         'request' => [
+            //'enableCsrfCookie' => false, //当使用ie11以下或者前端无法使用cookie时
             'csrfParam' => 'b5yii2cmf',
             'cookieValidationKey' => 'b5yii2cmf-app-backend',
         ],

@@ -16,7 +16,8 @@
 <?php if($widget_data['tips']):?>
     <span class="help-block m-b-none"><i class="fa fa-info-circle"></i> <?=$widget_data['tips']?></span>
 <?php endif;?>
-
+<?php $this->beginBlock('script_before'); ?>
+<?=$this->blocks['script_before']??''?>
 <script>
     $(function () {
         layui.use("upload", function(){
@@ -52,3 +53,4 @@
         });
     });
 </script>
+<?php $this->endBlock(); ?>

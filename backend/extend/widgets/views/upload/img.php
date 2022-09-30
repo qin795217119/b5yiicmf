@@ -26,7 +26,8 @@
     <div class="b5uploadlistbox <?=$widget_data['name']?>_imglist" id="<?=$widget_data['name']?>_imglist"></div>
 </div>
 
-
+<?php $this->beginBlock('script_before'); ?>
+<?=$this->blocks['script_before']??''?>
 <script>
     $(function () {
         <?php if($widget_data['link']):?>
@@ -63,3 +64,4 @@
         ?>
     })
 </script>
+<?php $this->endBlock(); ?>

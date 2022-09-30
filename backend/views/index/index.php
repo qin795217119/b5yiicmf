@@ -119,7 +119,7 @@ use yii\helpers\Url;
         <a id="ax_close_max" class="ax_close_max" href="#" title="关闭全屏"> <i class="fa fa-times-circle-o"></i> </a>
 
         <div class="row mainContent" id="content-main">
-            <iframe class="RuoYi_iframe" name="iframe0" width="100%" height="100%" data-id="<?=Url::toRoute(['index/home'])?>" src="<?=Url::toRoute(['index/home'])?>" frameborder="0" seamless></iframe>
+            <iframe class="RuoYi_iframe" name="iframe0" width="100%" height="100%" data-id="<?=Url::toRoute(['index/home'])?>" src="<?=Url::toRoute(['index/home'])?>" frameborder="0" ></iframe>
         </div>
 
         <div class="footer">

@@ -22,6 +22,8 @@
 <?php endif;?>
     <div class="b5uploadlistbox <?=$widget_data['name']?>_filelist" id="<?=$widget_data['name']?>_filelist"></div>
 </div>
+<?php $this->beginBlock('script_before'); ?>
+<?=$this->blocks['script_before']??''?>
 <script>
     $(function () {
         b5uploadfileinit("<?=$widget_data['name']?>");
@@ -46,3 +48,4 @@
         ?>
     });
 </script>
+<?php $this->endBlock(); ?>

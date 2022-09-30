@@ -33,7 +33,7 @@
             <input type="checkbox" id="remember" name="remember" value="1" title="记住密码" lay-skin="primary" >
         </div>
         <div class="layui-form-item">
-            <button class="layui-btn layui-btn-fluid" id="subBtn">登录</button>
+            <button class="layui-btn layui-btn-fluid" id="subBtn" type="button">登录</button>
         </div>
     </form>
 </div>
@@ -67,7 +67,7 @@
                 type: "POST",
                 url: "<?=\yii\helpers\Url::toRoute('login')?>",
                 data: $("#login-form").serialize(),
-                headers:{'X-CSRF-TOKEN': '<?= Yii::$app->request->csrfToken ?>'},
+                headers:{'X-CSRF-Token': '<?= Yii::$app->request->csrfToken ?>'},
                 dataType: "json",
                 success: function (res) {
                     if (res.success) {

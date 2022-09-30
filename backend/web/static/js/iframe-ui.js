@@ -335,20 +335,21 @@ var table = {
                 return actions.join('');
             },
             // 图片预览
-            imageView: function (row,type,width,height,fit='cover') {
-                var value = row[type]
+            imageView: function (row,type,width,height,fit) {
+                var value = row[type];
+                if ($.common.isNotEmpty(fit)) fit='cover';
                 if ($.common.isNotEmpty(value)) {
-                    var id = row.id
+                    var id = row.id;
                     var shtml = '';
                     var list = value.split(',');
                     var style="object-fit:"+fit+";";
                     if(width){
-                        style+="width:"+width+"px;"
+                        style+="width:"+width+"px;";
                     }
                     if(height){
-                        style+="height:"+height+"px;"
+                        style+="height:"+height+"px;";
                     }
-                    for (let i = 0; i < list.length; i++) {
+                    for (var i = 0; i < list.length; i++) {
                         shtml += $.common.sprintf("<img class='img-table-show' src='%s' style='"+style+"'/>", list[i]);
                     }
                     shtml = '<div class="photospreshow" id="'+type+'_'+id+'">'+shtml+'</div>';
@@ -578,8 +579,10 @@ var table = {
                 return '<i class="fa '+classs+' text-info fa-2x" '+clickHtml+'></i> ';
             },
             //lable状态显示
-            statusShow:function (row,click,statusArr,field,titles = ['启用','停用'],classes=['warning','primary']) {
+            statusShow:function (row,click,statusArr,field,titles,classes) {
                 if($.common.isEmpty(statusArr)) statusArr=['停用','正常'];
+                if($.common.isEmpty(titles)) titles=['启用','停用'];
+                if($.common.isEmpty(classes)) classes=['warning','primary'];
                 field=$.common.isEmpty(field)?'status':field;
                 var clickHtml = '';
                 if(click){
@@ -721,14 +724,14 @@ var table = {
                 });
             },
             //layer的加载曾
-            b5showload(){
+            b5showload: function(){
                 $.modal.layerinit(function (layer) {
                     layer.load(1, {
                         shade: [0.2,'#000'] //0.1透明度的白色背景
                     });
                 })
             },
-            b5hideload(){
+            b5hideload: function(){
                 $.modal.layerinit(function (layer) {
                     layer.closeAll('loading');
                 })
@@ -1697,7 +1700,7 @@ var table = {
                 $("#treeId").val(treeIdArr.join(','));
                 $("#treeName").val(treeIdName.join(','));
             },
-            showParentAllName(nodes,rearr){
+            showParentAllName: function (nodes,rearr){
                 var showParentLevel = $.tree._option.showParentLevel;
                 if(showParentLevel !== false){
                     if(nodes.level > showParentLevel){
@@ -1749,7 +1752,7 @@ var table = {
                 }
             },
             //回调方法判断
-            callBackOp(callback){
+            callBackOp:function(callback){
                 if($.common.isNotEmpty(callback)){
                     if($.common.isFunction(callback)){
                         if(typeof callback ==='string'){

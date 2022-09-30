@@ -209,7 +209,7 @@
             var list = iframeWin.getCheckRows();
             var idList = [];
             if(list.length>0){
-                for (let i = 0; i < list.length; i++) {
+                for (var i = 0; i < list.length; i++) {
                     idList.push(list[i].id)
                 }
             }

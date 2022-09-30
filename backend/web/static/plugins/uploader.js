@@ -44,8 +44,8 @@ function b5uploadfilehtml(path,name,url,filename){
 }
 
 //上传图片成功后的展示的html
-function b5uploadimghtml(path,name,url=''){
-    url = url?url:path
+function b5uploadimghtml(path,name,url){
+    url = url?url:path;
     var html='<div class="b5upload_li">' +
         '           <input type="hidden" name="'+name+'[]" value="'+path+'">' +
         '           <div class="b5uploadimg_con">' +
@@ -85,7 +85,7 @@ function b5uploadhtmlshow(id,html) {
 }
 //上传链接按钮
 function b5uploadImgLink(id) {
-    var type = $("#"+id).parents('.b5uploadmainbox').data('type')
+    var type = $("#"+id).parents('.b5uploadmainbox').data('type');
     type = type?type:'file';
     $("#"+id+"_linkbtn").click(function () {
         var linkval=$("#"+id+"_link").val();
@@ -139,11 +139,11 @@ function b5uploadimginit(id,callback) {
                         b5uploadhtmlshow(id,html);
                     }
                 }else{
-                    $.modal.msgError(res.msg)
+                    $.modal.msgError(res.msg);
                 }
             }
             ,error: function(){
-                $.modal.msgWarning('网络连接错误')
+                $.modal.msgWarning('网络连接错误');
             }
         });
     });
@@ -176,11 +176,11 @@ function b5uploadfileinit(id,callback) {
                         b5uploadhtmlshow(id,html);
                     }
                 }else{
-                    $.modal.msgError(res.msg)
+                    $.modal.msgError(res.msg);
                 }
             }
             ,error: function(){
-                $.modal.msgWarning('网络连接错误')
+                $.modal.msgWarning('网络连接错误');
             }
         });
     });

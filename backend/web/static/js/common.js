@@ -303,7 +303,7 @@ function select2Option(obj){
     return option;
 }
 //select设置默认值
-function select2Default(id,change,value,callback = false){
+function select2Default(id,change,value,callback){
     value = value || ''
     change = change || false
     var option = select2Option($("#"+id));
@@ -621,7 +621,7 @@ function urlcreate(url,params){
 }
 /** 设置全局ajax处理 */
 $.ajaxSetup({
-    headers:{'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+    headers:{'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')},
 
     complete: function(XMLHttpRequest, textStatus) {
         if (textStatus == 'timeout') {
