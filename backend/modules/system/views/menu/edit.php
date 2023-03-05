@@ -83,7 +83,7 @@
         <label class="col-sm-2 control-label is-required">是否刷新：</label>
         <div class="col-sm-3 mb15">
             <label class="radio-box">
-                <input type="radio" name="is_refresh" value="0" <?=$info['is_refresh']=='1'?'checked':''?>/> 否
+                <input type="radio" name="is_refresh" value="0" <?=$info['is_refresh']=='0'?'checked':''?>/> 否
             </label>
             <div class="radio-box">
                 <input type="radio" name="is_refresh" value="1" <?=$info['is_refresh']=='1'?'checked':''?>/> 是
