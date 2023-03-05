@@ -12,6 +12,7 @@ namespace backend\modules\system\controllers;
 use backend\extend\BaseController;
 use backend\extend\traits\CommonAction;
 use common\cache\PositionCache;
+use common\models\system\AdminView;
 use common\services\system\AdminPosService;
 use common\services\system\AdminRoleService;
 use common\services\system\AdminStructService;
@@ -46,20 +47,23 @@ class AdminController extends BaseController
         if(!$this->request->isPost){
             return $this->error('请求类型错误');
         }
-        $params = [];
         $post = $this->request->post();
 
-        $userIdList = $this->listStructParse($post);
-        if($userIdList === false){
-            $params['where']['id'] = 0;
-        }elseif($userIdList){
-            $params['in']['id'] = implode(',', array_unique($userIdList));
-        }
-        $params['like']['realname'] = $post['like']['realname']??'';
+        //使用in查询
+        $params = $this->listStructParse($post);
+        $query = (new Query())->from(Admin::tableName());
+
+        //使用视图查询
+//        $result = $this->viewQuery($post);
+//        if($result) {
+//            $params = $result;
+//            $query = (new Query())->from(AdminView::tableName());
+//        }else{
+//            $query = (new Query())->from(Admin::tableName());
+//        }
+
         $params['where']['status'] = 1;
         $params['field'] = 'id,realname,status,create_time';
-
-        $query = (new Query())->from($this->model::tableName());
         $query = $this->indexWhere($query, $params);
 
         $root_id = intval($this->app->params['root_admin_id']);
@@ -93,42 +97,71 @@ class AdminController extends BaseController
      */
     protected function indexBefore(array $params): array
     {
+        //使用in 进行组织和角色处理
+        $params = $this->listStructParse($params);
+
+        //使用视图查询
+//        $result = $this->viewQuery($params);
+//        if($result) {
+//            $params = $result;
+//            $this->model = AdminView::class;
+//        }
+
+        return $params;
+    }
+
+    /**
+     * 使用视图方式查询，先通过下面sql创建b5net_admin_view视图
+     * CREATE VIEW b5net_admin_view as ( SELECT a.*, d.struct_id_tree,d.struct_id,GROUP_CONCAT(r.role_id) as role_id FROM b5net_admin a  LEFT JOIN b5net_admin_role r ON a.id = r.admin_id LEFT JOIN ( select b.admin_id,GROUP_CONCAT( CONCAT(c.levels,',',c.id)) as struct_id_tree,GROUP_CONCAT(c.id) as struct_id from b5net_admin_struct b INNER JOIN b5net_struct c ON c.id = b.struct_id GROUP BY b.admin_id) d ON a.id = d.admin_id GROUP BY a.id)
+     * 当会员大于1000时，使用原来的in 方法会sql过长
+     * @param $params
+     * @return array | false
+     */
+    protected function viewQuery(array $params){
+        $role_id = $params['role_id'] ?? '';
+        $struct_id = $params['structId'] ?? '';
+        $contains = $params['contains']??0;
+        if($struct_id == $this->app->params['root_struct_id']) $struct_id = 0;
+        if($struct_id || $role_id){
+            if ($role_id){
+                $params['findinset']['role_id']=$role_id;
+            }
+            if($struct_id){
+                if($contains){
+                    $params['findinset']['struct_id_tree']=$struct_id;
+                }else{
+                    $params['findinset']['struct_id']=$struct_id;
+                }
+            }
+            return $params;
+        }
+        return  false;
+    }
+    /**
+     * 列表查询时，组织架构和角色查询处理
+     * 查询出所有属于该组织或角色的用于ID，使用in查询
+     * 用户超过1000会超出mysql的长度限制
+     * @param $params
+     * @return array|false
+     */
+    protected function listStructParse($params){
         $userIdList = [];
         //角色处理
         $role_id = $params['role_id'] ?? '';
         if($role_id){
-            $roleList = (new AdminRoleService())->getAdminIdByRoleId($role_id);
-            if(!$roleList){
+            $roleUserList = (new AdminRoleService())->getAdminIdByRoleId($role_id);
+            if(!$roleUserList){
                 $params['where']['id'] = 0;
                 return $params;
             }
-            $userIdList = $roleList;
+            $userIdList = $roleUserList;
         }
 
         //组织架构处理
-        $structUserList = $this->listStructParse($params);
-        if($structUserList === false){
-            $params['where']['id'] = 0;
-        }elseif($structUserList){
-            $userIdList = array_merge($userIdList,$structUserList);
-        }
-
-        if($userIdList){
-            $params['in']['id'] = array_unique($userIdList);
-        }
-        return $params;
-    }
-    /**
-     * 列表查询时，组织架构处理
-     * @param $post
-     * @return array|false
-     */
-    protected function listStructParse($post){
-        $userIdList = [];
-        //组织架构处理
-        $contains = $post['contains']??0;
+        $structUserIdList = [];
+        $contains = $params['contains']??0;
         $root_struct_id = intval($this->app->params['root_struct_id']);
-        $struct_id = $post['structId'] ?? '';
+        $struct_id = $params['structId'] ?? '';
         if ($struct_id) {
             $structList = [];
             if($contains){
@@ -143,10 +176,21 @@ class AdminController extends BaseController
             if($structList){
                 //获取组织下的用户
                 $list = (new AdminStructService())->getAdminIdByStructId($structList);
-                $userIdList = $list?:false;
+                $structUserIdList = $list?:false;
             }
         }
-        return $userIdList;
+
+        if($structUserIdList === false){
+            $params['where']['id'] = 0;
+            $userIdList = [];
+        }elseif($structUserIdList){
+            $userIdList = array_merge($userIdList,$structUserIdList);
+        }
+
+        if($userIdList){
+            $params['in']['id'] = array_unique($userIdList);
+        }
+        return $params;
     }
     /**
      * 首页列表处理
