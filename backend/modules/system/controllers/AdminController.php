@@ -114,7 +114,7 @@ class AdminController extends BaseController
         }
 
         if($userIdList){
-            $params['in']['id'] = implode(',', array_unique($userIdList));
+            $params['in']['id'] = array_unique($userIdList);
         }
         return $params;
     }
