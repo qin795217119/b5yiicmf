@@ -41,62 +41,65 @@
 <script src="<?=\yii\helpers\Url::to('@web/static/plugins/jquery/jquery-1.12.4.min.js')?>"></script>
 <script src="<?=\yii\helpers\Url::to('@web/static/plugins/layui/layui.js')?>"></script>
 <script>
+    var layer;
+    layui.use(['layer','form'], function () {
+        layer = layui.layer;
+    });
     $(function (){
         changeCaptcha();
+        $("#subBtn").click(function () {
+            login();
+        });
     });
-    layui.use(['layer','form'], function () {
-        var $ = layui.jquery;
-        var layer = layui.layer;
-        $('.login-wrapper').removeClass('layui-hide');
-        $("#subBtn").click(function (){
-            if(!$("#username").val()){
-                layer.msg('请输入用户名');
-                return false;
-            }
-            if(!$("#password").val()){
-                layer.msg('请输入密码');
-                return false;
-            }
-            if(!$("#captcha").val()){
-                layer.msg('请输入验证码');
-                return false;
-            }
-            $("#subBtn").attr('disabled', true).text('登录中...');
-            var loadIndex = layer.load(2, {shade: [0.2,'#000']});
-            $.ajax({
-                type: "POST",
-                url: "<?=\yii\helpers\Url::toRoute('login')?>",
-                data: $("#login-form").serialize(),
-                headers:{'X-CSRF-Token': '<?= Yii::$app->request->csrfToken ?>'},
-                dataType: "json",
-                success: function (res) {
-                    if (res.success) {
-                        layer.msg('登录成功',{icon: 1,shade: [0.5, '#393D49'],time:1500},function () {
-                            window.location.href = "<?=\yii\helpers\Url::toRoute('index/index')?>";
-                        });
-                    } else {
-                        changeCaptcha();
-                        layer.msg(res.msg,{shade: [0.5, '#393D49'],time:1500},function () {
-                            $("#subBtn").text('登录').removeAttr('disabled');
-                        });
-                    }
-                },
-                complete:function(){
-                    layer.close(loadIndex);
-                },
-                error: function () {
-                    layer.msg('网络请求失败',{shade: [0.5, '#393D49'],time:1500},function () {
+    function login(){
+        if(!$("#username").val()){
+            layer.msg('请输入用户名');
+            return false;
+        }
+        if(!$("#password").val()){
+            layer.msg('请输入密码');
+            return false;
+        }
+        if(!$("#captcha").val()){
+            layer.msg('请输入验证码');
+            return false;
+        }
+        $("#subBtn").attr('disabled', true).text('登录中...');
+        var loadIndex = layer.load(2, {shade: [0.2,'#000']});
+        $.ajax({
+            type: "POST",
+            url: "<?=\yii\helpers\Url::toRoute('login')?>",
+            data: $("#login-form").serialize(),
+            headers:{'X-CSRF-Token': '<?= Yii::$app->request->csrfToken ?>'},
+            dataType: "json",
+            success: function (res) {
+                if (res.success) {
+                    layer.msg('登录成功',{icon: 1,shade: [0.5, '#393D49'],time:1500},function () {
+                        window.location.href = "<?=\yii\helpers\Url::toRoute('index/index')?>";
+                    });
+                } else {
+                    changeCaptcha();
+                    layer.msg(res.msg,{shade: [0.5, '#393D49'],time:1500},function () {
                         $("#subBtn").text('登录').removeAttr('disabled');
                     });
                 }
-            });
+            },
+            complete:function(){
+                layer.close(loadIndex);
+            },
+            error: function () {
+                layer.msg('网络请求失败',{shade: [0.5, '#393D49'],time:1500},function () {
+                    $("#subBtn").text('登录').removeAttr('disabled');
+                });
+            }
         });
-    });
-    function changeCaptcha(){
-        var url = urlcreate("<?=\yii\helpers\Url::toRoute(['captcha'])?>","_t="+Math.random());
-        $("#captcha_img").attr('src',url)
     }
-    function urlcreate(url,params){
+
+    function changeCaptcha(){
+        var url = urlCreate("<?=\yii\helpers\Url::toRoute(['captcha'])?>","_t="+Math.random());
+        $("#captcha_img").attr('src',url);
+    }
+    function urlCreate(url,params){
         if (params) {
             if (url.indexOf('?') > 0) {
                 url += '&' + params;
@@ -108,8 +111,8 @@
     }
 
     $(document).keyup(function(event){
-        if(event.keyCode ==13){
-            $("#submit").trigger("click");
+        if(event.keyCode === 13){
+            login();
         }
     });
 </script>
