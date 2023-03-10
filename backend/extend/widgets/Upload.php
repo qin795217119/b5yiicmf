@@ -18,7 +18,7 @@ class Upload extends Widget
     public $extend=[];
 
     /**
-     * img上传图片 name,title,link,tips,multi,width,height,cat,crop,data,max-size
+     * img上传图片 name,title,link,tips,multi,width,height,cat,crop,data
      * file上传文件 name,title,tips,cat,place,data
      * video上传视频 name,title,tips,cat,exts,link,multi,inputname,data
      * ---------------------

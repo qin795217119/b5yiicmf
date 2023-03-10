@@ -7,7 +7,7 @@
         <label class="col-sm-2 control-label is-required">单图片上传：</label>
         <div class="col-sm-8">
             <input type="hidden" name="img" value="" id="img" required>
-            <?=\backend\extend\widgets\Upload::widget(['type'=>'img','name'=>'img_upload','extend'=>['cat'=>'demo','link'=>1,'tips'=>'格式为jpg,jpeg,png,gif；大小不能超过10M','max-size'=>100]])?>
+            <?=\backend\extend\widgets\Upload::widget(['type'=>'img','name'=>'img_upload','extend'=>['cat'=>'demo','link'=>1,'tips'=>'格式为jpg,jpeg,png,gif；大小不能超过10M']])?>
         </div>
     </div>
     <div class="form-group">
