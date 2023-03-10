@@ -14,6 +14,7 @@
 <link href="<?= yii\helpers\Url::to('@web/static/plugins/animate/animate.css') ?>" rel="stylesheet"/>
 <link href="<?= yii\helpers\Url::to('@web/static/css/style.css') ?>" rel="stylesheet"/>
 <link href="<?= yii\helpers\Url::to('@web/static/css/iframe-ui.css') ?>" rel="stylesheet"/>
+<script src="<?= yii\helpers\Url::to('@web/static/plugins/bluebird.js') ?>"></script>
 <script src="<?= yii\helpers\Url::to('@web/static/plugins/jquery/jquery-1.12.4.min.js') ?>"></script>
 <script src="<?= yii\helpers\Url::to('@web/static/plugins/bootstrap/js/bootstrap.min.js') ?>"></script>
 <script>

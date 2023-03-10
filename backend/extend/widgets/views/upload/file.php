@@ -28,7 +28,7 @@
     $(function () {
         b5uploadfileinit("<?=$widget_data['name']?>");
         <?php if($widget_data['link']):?>
-            b5uploadImgLink("<?=$widget_data['name']?>");
+            b5uploadimglink("<?=$widget_data['name']?>");
         <?php endif;?>
         <?php if($widget_data['multi']>1):?>
             dragula([<?=$widget_data['name']?>_filelist])

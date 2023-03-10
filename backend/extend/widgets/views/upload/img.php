@@ -9,6 +9,7 @@
     $widget_data['cat'] = $widget_data['cat']??'';
     $widget_data['crop'] = $widget_data['crop']??'';
     $widget_data['data'] = $widget_data['data']??'';
+    $widget_data['max-size'] = intval($widget_data['max-size']??0);
 ?>
 
 <div class="b5uploadmainbox b5uploadimgbox" data-type="img">
@@ -31,7 +32,7 @@
 <script>
     $(function () {
         <?php if($widget_data['link']):?>
-            b5uploadImgLink("<?=$widget_data['name']?>");
+            b5uploadimglink("<?=$widget_data['name']?>");
         <?php endif;?>
 
         <?php if($widget_data['crop']){?>
@@ -42,7 +43,7 @@
                 $.modal.open("上传裁剪图片",url);
             });
         <?php }else{?>
-            b5uploadimginit("<?=$widget_data['name']?>");
+            b5uploadimginit("<?=$widget_data['name']?>",<?=$widget_data['max-size']?>);
         <?php }?>
 
         <?php if($widget_data['multi']>1):?>
