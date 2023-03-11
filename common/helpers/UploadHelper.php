@@ -123,6 +123,11 @@ class UploadHelper
         if(!$fileObj->saveAs($saveFullFile)){
             return Result::error('上传失败');
         }
+
+        // 大于2M自动压缩
+        if($this->type == 'img' && $thisSize && $thisSize>2*1024 ){
+            $this->width = $this->width>0?$this->width:1920;
+        }
         //如果是图片 并且 生成缩略图或添加水印 这里为了逻辑清晰 先保存再处理，按理直接处理比较好
         $water_text = trim(ConfigCache::get('img_water_text_color', ''));
         if ($this->type == 'img' && ($this->width > 0 || $this->height > 0) || ($this->water && $water_text)) {
