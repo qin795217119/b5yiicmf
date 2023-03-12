@@ -26,7 +26,7 @@ use yii\helpers\Url;
         var lockUrl="<?= \yii\helpers\Url::toRoute('common/lockscreen')?>";
     </script>
 </head>
-<body class="fixed-sidebar full-height-layout gray-bg theme-dark skin-blue" style="overflow: hidden">
+<body class="fixed-sidebar full-height-layout gray-bg" style="overflow: hidden">
 <div id="wrapper">
     <!--左侧导航开始-->
     <nav class="navbar-default navbar-static-side" role="navigation">
@@ -91,6 +91,13 @@ use yii\helpers\Url;
                             <li>
                                 <a href="javascript:rePass();"><i class="fa fa-key"></i> 修改密码</a>
                             </li>
+                            <li>
+                                <a onclick="switchSkin()"><i class="fa fa-dashboard"></i> 切换主题</a>
+                            </li>
+                            <li>
+                                <a onclick="toggleMenu()">
+                                    <i class="fa fa-toggle-off"></i> 横向菜单</a>
+                            </li>
                             <li class="divider"></li>
                             <li>
                                 <a href="<?= Url::toRoute('public/logout')?>"><i class="fa fa-sign-out"></i> 退出登录</a>
@@ -146,8 +153,6 @@ use yii\helpers\Url;
     var historyPath = storage.get("historyPath");
     // 是否页签与菜单联动
     var isLinkage = true;
-
-
     /** 刷新时访问路径页签 */
     function applyPath(url) {
         $('a[href$="' + decodeURI(url) + '"]').click();
@@ -173,6 +178,7 @@ use yii\helpers\Url;
             }
         }
         $("[data-toggle='tooltip']").tooltip();
+
     });
 
 
@@ -183,6 +189,36 @@ use yii\helpers\Url;
     }
     function clearCacheAll() {
         $.operate.b5get('<?=Url::toRoute('public/cacheclear')?>');
+    }
+
+    // 皮肤缓存
+    var skin = storage.get("skin");
+    // 本地主题优先，未设置取系统配置
+    if($.common.isNotEmpty(skin)){
+        $("body").addClass(skin.split('|')[0]);
+        $("body").addClass(skin.split('|')[1]);
+    } else {
+        $("body").addClass("theme-dark");
+        $("body").addClass("skin-blue");
+    }
+    /* 切换主题 */
+    function switchSkin() {
+        layer.open({
+            type : 2,
+            shadeClose : true,
+            title : "切换主题",
+            area : ["530px", "386px"],
+            content : ["<?=Url::toRoute('index/skin')?>", 'no']
+        })
+    }
+
+    /* 切换菜单 */
+    function toggleMenu() {
+        $.modal.confirm("确认要切换成横向菜单吗？", function() {
+            $.get("<?=Url::toRoute(['index/nav-style','type'=>'top'])?>", function(result) {
+                window.location.reload();
+            });
+        })
     }
 </script>
 </body>

@@ -167,6 +167,13 @@ use yii\helpers\Url;
                             <li>
                                 <a href="javascript:rePass();"><i class="fa fa-key"></i> 修改密码</a>
                             </li>
+                            <li>
+                                <a onclick="switchSkin()"><i class="fa fa-dashboard"></i> 切换主题</a>
+                            </li>
+                            <li>
+                                <a onclick="toggleMenu()">
+                                    <i class="fa fa-toggle-off"></i> 左侧菜单</a>
+                            </li>
                             <li class="divider"></li>
                             <li>
                                 <a href="<?= Url::toRoute('public/logout')?>"><i class="fa fa-sign-out"></i> 退出登录</a>
@@ -275,6 +282,36 @@ use yii\helpers\Url;
     }
     function clearCacheAll() {
         $.operate.b5get('<?=Url::toRoute('public/cacheclear')?>');
+    }
+
+    // 皮肤缓存
+    var skin = storage.get("skin");
+    // 本地主题优先，未设置取系统配置
+    if($.common.isNotEmpty(skin)){
+        $("body").addClass(skin.split('|')[0]);
+        $("body").addClass(skin.split('|')[1]);
+    } else {
+        $("body").addClass("theme-dark");
+        $("body").addClass("skin-blue");
+    }
+    /* 切换主题 */
+    function switchSkin() {
+        layer.open({
+            type : 2,
+            shadeClose : true,
+            title : "切换主题",
+            area : ["530px", "386px"],
+            content : ["<?=Url::toRoute('index/skin')?>", 'no']
+        })
+    }
+
+    /* 切换菜单 */
+    function toggleMenu() {
+        $.modal.confirm("确认要切换成左侧菜单吗？", function() {
+            $.get("<?=Url::toRoute(['index/nav-style','type'=>'left'])?>", function(result) {
+                window.location.reload();
+            });
+        })
     }
 </script>
 </body>

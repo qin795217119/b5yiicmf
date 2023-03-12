@@ -13,6 +13,7 @@ use backend\extend\helpers\LoginAuthHelper;
 use common\helpers\Functions;
 use common\models\system\Menu;
 use yii\helpers\Url;
+use yii\web\Cookie;
 
 class IndexController extends BaseController
 {
@@ -24,6 +25,10 @@ class IndexController extends BaseController
     {
         //是否开启横向菜单
         $topNav = false;
+        $style = $this->request->cookies->getValue("nav-style","left");
+        if($style == 'top'){
+            $topNav = true;
+        }
 
         $userInfo = LoginAuthHelper::adminLoginInfo();
         $menuTree = $this->getMenuListByLogin();
@@ -41,6 +46,20 @@ class IndexController extends BaseController
     public function actionHome()
     {
         return $this->render();
+    }
+
+    /**
+     * 主题
+     * @return string
+     */
+    public function actionSkin(){
+        return $this->render();
+    }
+
+    public function actionNavStyle(){
+        $type = trim($this->request->get("type",'left'));
+        $this->response->cookies->add(new Cookie(['name'=>'nav-style','value'=>$type]));
+        return $this->success('切换成功');
     }
 
     /**
