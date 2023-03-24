@@ -9,8 +9,6 @@ namespace api\modules\v1\controllers;
 
 use api\components\BaseController;
 use api\components\TraitWechat;
-use common\helpers\CryptHelper;
-use common\helpers\Result;
 use common\helpers\WechatHelper;
 
 class WechatController extends BaseController
@@ -38,9 +36,7 @@ class WechatController extends BaseController
      */
     public function actionTestShare(){
         $url = trim($this->request->post('url',''));
-        $data= (new WechatHelper())->signPackage($url);
-        $crypt = new CryptHelper('1234567890654321','1234567890123456');
-        return $this->success('',$crypt->encrypt($data['data']));
+        return (new WechatHelper())->signPackage($url);
 
     }
 }
