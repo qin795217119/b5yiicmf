@@ -8,8 +8,8 @@
 namespace api\modules\v1\controllers;
 
 
+use api\components\BaseController;
 use common\helpers\Result;
-use yii\base\Controller;
 
 
 /**
@@ -17,7 +17,7 @@ use yii\base\Controller;
  * Class AppController
  * @package api\modules\v1\controllers
  */
-class AppController extends Controller
+class AppController extends BaseController
 {
     public function behaviors():array
     {

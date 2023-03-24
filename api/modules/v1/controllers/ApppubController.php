@@ -8,9 +8,9 @@
 namespace api\modules\v1\controllers;
 
 
+use api\components\BaseController;
 use api\components\TraitToken;
 use common\helpers\Result;
-use yii\base\Controller;
 
 
 /**
@@ -18,7 +18,7 @@ use yii\base\Controller;
  * Class ApppubController
  * @package api\modules\v1\controllers
  */
-class ApppubController extends Controller
+class ApppubController extends BaseController
 {
     use TraitToken;
 

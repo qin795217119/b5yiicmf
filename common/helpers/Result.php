@@ -15,11 +15,11 @@ class Result
     /**
      * 成功的数组
      * @param string $msg
-     * @param array $data
+     * @param array|string $data
      * @param array $extend
      * @return array
      */
-    public static function rsuccess(string $msg = '', array $data = [], array $extend = []): array
+    public static function rsuccess(string $msg = '', $data = [], array $extend = []): array
     {
         return static::message($msg, true, $data, 0, $extend,false);
     }
@@ -38,12 +38,12 @@ class Result
     /**
      * 成功的JSON
      * @param string $msg
-     * @param array $data
+     * @param array|string $data
      * @param array $extend
      * @param int $code
      * @return array
      */
-    public static function success(string $msg = '', array $data = [], array $extend = [],int $code = 0): array
+    public static function success(string $msg = '', $data = [], array $extend = [],int $code = 0): array
     {
         return static::message($msg, true, $data, $code, $extend);
     }
@@ -63,13 +63,13 @@ class Result
      * 返回json数据，统一格式
      * @param string $msg
      * @param bool $success
-     * @param array $data
+     * @param array|string $data
      * @param int $code
      * @param array $extend
      * @param bool $isJson
      * @return array
      */
-    public static function message(string $msg, bool $success, array $data = [], int $code = -1, array $extend = [],$isJson = true): array
+    public static function message(string $msg, bool $success, $data = [], int $code = -1, array $extend = [],$isJson = true): array
     {
         $result = [
             'code' => $code < 0 ? ($success ? 0 : 500) : $code,

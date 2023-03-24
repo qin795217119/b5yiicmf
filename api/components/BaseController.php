@@ -44,12 +44,12 @@ class BaseController extends Controller
     /**
      * 跳转成功
      * @param string $msg
-     * @param array $data
+     * @param array|string $data
      * @param array $extend
      * @param int $code
      * @return array
      */
-    public function success(string $msg = '', array $data = [], array $extend = [],int $code=0){
+    public function success(string $msg = '', $data = [], array $extend = [],int $code=0){
         return Result::success($msg,$data,$extend,$code);
     }
 }

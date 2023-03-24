@@ -229,6 +229,10 @@ class WechatHelper
         if (empty($res) || !is_array($res)) {
             return Result::error('获取AccessToken失败：2');
         }
+        $snap = $res['is_snapshotuser']??'';
+        if($snap == 1) {
+            return Result::error('请点击下面的使用完整服务');
+        }
         if (empty($res['access_token']) || empty($res['openid'])) {
             return Result::error('获取AccessToken失败');
         }

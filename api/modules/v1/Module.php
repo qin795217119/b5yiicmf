@@ -17,8 +17,10 @@ class Module extends \yii\base\Module
      */
     public function init()
     {
-        parent::init();
         header("ACCESS-CONTROL-ALLOW-ORIGIN:*");
+        header("ACCESS-CONTROL-ALLOW-HEADERS:*");
+        header("Access-Control-Request-Method:*");
         // custom initialization code goes here
+        parent::init();
     }
 }

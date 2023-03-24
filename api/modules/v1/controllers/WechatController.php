@@ -7,25 +7,40 @@
 
 namespace api\modules\v1\controllers;
 
+use api\components\BaseController;
 use api\components\TraitWechat;
+use common\helpers\CryptHelper;
+use common\helpers\Result;
 use common\helpers\WechatHelper;
-use yii\base\Controller;
 
-class WechatController extends Controller
+class WechatController extends BaseController
 {
     /**
-     * 引入 getopenid和getwechatcode
+     * 引入 actionGetOpenId、actionGetWxUser、actionGetWechatCode
      */
     use TraitWechat;
 
-
-    public function actionTest(){
-        var_dump(\Yii::$app->request->get());
-    }
-    //前端直接访问 http://xxxxx.com/api/web/index.php?r=v1/wechat/getopenid&after_url=xxx
+    // 只获取openid
+    //前端直接访问 http://xxxxx.com/api/web/index.php?r=v1/wechat/get-open-id&after_url=xxx
     //after_url需要进行url编码
 
-    public function actionTestshare(){
-        return (new WechatHelper())->signPackage();
+    // 获取openid并保存详细信息
+    //前端直接访问 http://xxxxx.com/api/web/index.php?r=v1/wechat/get-wx-user&after_url=xxx
+    //after_url需要进行url编码
+
+    public function actionTest(){
+        var_dump($this->request->get());
+    }
+
+    /**
+     * 获取微信jssdk 签名
+     * @return array
+     */
+    public function actionTestShare(){
+        $url = trim($this->request->post('url',''));
+        $data= (new WechatHelper())->signPackage($url);
+        $crypt = new CryptHelper('1234567890654321','1234567890123456');
+        return $this->success('',$crypt->encrypt($data['data']));
+
     }
 }
