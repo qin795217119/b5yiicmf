@@ -105,7 +105,7 @@
                     {
                         checkbox: true,
                         formatter: function (value, row, index) {
-                            if(ids && ids.indexOf(","+row.id.toString()+",")>-1){
+                            if(ids && ids.indexOf("," + row.id.toString() + ",")>-1){
                                 return {
                                     checked: true//设置选中
                                 };
