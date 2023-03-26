@@ -55,7 +55,7 @@
 <?php $this->beginBlock('script'); ?>
     <script>
         var struct_treeUrl="<?=\yii\helpers\Url::toRoute('struct/tree')?>";
-        var ids = "<?=$user_ids?>";
+        var ids = ",<?=$user_ids?>,";
         if(ids) ids = ids.split(',');
         $(function () {
             var panehHidden = false;
@@ -99,12 +99,13 @@
                 sortName:'id',
                 sortOrder:'asc',
                 showToolbar:false,
+				clickToSelect:true,//点击行选中/取消选中
                 singleSelect : <?php if($mult == '0'):?>true<?php else:?>false<?php endif;?>,
                 columns: [
                     {
                         checkbox: true,
                         formatter: function (value, row, index) {
-                            if(ids && ids.indexOf(row.id.toString())>-1){
+                            if(ids && ids.indexOf(","+row.id.toString()+",")>-1){
                                 return {
                                     checked: true//设置选中
                                 };
@@ -142,11 +143,6 @@
             };
             $.table.init(options);
         }
-
-        //点击行选中
-        $("#bootstrap-table").on("click-row.bs.table",function(e,row,ele){
-            $(this).bootstrapTable('check', ele.data('index'))
-        });
 
         //获取选择的行，数组形式
         function getCheckRows(){
