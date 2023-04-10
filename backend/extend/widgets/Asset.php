@@ -116,6 +116,10 @@ class Asset extends Widget
             'dayjs'=>[
                 'css'=>[],
                 'js'=>['dayjs/dayjs.min.js']
+            ],
+            'fixed-columns'=>[
+                'css'=>[],
+                'js'=>['bootstrap-table/extensions/columns/bootstrap-table-fixed-columns.min.js']
             ]
         ];
         return $key?($list[$key]??[]):[];

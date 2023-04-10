@@ -177,6 +177,11 @@
 .img-table-show{width:36px;height: 36px;margin: 2px 2px 0 0}
 
 .Wdate{height: 31px !important;border-color: #e5e6e7 !important}
+
+/* bootstrap-table 冻结列后 卡片视图 */
+.has-card-view .fixed-columns,.has-card-view .fixed-columns-right{
+	display: none;
+}
 /* 导航页签 */
 .nav-tabs-custom {
 	margin-bottom: 20px;

@@ -1,4 +1,4 @@
-<?= \backend\extend\widgets\Asset::widget(['type'=>['viewer']])?>
+<?= \backend\extend\widgets\Asset::widget(['type'=>['viewer','fixed-columns']])?>
 
 <div class="col-sm-12 search-collapse">
     <form id="role-form">
@@ -23,7 +23,11 @@
     <a class="btn btn-primary single disabled" onclick="toolEdit()"><i class="fa fa-edit"></i> 修改</a>
     <a class="btn btn-danger multiple disabled" onclick="$.operate.removeAll(this)"><i class="fa fa-trash"></i> 批量删除</a>
 </div>
-<div class="col-sm-12 select-table table-striped">
+<!--
+    引入fixed-columns插件
+    text-nowrap 表格不换行
+-->
+<div class="col-sm-12 select-table table-striped text-nowrap">
     <table id="bootstrap-table"></table>
 </div>
 
@@ -34,6 +38,9 @@
                 modalName: "图片",
                 sortName:'id',
                 sortOrder: "desc",
+                fixedColumns: true,                 // 是否启用冻结列（左侧）
+                fixedNumber: 2,                   // 列冻结的个数（左侧）
+                fixedRightNumber: 1,              // 列冻结的个数（右侧）
                 columns: [
                     {checkbox: true},
                     {field: 'id', title: 'ID',  sortable: true,visible:false},
@@ -70,7 +77,7 @@
                         field: 'video',
                         align: 'center',
                         formatter: function (value, row, index) {
-                            return $.table.tooltip(value,20,'link');
+                            return $.table.tooltip(value,40,'link');
                         }
                     },
                     {
@@ -78,7 +85,7 @@
                         field: 'file',
                         align: 'center',
                         formatter: function (value, row, index) {
-                            return $.table.tooltip(value,20,'copy');
+                            return $.table.tooltip(value,40,'copy');
                         }
                     },
                     {
@@ -86,7 +93,7 @@
                         field: 'files',
                         align: 'center',
                         formatter: function (value, row, index) {
-                            return $.table.tooltip(value,20,'open');
+                            return $.table.tooltip(value,40,'open');
                         }
                     },
                     {field: 'create_time', title: '创建时间', align: 'center', sortable: true},
