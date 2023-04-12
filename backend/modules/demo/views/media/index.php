@@ -30,7 +30,7 @@
     当某个列需要换行 需要定义min-width
 -->
 <div class="col-sm-12 select-table table-striped text-nowrap">
-    <table id="bootstrap-table"></table>
+    <table id="bootstrap-table" class="table-bordered"></table>
 </div>
 
 <style>
