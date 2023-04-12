@@ -3,6 +3,9 @@
  */
 
 /** 基础通用 **/
+.text-wrap{
+	white-space: pre-wrap;
+}
 .pt0 {
     padding-top: 0;
 }
@@ -695,6 +698,8 @@ label {
 
 .search-collapse {
 	position: relative;
+	float: none;
+	overflow: hidden;
 }
 
 .search-collapse .col-sm-6 .control-label {
@@ -716,6 +721,7 @@ label {
 .select-list li {
 	color: #333;
 	margin: 5px 15px 5px 0px;
+	float: left;
 }
 
 .select-list li p, .select-list li label:not(.radio-box){
@@ -736,6 +742,7 @@ label {
 }
 .select-list li input.lg{width: 300px}
 .select-list li input.md{width: 200px}
+.select-list li input.smd{width: 150px}
 .select-list li input.sm{width: 100px}
 .select-list li input.xs{width: 60px}
 
@@ -905,7 +912,6 @@ label {
 .table-striped table>thead>tr>th, .table-striped table>tbody>tr>th, .table-striped table>tfoot>tr>th, .table-striped table>thead>tr>td, .table-striped table>tbody>tr>td, .table-striped table>tfoot>tr>td {
 	border-bottom: 1px solid #e7eaec!important;
 	background-color: transparent;
-	border: 0px;
 }
 
 .table-bordered table>thead>tr>th:first-child, .table-bordered table>tbody>tr>td:first-child {

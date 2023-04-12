@@ -1,0 +1,14 @@
+body.mid-size{font-size: 14px;}
+
+.mid-size .nav>li>a{font-weight: 500;padding: 16px 20px 16px 25px;}
+.mid-size .nav-second-level li a{padding-left: 52px;}
+.mid-size .table-striped .table>thead>tr>th, .table-striped .table>tbody>tr>th{font-size: 14px;}
+
+.mid-size .table>thead>tr>th, .mid-size .table>tbody>tr>th, .mid-size .table>tfoot>tr>th, .mid-size .table>thead>tr>td, .mid-size .table>tbody>tr>td, .mid-size .table>tfoot>tr>td{padding: 12px 10px;line-height: 1.5;}
+
+.mid-size .btn-group-sm > .btn, .mid-size .btn-sm{font-size: 13px;}
+.mid-size .btn-group-xs>.btn, .mid-size .btn-xs{font-size: 13px;}
+
+.mid-size .form-control, .mid-size .single-line{font-size: 14px;padding-left: 4px;padding-right: 4px;}
+.mid-size .select2-container .select2-selection--single .select2-selection__rendered{font-size: 14px;}
+.mid-size .ztree *{font-size: 13px;}

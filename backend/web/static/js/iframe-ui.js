@@ -45,6 +45,7 @@ var table = {
                     removeAllUrl: bootUrl.removeAllUrl,
                     clearCacheUrl: bootUrl.clearCacheUrl,
                     method: 'post',
+                    classes:"table table-hover", //去除默认的table-bordered
                     height: undefined,
                     sidePagination: "server",
                     sortName: 'id',
@@ -99,6 +100,7 @@ var table = {
                     contentType: "application/x-www-form-urlencoded",   // 编码类型
                     method: options.method,                             // 请求方式（*）
                     cache: false,                                       // 是否使用缓存
+                    classes: options.classes,
                     height: options.height,                             // 表格的高度
                     striped: options.striped,                           // 是否显示行间隔色
                     sortable: true,                                     // 是否启用排序
@@ -891,6 +893,9 @@ var table = {
                     var _title = $.common.isEmpty(options.title) ? "系统窗口" : options.title;
                     var _width = $.common.isEmpty(options.width) ? "800" : options.width;
                     var _height = $.common.isEmpty(options.height) ? ($(window).height() - 50) : options.height;
+                    if(_width.indexOf('%') === -1){
+                        _width = _width + 'px'
+                    }
                     var _btn = ['<i class="fa fa-check"></i> 确认', '<i class="fa fa-close"></i> 关闭'];
                     if ($.common.isEmpty(options.yes)) {
                         options.yes = function(index, layero) {
@@ -912,7 +917,7 @@ var table = {
                         shade: 0.3,
                         title: _title,
                         fix: false,
-                        area: [_width + 'px', _height + 'px'],
+                        area: [_width, _height + 'px'],
                         content: _url,
                         shadeClose: $.common.isEmpty(options.shadeClose) ? true : options.shadeClose,
                         skin: options.skin,

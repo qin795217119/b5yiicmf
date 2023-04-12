@@ -26,11 +26,16 @@
 <!--
     引入fixed-columns插件
     text-nowrap 表格不换行
+
+    当某个列需要换行 需要定义min-width
 -->
 <div class="col-sm-12 select-table table-striped text-nowrap">
     <table id="bootstrap-table"></table>
 </div>
 
+<style>
+    .multline{white-space: normal;word-break: break-all;min-width: 200px;}
+</style>
 <?php $this->beginBlock('script'); ?>
     <script>
         $(function () {
@@ -49,6 +54,14 @@
                         align: "center",
                         formatter: function (value, row, index) {
                             return $.table.serialNumber(index);
+                        }
+                    },
+                    {
+                        field: 'img',
+                        title: '测试文本',
+                        class: 'multline',
+                        formatter: function (value, row, index) {
+                            return "测试文本测试文本测试文本测试文本测试文本测试文本";
                         }
                     },
                     {
