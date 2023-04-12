@@ -32,10 +32,6 @@
 <div class="col-sm-12 select-table table-striped text-nowrap">
     <table id="bootstrap-table" class="table-bordered"></table>
 </div>
-
-<style>
-    .multline{white-space: normal;word-break: break-all;min-width: 200px;}
-</style>
 <?php $this->beginBlock('script'); ?>
     <script>
         $(function () {
@@ -59,7 +55,7 @@
                     {
                         field: 'img',
                         title: '测试文本',
-                        class: 'multline',
+                        class: 'w-min-md text-wrap',
                         formatter: function (value, row, index) {
                             return "测试文本测试文本测试文本测试文本测试文本测试文本";
                         }

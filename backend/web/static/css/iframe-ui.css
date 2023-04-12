@@ -3,9 +3,13 @@
  */
 
 /** 基础通用 **/
-.text-wrap{
-	white-space: pre-wrap;
-}
+.text-wrap{white-space: pre-wrap;}
+
+.w-min-min{min-width: 50px;}
+.w-min-xs{min-width: 80px;}
+.w-min-sm{min-width: 120px;}
+.w-min-md{min-width: 160px;}
+.w-min-lg{min-width: 200px;}
 .pt0 {
     padding-top: 0;
 }
