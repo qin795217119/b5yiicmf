@@ -1110,8 +1110,28 @@ var table = {
                 });
             },
             // 详细信息
-            detail: function(id, width, height) {
+            detail: function(id, obj) {
                 table.set();
+                var width='';
+                var height='';
+                if(obj){
+                    width=$(obj).data('width');
+                    height=$(obj).data('height');
+                }
+                if($.common.isEmpty(id) && obj){
+                    var data_id=$(obj).data('id');
+                    if($.common.isNotEmpty(data_id)){
+                        id=data_id;
+                    }
+                    if($.common.isEmpty(id)){
+                        var rows = $.common.isEmpty(table.options.uniqueId) ? $.table.selectFirstColumns() : $.table.selectColumns(table.options.uniqueId);
+                        if (rows.length !== 1) {
+                            $.modal.alertWarning("请选择一条记录");
+                            return;
+                        }
+                        id=rows[0];
+                    }
+                }
                 var _url = $.operate.detailUrl(id);
                 var _width = $.common.isEmpty(width) ? "800" : width;
                 var _height = $.common.isEmpty(height) ? ($(window).height() - 50) : height;
@@ -1139,12 +1159,12 @@ var table = {
                 if ($.common.isNotEmpty(id)) {
                     url = table.options.detailUrl.replace("%id%", id);
                 } else {
-                    var id = $.common.isEmpty(table.options.uniqueId) ? $.table.selectFirstColumns() : $.table.selectColumns(table.options.uniqueId);
-                    if (id.length == 0) {
+                    var rows = $.common.isEmpty(table.options.uniqueId) ? $.table.selectFirstColumns() : $.table.selectColumns(table.options.uniqueId);
+                    if (rows.length == 0) {
                         $.modal.alertWarning("请至少选择一条记录");
                         return;
                     }
-                    url = table.options.detailUrl.replace("%id%", id);
+                    url = table.options.detailUrl.replace("%id%", rows[0]);
                 }
                 return url;
             },

@@ -31,6 +31,7 @@
         clearCacheUrl: "<?=\yii\helpers\Url::toRoute('delcache')?>",
         cleanUrl: "<?=\yii\helpers\Url::toRoute('trash')?>",
         statusUrl:"<?=\yii\helpers\Url::toRoute('setstatus')?>",
+        detailUrl:decodeURIComponent("<?=\yii\helpers\Url::toRoute(['detail','id'=>'%id%'])?>"),
         downUrl:"<?=\yii\helpers\Url::toRoute('/index/download')?>",
     }
 
