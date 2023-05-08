@@ -1533,6 +1533,7 @@ var table = {
             init: function(options) {
                 var defaults = {
                     id: "tree",                    // 属性ID
+                    list:false,                     //指定数据
                     expandLevel: 0,                // 展开等级节点
                     showParentLevel:0,              //选中时显示父级的等级开始
                     ismult:false,                   //是否开启多选
@@ -1582,45 +1583,51 @@ var table = {
                     view: options.view,
                     data: options.data
                 };
-                $.post(options.url, function(result) {
-                    if (result.code == web_status.SUCCESS) {
-                        var data=result.data;
-                        var treeId = $("#treeId").val();
-                        var tree = $.fn.zTree.init($("#" + options.id), setting, data);
-                        $._tree = tree;
-                        for (var i = 0; i < options.expandLevel; i++) {
-                            var nodes = tree.getNodesByParam("level", i);
-                            for (var j = 0; j < nodes.length; j++) {
-                                tree.expandNode(nodes[j], true, false, false);
-                            }
+                if(options.list === false){
+                    $.post(options.url, function(result) {
+                        if (result.code == web_status.SUCCESS) {
+                            var data=result.data;
+                            initData(data);
+                        } else if (result.code == web_status.WARNING) {
+                            $.modal.alertWarning(result.msg)
+                        } else {
+                            $.modal.alertError(result.msg);
                         }
-
-                        //选中默认
-                        if($.common.isNotEmpty(treeId)){
-                            var treeIdArr=treeId.split(',');
-                            treeIdArr.forEach(function (item) {
-                                if($.common.isNotEmpty(item)){
-                                    var node = tree.getNodesByParam("id", item, null)[0];
-                                    if(!options.check.enable){
-                                        $._tree.selectNode(node, true);
-                                    }
-                                    $.tree.zOnClick('',options.id,node);
-                                }
-                            });
+                        $.modal.closeLoading();
+                    });
+                }else{
+                    initData(options.list);
+                }
+                function initData(data){
+                    var treeId = $("#treeId").val();
+                    var tree = $.fn.zTree.init($("#" + options.id), setting, data);
+                    $._tree = tree;
+                    for (var i = 0; i < options.expandLevel; i++) {
+                        var nodes = tree.getNodesByParam("level", i);
+                        for (var j = 0; j < nodes.length; j++) {
+                            tree.expandNode(nodes[j], true, false, false);
                         }
-
-                        // 回调tree方法
-                        if(typeof(options.callBack) === "function"){
-                            options.callBack(tree);
-                        }
-                    } else if (result.code == web_status.WARNING) {
-                        $.modal.alertWarning(result.msg)
-                    } else {
-                        $.modal.alertError(result.msg);
                     }
-                    $.modal.closeLoading();
 
-                });
+                    //选中默认
+                    if($.common.isNotEmpty(treeId)){
+                        var treeIdArr=treeId.split(',');
+                        treeIdArr.forEach(function (item) {
+                            if($.common.isNotEmpty(item)){
+                                var node = tree.getNodesByParam("id", item, null)[0];
+                                if(!options.check.enable){
+                                    $._tree.selectNode(node, true);
+                                }
+                                $.tree.zOnClick('',options.id,node);
+                            }
+                        });
+                    }
+
+                    // 回调tree方法
+                    if(typeof(options.callBack) === "function"){
+                        options.callBack(tree);
+                    }
+                }
             },
             // 搜索节点
             searchNode: function() {
