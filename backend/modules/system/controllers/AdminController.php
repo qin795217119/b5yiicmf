@@ -266,9 +266,9 @@ class AdminController extends BaseController
      * 验证前进行数据处理
      * @param $model
      * @param string $type
-     * @return bool
+     * @return string
      */
-    protected function validateBefore($model, string $type)
+    protected function validateBefore($model, string $type): string
     {
         if (isset($model['password']) && !$model['password']) {
             if ($type == 'add') {
@@ -280,16 +280,16 @@ class AdminController extends BaseController
                 $model['realname'] = $model['username'];
             }
         }
-        return true;
+        return '';
     }
 
     /**
      * 添加和编辑保存前对数据进行处理
      * @param \yii\db\ActiveRecord $model
      * @param string $type
-     * @return bool|string
+     * @return string
      */
-    protected function saveBefore(\yii\db\ActiveRecord $model, string $type)
+    protected function saveBefore(\yii\db\ActiveRecord $model, string $type): string
     {
         if($type == 'add' || $type == 'edit'){
 
@@ -301,7 +301,7 @@ class AdminController extends BaseController
                 }
             }
         }
-        return true;
+        return '';
     }
 
     /**
@@ -325,15 +325,15 @@ class AdminController extends BaseController
     /**
      * 删除前判断
      * @param array $data
-     * @return bool|string
+     * @return string
      */
-    protected function deleteBefore(array $data)
+    protected function deleteBefore(array $data): string
     {
         $root_id = intval($this->app->params['root_admin_id']);
         if ($data['id'] == $root_id) {
             return '默认超级管理员无法删除';
         }
-        return true;
+        return '';
     }
 
     /**

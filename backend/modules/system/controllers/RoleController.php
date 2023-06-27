@@ -106,15 +106,15 @@ class RoleController extends BaseController
     /**
      * 删除前判断
      * @param array $data
-     * @return bool|string
+     * @return string
      */
-    protected function deleteBefore(array $data)
+    protected function deleteBefore(array $data): string
     {
         $root_id = intval($this->app->params['root_role_id']);
         if($data['id'] == $root_id){
             return '默认超管角色无法删除';
         }
-        return true;
+        return '';
     }
 
     /**

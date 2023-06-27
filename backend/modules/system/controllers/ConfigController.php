@@ -113,14 +113,14 @@ class ConfigController extends BaseController
     /**
      * 删除前操作
      * @param array $data
-     * @return bool|string
+     * @return string
      */
-    protected function deleteBefore(array $data)
+    protected function deleteBefore(array $data): string
     {
         if($data['is_sys'] == 1){
             return '系统配置，无法删除';
         }
-        return true;
+        return '';
     }
 
     /**
@@ -137,7 +137,8 @@ class ConfigController extends BaseController
      * @param $list
      * @return array
      */
-    protected function exportBefore($list):array{
+    protected function exportBefore($list):array
+    {
         //对list数据进行处理
 
         //返回导出的字段及字段名

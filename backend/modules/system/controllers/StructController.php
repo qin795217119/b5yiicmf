@@ -93,7 +93,7 @@ class StructController extends BaseController
      * @param string $type
      * @return string
      */
-    protected function saveBefore(\yii\db\ActiveRecord $model, string $type)
+    protected function saveBefore(\yii\db\ActiveRecord $model, string $type): string
     {
         if($type == 'add' || $type == 'edit'){
             $root_id = intval($this->app->params['root_struct_id']);
@@ -113,7 +113,7 @@ class StructController extends BaseController
                 $model['levels'] = trim($parentInfo['levels'].','.$parentInfo['id'],',');
             }
         }
-        return true;
+        return '';
     }
 
     /**

@@ -11,6 +11,8 @@ namespace backend\extend\traits;
 
 use common\helpers\ExportHelper;
 use common\helpers\Functions;
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
 use yii\db\Expression;
 use yii\db\Query;
 
@@ -19,7 +21,6 @@ trait CommonAction
     /**
      * 公共首页action
      * @return array|string
-     * @throws \yii\web\HttpException
      */
     public function actionIndex()
     {
@@ -64,7 +65,7 @@ trait CommonAction
             }else{
                 $query = $queryResult;
             }
-
+            $count = 0;
             //是否分页
             if (!$isTree && !$isExport) {
                 $pageSize = intval($params['pageSize'] ?? 10);
@@ -88,8 +89,12 @@ trait CommonAction
             if ($isExport) {
                 //结果查询后的处理
                 $export_data = $this->exportBefore($list);
-                $excel_path = (new ExportHelper($export_data))->export();
-                return $this->success($excel_path);
+                try {
+                    $excel_path = (new ExportHelper($export_data))->export();
+                    return $this->success($excel_path);
+                }catch ( \yii\web\HttpException $exception){
+                    return $this->error($exception->getMessage());
+                }
             } else {
                 return $this->success('', $list, ['total' => (int)$count,'extend'=>(object)$extend]);
             }
@@ -115,7 +120,7 @@ trait CommonAction
             if ($this->validate ?? false) {
                 //验证前数据处理
                 $validateBeforeRes = $this->validateBefore($model, 'add');
-                if (true !== $validateBeforeRes) {
+                if ($validateBeforeRes) {
                     return $this->error($validateBeforeRes);
                 }
 
@@ -125,7 +130,7 @@ trait CommonAction
             }
             //数据处理
             $saveBeforeRes = $this->saveBefore($model, 'add');
-            if (true !== $saveBeforeRes) {
+            if ($saveBeforeRes) {
                 return $this->error($saveBeforeRes);
             }
             $result = $model->save(false);
@@ -163,7 +168,7 @@ trait CommonAction
             if ($this->validate ?? false) {
                 //验证前数据处理
                 $validateBeforeRes = $this->validateBefore($model, 'edit');
-                if (true !== $validateBeforeRes) {
+                if ($validateBeforeRes) {
                     return $this->error($validateBeforeRes);
                 }
 
@@ -173,7 +178,7 @@ trait CommonAction
             }
             //数据处理
             $saveBeforeRes = $this->saveBefore($model, 'edit');
-            if (true !== $saveBeforeRes) {
+            if ($saveBeforeRes) {
                 return $this->error($saveBeforeRes);
             }
             $oldData = $model['oldAttributes'];
@@ -222,7 +227,7 @@ trait CommonAction
 
             $model[$field] = $status;
             $saveBeforeRes = $this->saveBefore($model,$field);
-            if(true !== $saveBeforeRes){
+            if($saveBeforeRes){
                 return $this->error($saveBeforeRes);
             }
             $oldData = $model['oldAttributes'];
@@ -256,7 +261,7 @@ trait CommonAction
             $data = $info->toArray();
             //删除前
             $res = $this->deleteBefore($data,'one');
-            if ($res !== true) {
+            if ($res) {
                 return $this->error($res);
             }
 
@@ -292,7 +297,7 @@ trait CommonAction
                     $data = $info->toArray();
                     //删除前
                     $res = $this->deleteBefore($data,'batch');
-                    if ($res !== true) {
+                    if ($res) {
                         continue;
                     }
                     $result = $info->delete();
@@ -311,13 +316,12 @@ trait CommonAction
     /**
      * 将处理首页的过程 单独提取，便于自定义indexAction时使用
      * 可以根据自己的需求添加
-     * @param $query
+     * @param ActiveQuery $query
      * @param array $params
      * @param string $alias 拼接表面
-     * @return mixed
-     * @throws \Exception
+     * @return ActiveQuery
      */
-    protected function indexWhere($query, array $params = [],string $alias='')
+    protected function indexWhere(ActiveQuery $query, array $params = [],string $alias=''): ActiveQuery
     {
         $orderBy = $params['orderBy'] ?? [];//自定义的排序
         $orderByColumn = empty($params['orderByColumn']) ? '' : $params['orderByColumn'];
@@ -388,10 +392,14 @@ trait CommonAction
                     $start = $value['start'] ?? '';
                     $end = $value['end'] ?? '';
                     if ($end) {
-                        $end = (new \DateTime($end))->modify('+1 day')->modify('-1 second')->format('Y-m-d H:i:s');
+                        try {
+                            $end = (new \DateTime($end))->modify('+1 day')->modify('-1 second')->format('Y-m-d H:i:s');
+                        }catch (\Exception $exception){}
                     }
                     if ($start) {
-                        $start = (new \DateTime($start))->format('Y-m-d H:i:s');
+                        try {
+                            $start = (new \DateTime($start))->format('Y-m-d H:i:s');
+                        }catch (\Exception $exception){}
                     }
                     if ($start || $end) {
                         if ($start && $end) {
@@ -456,7 +464,8 @@ trait CommonAction
      * @param $alias
      * @return string
      */
-    private function joinAlias($field,$alias){
+    private function joinAlias($field,$alias): string
+    {
         if(strpos($field,'.')){
             return $field;
         }
@@ -505,7 +514,7 @@ trait CommonAction
     /**
      * 首页查询语句处理，可以用来自定义以及数据权限处理
      * @param $query
-     * @return mixed 可以返回query对象，也可以一个数组['query'=>$query,'extend'=>[xxx]]  extend将会在ajax中返回
+     * @return array|ActiveQuery 可以返回query对象，也可以一个数组['query'=>$query,'extend'=>[xxx]]  extend将会在ajax中返回
      */
     protected function indexQuery($query)
     {
@@ -524,33 +533,33 @@ trait CommonAction
 
     /**
      * 添加、编辑验证前的数据处理
-     * @param \yii\db\ActiveRecord $model
+     * @param ActiveRecord $model
      * @param string $type
-     * @return bool|string 正常返回true，返回错误字符串则返回该错误
+     * @return string 正常返回空字符串，返回错误字符串则返回该错误
      */
-    protected function validateBefore(\yii\db\ActiveRecord $model, string $type)
+    protected function validateBefore(ActiveRecord $model, string $type): string
     {
-        return true;
+        return '';
     }
 
     /**
      * 添加、编辑、状态修改前的数据处理
-     * @param \yii\db\ActiveRecord $model
+     * @param ActiveRecord $model
      * @param string $type
-     * @return bool|string
+     * @return string
      */
-    protected function saveBefore(\yii\db\ActiveRecord $model, string $type)
+    protected function saveBefore(ActiveRecord $model, string $type): string
     {
-        return true;
+        return '';
     }
 
     /**
      * 添加、编辑、状态修改后的操作
-     * @param \yii\db\ActiveRecord $model
+     * @param ActiveRecord $model
      * @param string $type
      * @param array $extend
      */
-    protected function saveAfter(\yii\db\ActiveRecord $model, string $type,array $extend=[]): void
+    protected function saveAfter(ActiveRecord $model, string $type,array $extend=[]): void
     {
     }
 
@@ -567,11 +576,11 @@ trait CommonAction
      * 删除前操作
      * @param array $data
      * @param string $type
-     * @return bool|string
+     * @return string
      */
-    protected function deleteBefore(array $data,string $type)
+    protected function deleteBefore(array $data,string $type): string
     {
-        return true;
+        return '';
     }
 
     /**
