@@ -9,15 +9,19 @@ declare (strict_types=1);
 namespace backend\extend\traits;
 
 
+use common\extend\exception\MyHttpException;
+use common\extend\tools\PageUtils;
+use common\extend\tools\QueryUtils;
 use common\helpers\ExportHelper;
 use common\helpers\Functions;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
-use yii\db\Expression;
-use yii\db\Query;
 
 trait CommonAction
 {
+
+    // public string $model
+    // public bool $validate = false
     /**
      * 公共首页action
      * @return array|string
@@ -36,26 +40,24 @@ trait CommonAction
              * orderByColumn和 isAsc 是前端列表自带的排序参数
              * alias 表的简称，不为空时，会在条件和查询字段等 拼接该值，主要为了当你在indexQuery中需要join等联表查询时列名的冲突
             **/
-            if (method_exists($this, 'indexBefore')) {
-                $params = $this->indexBefore($params);
-            }
+            $params = $this->indexBefore($params);
 
             $extend = [];
-            //是否是树形tree，展示所有数据
-            $isTree = $params['isTree'] ?? 0;
+            $isTree = $params['isTree'] ?? 0;//是否是树形tree，展示所有数据
+            $isExport = $params['isExport'] ?? 0;//是否为导出excel，展示所有数据
+            $debug = $params['debug'] ?? 0; // 是否输出sql语句
+            $alias = $params['alias']??'';// 表名简称
 
-            //是否为导出excel，展示所有数据
-            $isExport = $params['isExport'] ?? 0;
+            $query = $this->model::find(); //创建查询构建器
+            if($alias) $query = $query->alias($alias);
 
-//            $query = (new Query())->from($this->model::tableName());
-            $query = $this->model::find();
-
-            //是否需要拼接表名简称
-            $alias = trim($params['alias']??'');
-            if($alias){
-                $query = $query->alias($alias);
+            //处理表单查询条件
+            try {
+                $queryUtils = new QueryUtils($query,$params,$alias);
+            }catch (MyHttpException $exception){
+                return $this->error($exception->getMessage());
             }
-            $query = $this->indexWhere($query, $params, $alias);
+            $query = $queryUtils->whereParse()->fieldParse()->orderParse()->getQuery();
 
             //操作查询对象，可以进行语句处理以及数据权限处理
             $queryResult = $this->indexQuery($query);
@@ -65,38 +67,32 @@ trait CommonAction
             }else{
                 $query = $queryResult;
             }
-            $count = 0;
+            if ($debug) $extend['sql'] = $query->createCommand()->getRawSql();
+
             //是否分页
             if (!$isTree && !$isExport) {
-                $pageSize = intval($params['pageSize'] ?? 10);
-                $pageNum = intval($params['pageNum'] ?? 1);
-                $pageNum = $pageNum < 1 ? 1 : $pageNum;
-                $offset = ($pageNum - 1) * $pageSize;
                 $count = (clone $query)->count();
-                $query = $query->offset($offset)->limit($pageSize);
-            }
-//            $list = $query->all();
-            $list = $query->asArray()->all();
-            if ($isTree || $isExport) {
-                $count = count($list);
-            }
-            //结果查询后的处理
-            if (method_exists($this, 'indexAfter')) {
-                $list = $this->indexAfter($list);
-            }
-
-            //导出操作
-            if ($isExport) {
-                //结果查询后的处理
-                $export_data = $this->exportBefore($list);
-                try {
-                    $excel_path = (new ExportHelper($export_data))->export();
-                    return $this->success($excel_path);
-                }catch ( \yii\web\HttpException $exception){
-                    return $this->error($exception->getMessage());
+                $pages = new PageUtils('pageNum','pageSize');
+                $list = $this->indexAfter($query->offset($pages->getOffset())->limit($pages->getPageSize())->asArray()->all());
+                return $this->success('',$list,['total' => (int)$count,'extend'=>(object)$extend]);
+            }else{
+                $list = $this->indexAfter($query->asArray()->all());
+                //导出操作
+                if ($isExport) {
+                    if (method_exists($this,'exportCustom')){
+                        return $this->exportCustom($list);
+                    }
+                    //结果查询后的处理
+                    $export_data = $this->exportBefore($list);
+                    try {
+                        $excel_path = (new ExportHelper($export_data))->export();
+                        return $this->success($excel_path);
+                    }catch ( MyHttpException $exception){
+                        return $this->error($exception->getMessage());
+                    }
+                } else {
+                    return $this->success('', $list, ['total' => (int)count($list),'extend'=>(object)$extend]);
                 }
-            } else {
-                return $this->success('', $list, ['total' => (int)$count,'extend'=>(object)$extend]);
             }
         } else {
             return $this->indexRender();
@@ -211,9 +207,6 @@ trait CommonAction
             $title = $data['name'] ?? '';
             $title = $title ?: ($status ? '启用' : '停用');
 			$field = ($data['field']??'')?:'status';
-            if(empty($data)) {
-                return $this->error('无提交数据');
-            }
             if(!isset($data['id']) || !$data['id']){
                 return $this->error('缺少编辑主键条件');
             }
@@ -311,166 +304,6 @@ trait CommonAction
         }
         return $this->error('请求类型错误');
 
-    }
-
-    /**
-     * 将处理首页的过程 单独提取，便于自定义indexAction时使用
-     * 可以根据自己的需求添加
-     * @param ActiveQuery $query
-     * @param array $params
-     * @param string $alias 拼接表面
-     * @return ActiveQuery
-     */
-    protected function indexWhere(ActiveQuery $query, array $params = [],string $alias=''): ActiveQuery
-    {
-        $orderBy = $params['orderBy'] ?? [];//自定义的排序
-        $orderByColumn = empty($params['orderByColumn']) ? '' : $params['orderByColumn'];
-        $isAsc = empty($params['isAsc']) ? 'asc' : $params['isAsc'];
-        $field = $params['field'] ?? '';
-        //表单的条件 where 的条件
-        if (isset($params['where']) && is_array($params['where'])) {
-            foreach ($params['where'] as $key => $value) {
-                if ($key && ($value || $value=='0')) {
-                    $query = $query->andWhere([$this->joinAlias($key,$alias) => $value]);
-                }
-            }
-        }
-
-        //常用比较符
-        $compareTag = ['eq'=>'=','neq'=>'<>','gt'=>'>','lt'=>'<','egt'=>'>=','elt'=>'<='];
-        foreach ($compareTag as $tag=>$operate){
-            if (isset($params[$tag]) && is_array($params[$tag])) {
-                foreach ($params[$tag] as $key => $value) {
-                    if ($key && ($value || $value=='0')) {
-                        $query = $query->andWhere([$operate,$this->joinAlias($key,$alias), $value]);
-                    }
-                }
-            }
-        }
-
-        //表单的条件 in 的条件
-        if (isset($params['in']) && is_array($params['in'])) {
-            foreach ($params['in'] as $key => $value) {
-                if ($key && $value) {
-                    $query = $query->andWhere([$this->joinAlias($key,$alias) => $value]);
-                }
-            }
-        }
-
-        //表单的条件 like 的条件
-        if (isset($params['like']) && is_array($params['like'])) {
-            foreach ($params['like'] as $key => $value) {
-                if ($key && $value) {
-                    $query = $query->andWhere(['like', $this->joinAlias($key,$alias), $value]);
-                }
-            }
-        }
-
-        //表单的条件 time 时间戳
-        if(isset($params['time']) && is_array($params['time'])){
-            foreach ($params['time'] as $key => $value) {
-                if ($key && is_array($value) && count($value) > 1) {
-                    $start = $value['start'] ?? '';
-                    $end = $value['end'] ?? '';
-                    if ($end) {
-                        $end = strtotime($end);
-                        if($end) $query->andWhere(['<=',$this->joinAlias($key,$alias),$end]);
-                    }
-                    if ($start) {
-                        $start = strtotime($start);
-                        if($start) $query->andWhere(['>=',$this->joinAlias($key,$alias),$start]);
-                    }
-                }
-            }
-        }
-
-
-        //表单的条件 between 的条件 日期格式
-        if (isset($params['between']) && is_array($params['between'])) {
-            foreach ($params['between'] as $key => $value) {
-                if ($key && is_array($value) && count($value) > 1) {
-                    $start = $value['start'] ?? '';
-                    $end = $value['end'] ?? '';
-                    if ($end) {
-                        try {
-                            $end = (new \DateTime($end))->modify('+1 day')->modify('-1 second')->format('Y-m-d H:i:s');
-                        }catch (\Exception $exception){}
-                    }
-                    if ($start) {
-                        try {
-                            $start = (new \DateTime($start))->format('Y-m-d H:i:s');
-                        }catch (\Exception $exception){}
-                    }
-                    if ($start || $end) {
-                        if ($start && $end) {
-                            $query = $query->andWhere(['between', $this->joinAlias($key,$alias), $start, $end]);
-                        } elseif ($start) {
-                            $sqlStart = new Expression('UNIX_TIMESTAMP("' . $start . '")');
-                            $query = $query->andWhere(['>=', 'UNIX_TIMESTAMP(' . $this->joinAlias($key,$alias) . ')', $sqlStart]);
-                        } elseif ($end) {
-                            $sqlEnd = new Expression('UNIX_TIMESTAMP("' . $end . '")');
-                            $query = $query->andWhere(['<=', 'UNIX_TIMESTAMP(' . $this->joinAlias($key,$alias) . ')', $sqlEnd]);
-                        }
-                    }
-                }
-            }
-        }
-
-        //表单的条件 findinset 的条件
-        if (isset($params['findinset']) && is_array($params['findinset'])) {
-            foreach ($params['findinset'] as $key => $value) {
-                if($key && $value){
-                    $query = $query->andWhere(new Expression('FIND_IN_SET("' . $value . '", ' . $this->joinAlias($key,$alias) . ')'));
-                }
-            }
-        }
-
-        //处理字段
-        if ($field) {
-            if($alias){
-                if(is_string($field)){
-                    $field = explode(",",$field);
-                }
-                if(is_array($field)){
-                    foreach ($field as $key=>$value){
-                        $field[$key] = $this->joinAlias($value,$alias);
-                    }
-                }
-            }
-            $query = $query->select($field);
-        }
-
-        //处理排序
-        $orderList= [];
-        if ($orderByColumn) $orderList[$this->joinAlias($orderByColumn,$alias)] = strtolower($isAsc)=='asc'?SORT_ASC:SORT_DESC;
-        // 指定排序
-        foreach ($orderBy as $key => $val) {
-            $key = $this->joinAlias($key,$alias);
-            if(!array_key_exists($key,$orderList)){
-                $orderList[$key] = strtolower($val)=='asc'?SORT_ASC:SORT_DESC;
-            }
-        }
-        //默认最后加一个id asc
-        if(!isset($orderList[$this->joinAlias('id',$alias)])) $orderList[$this->joinAlias('id',$alias)] = SORT_ASC;
-
-        $query = $query->orderBy($orderList);
-
-        return $query;
-    }
-
-    /**
-     * 给字段拼接表名简称
-     * @param $field
-     * @param $alias
-     * @return string
-     */
-    private function joinAlias($field,$alias): string
-    {
-        if(strpos($field,'.')){
-            return $field;
-        }
-        if($alias) return $alias.'.'.$field;
-        return $field;
     }
 
     /**

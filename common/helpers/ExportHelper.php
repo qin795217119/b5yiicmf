@@ -8,16 +8,16 @@ declare (strict_types = 1);
 
 namespace common\helpers;
 
+use common\extend\exception\MyHttpException;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use yii\helpers\ArrayHelper;
-use yii\web\HttpException;
 
 class ExportHelper
 {
-    public $list = [];
-    public $attributes = [];
-    public $saveFile = true; //保存文件 还是 直接浏览器下载
+    public array $list = [];
+    public array $attributes = [];
+    public bool $saveFile = true; //保存文件 还是 直接浏览器下载
 
     public function __construct(array $data){
         $this->list = isset($data['list'])?$data['list']:[];
@@ -27,14 +27,14 @@ class ExportHelper
     /**
      * 导出
      * @return string
-     * @throws HttpException
+     * @throws MyHttpException
      */
     public function export():string{
         if(empty($this->attributes)){
-            throw new HttpException(400,'未配置导出字段');
+            throw new MyHttpException(400,'未配置导出字段');
         }
         if(empty($this->list)){
-            throw new HttpException(400,'导出数据为空');
+            throw new MyHttpException(400,'导出数据为空');
         }
 
         $spreadsheet = new Spreadsheet();
@@ -44,7 +44,7 @@ class ExportHelper
         $index = 0;
         foreach ($this->attributes as $field=>$name){
             $index++;
-            $worksheet->setCellValueByColumnAndRow($index, 1, $name);
+            $worksheet->setCellValue([$index, 1], $name);
         }
 
         //从第二行开始插入数据
@@ -54,7 +54,7 @@ class ExportHelper
             $column_index = 0;
             foreach ($this->attributes as $field=>$name){
                 $column_index++;
-                $worksheet->setCellValueByColumnAndRow($column_index, $row_index, ArrayHelper::getValue($value,$field));
+                $worksheet->setCellValue([$column_index, $row_index], ArrayHelper::getValue($value,$field));
             }
         }
 
@@ -67,14 +67,14 @@ class ExportHelper
             $path = str_replace('/',DIRECTORY_SEPARATOR,$root.$savePath);
             if (!is_dir($path)) {
                 if (false === @mkdir($path, 0777, true) && !is_dir($path)) {
-                    throw new HttpException(500,'存储文件夹创建失败：'.$path);
+                    throw new MyHttpException(500,'存储文件夹创建失败：'.$path);
                 }
             }
             try {
                 $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
                 $writer->save($path.DIRECTORY_SEPARATOR.$fileName);
             }catch (\Exception $exception){
-                throw new HttpException(500,'文档创建失败：'.$exception->getMessage());
+                throw new MyHttpException(500,'文档创建失败：'.$exception->getMessage());
             }
             return $savePath.'/'.$fileName;
         }else{
@@ -86,7 +86,7 @@ class ExportHelper
                 $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
                 $writer->save('php://output');
             }catch (\Exception $exception){
-                throw new HttpException(500,'文档创建失败：'.$exception->getMessage());
+                throw new MyHttpException(500,'文档创建失败：'.$exception->getMessage());
             }
             return '';
         }

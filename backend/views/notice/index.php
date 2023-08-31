@@ -5,9 +5,9 @@
                 <li>公告标题：<input type="text" name="like[title]" value=""></li>
                 <li class="select-time">
                     <label>创建时间： </label>
-                    <input type="text" name="between[create_time][start]" id="startTime" placeholder="开始时间" readonly>
+                    <input type="text" name="date[create_time][start]" id="startTime" placeholder="开始时间" readonly>
                     <span>-</span>
-                    <input type="text" name="between[create_time][end]" id="endTime" placeholder="结束时间" readonly>
+                    <input type="text" name="date[create_time][end]" id="endTime" placeholder="结束时间" readonly>
                 </li>
                 <li>
                     <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i> 搜索</a>
