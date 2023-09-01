@@ -72,7 +72,7 @@ class QueryUtils
         //表单的条件 where 的条件
         if (isset($params['where']) && is_array($params['where'])) {
             foreach ($params['where'] as $key => $value) {
-                if ($this->checkFieldAndValue($key, $value)) $query = $query->andWhere([$this->joinAlias($key) => trim($value)]);
+                if ($this->checkFieldAndValue($key, $value)) $query = $query->andWhere([$this->joinAlias($key) => $value]);
             }
         }
         //常用比较符
@@ -80,7 +80,7 @@ class QueryUtils
         foreach ($compareTag as $tag => $operate) {
             if (isset($params[$tag]) && is_array($params[$tag])) {
                 foreach ($params[$tag] as $key => $value) {
-                    if ($this->checkFieldAndValue($key, $value)) $query = $query->andWhere([$operate, $this->joinAlias($key), trim($value)]);
+                    if ($this->checkFieldAndValue($key, $value)) $query = $query->andWhere([$operate, $this->joinAlias($key), $value]);
                 }
             }
         }
@@ -88,14 +88,14 @@ class QueryUtils
         //表单的条件 in 的条件
         if (isset($params['in']) && is_array($params['in'])) {
             foreach ($params['in'] as $key => $value) {
-                if ($this->checkFieldAndValue($key, $value)) $query = $query->andWhere([$this->joinAlias($key) => is_array($value) ? $value : trim($value)]);
+                if ($this->checkFieldAndValue($key, $value)) $query = $query->andWhere([$this->joinAlias($key) =>$value]);
             }
         }
 
         //表单的条件 like 的条件
         if (isset($params['like']) && is_array($params['like'])) {
             foreach ($params['like'] as $key => $value) {
-                if ($this->checkFieldAndValue($key, $value)) $query = $query->andWhere(['like', $this->joinAlias($key), trim($value)]);
+                if ($this->checkFieldAndValue($key, $value)) $query = $query->andWhere(['like', $this->joinAlias($key), $value]);
             }
         }
 
@@ -282,10 +282,10 @@ class QueryUtils
      */
     protected function checkFieldAndValue($key, $value): bool
     {
-        if (is_array($value)) {
-            return trim($key) && $value;
-        } else {
+        if (is_string($value)){
             return trim($key) && (trim($value) || trim($value) == '0');
+        }else{
+            return trim($key) && $value;
         }
 
     }

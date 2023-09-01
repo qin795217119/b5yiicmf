@@ -8,23 +8,22 @@ declare (strict_types=1);
 
 namespace common\services\system;
 
+use common\models\system\AdminStruct;
 use common\models\system\Struct;
 
 class AdminStructService
 {
-    protected $table = 'b5net_admin_struct';
-
     /**
      * 更新信息
      * @param $admin_id
      * @param $struct_ids
      * @return bool
      */
-    public function update($admin_id, $struct_ids): bool
+    public static function update($admin_id, $struct_ids): bool
     {
         if (!$admin_id) return false;
         try {
-            \Yii::$app->db->createCommand()->delete($this->table, 'admin_id = ' . $admin_id)->execute();
+            \Yii::$app->db->createCommand()->delete(AdminStruct::tableName(), 'admin_id = ' . $admin_id)->execute();
         } catch (\yii\db\Exception $exception) {
             return false;
         }
@@ -43,7 +42,7 @@ class AdminStructService
         }
         if (!$data) return true;
         try {
-            \Yii::$app->db->createCommand()->batchInsert($this->table, $filed, $data)->execute();
+            \Yii::$app->db->createCommand()->batchInsert(AdminStruct::tableName(), $filed, $data)->execute();
             return true;
         } catch (\yii\db\Exception $exception) {
             return false;
@@ -56,20 +55,20 @@ class AdminStructService
      * @param false $showStruct
      * @return array|false|mixed
      */
-    public function getStructByAdminId($admin_id, $showStruct = false)
+    public static function getStructByAdminId($admin_id, $showStruct = false)
     {
         if (!$admin_id) return [];
 
-        $list = (new \yii\db\Query())->from($this->table)->where(['admin_id' => $admin_id])->all();
+        $list = (new \yii\db\Query())->from(AdminStruct::tableName())->where(['admin_id' => $admin_id])->all();
         if (!$list) return [];
 
-        $list = array_unique(array_column($list,'struct_id'));
+        $list = array_unique(array_column($list, 'struct_id'));
 
-        $list = Struct::find()->where(['id'=>$list,'status'=>1])->select(['id','name','parent_name','status'])->orderBy('parent_id asc,listsort asc,id asc')->asArray()->all();
-        if(!$showStruct){
-           return $list?array_column($list,'id'):[];
+        $list = Struct::find()->where(['id' => $list, 'status' => 1])->select(['id', 'name', 'parent_name', 'status'])->orderBy('parent_id asc,list_sort asc,id asc')->asArray()->all();
+        if (!$showStruct) {
+            return $list ? array_column($list, 'id') : [];
         }
-        return $list?:[];
+        return $list ?: [];
     }
 
     /**
@@ -77,10 +76,10 @@ class AdminStructService
      * @param $struct_id
      * @return array
      */
-    public function getAdminIdByStructId($struct_id): array
+    public static function getAdminIdByStructId($struct_id): array
     {
         if (!$struct_id) return [];
-        $list = (new \yii\db\Query())->from($this->table)->where(['struct_id' => $struct_id])->all();
+        $list = (new \yii\db\Query())->from(AdminStruct::tableName())->where(['struct_id' => $struct_id])->all();
         return $list ? array_unique(array_column($list, 'admin_id')) : [];
     }
 
@@ -89,11 +88,11 @@ class AdminStructService
      * @param $admin_id
      * @return bool
      */
-    public function deleteByAdmin($admin_id): bool
+    public static function deleteByAdmin($admin_id): bool
     {
         if ($admin_id) {
             try {
-                \Yii::$app->db->createCommand()->delete($this->table, 'admin_id = ' . $admin_id)->execute();
+                \Yii::$app->db->createCommand()->delete(AdminStruct::tableName(), 'admin_id = ' . $admin_id)->execute();
                 return true;
             } catch (\yii\db\Exception $exception) {
                 return false;
@@ -107,11 +106,11 @@ class AdminStructService
      * @param $struct_id
      * @return bool
      */
-    public function deleteByStruct($struct_id): bool
+    public static function deleteByStruct($struct_id): bool
     {
         if ($struct_id) {
             try {
-                \Yii::$app->db->createCommand()->delete($this->table, 'struct_id = ' . $struct_id)->execute();
+                \Yii::$app->db->createCommand()->delete(AdminStruct::tableName(), 'struct_id = ' . $struct_id)->execute();
                 return true;
             } catch (\yii\db\Exception $exception) {
                 return false;

@@ -4,7 +4,7 @@
 // +----------------------------------------------------------------------
 // | Author: 冰舞 <357145480@qq.com>
 // +----------------------------------------------------------------------
-declare (strict_types = 1);
+declare (strict_types=1);
 
 namespace common\models\system;
 
@@ -18,7 +18,7 @@ namespace common\models\system;
  * @property string $realname 人员姓名
  * @property string $status 状态
  * @property string $shorter 简称
- * @property string $listsort 排序
+ * @property string $list_sort 排序
  * @property string $worker 是否参与计件
  * @property int $level 等级ID
  * @property string|null $note 备注
@@ -41,5 +41,6 @@ class AdminView extends \yii\db\ActiveRecord
         return 'b5net_admin_view';
     }
 
+    //CREATE VIEW b5net_admin_view as ( SELECT a.*, d.struct_id_tree,d.struct_id,GROUP_CONCAT(r.role_id) as role_id FROM b5net_admin a  LEFT JOIN b5net_admin_role r ON a.id = r.admin_id LEFT JOIN ( select b.admin_id,GROUP_CONCAT( CONCAT(c.levels,',',c.id)) as struct_id_tree,GROUP_CONCAT(c.id) as struct_id from b5net_admin_struct b INNER JOIN b5net_struct c ON c.id = b.struct_id GROUP BY b.admin_id) d ON a.id = d.admin_id GROUP BY a.id)
 
 }

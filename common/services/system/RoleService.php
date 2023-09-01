@@ -15,8 +15,8 @@ class RoleService
      * 获取角色列表
      * @return array
      */
-    public function getList():array{
-        $list = Role::find()->orderBy('listsort asc,id asc')->asArray()->all();
+    public static function getList():array{
+        $list = Role::find()->orderBy('list_sort asc,id asc')->asArray()->all();
         return $list?:[];
     }
 }

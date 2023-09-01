@@ -33,14 +33,14 @@
     $(function () {
         var options = {
             modalName: "岗位",
-            sortName:'listsort',
+            sortName:'list_sort',
             sortOrder: "asc",
             columns: [
                 {checkbox: true},
                 {field: 'id', title: '编号', align: 'center', sortable: true},
                 {field: 'name', title: '岗位名称', align: 'center'},
-                {field: 'poskey', title: '岗位编码', align: 'center'},
-                {field: 'listsort', title: '排序', align: 'center', sortable: true},
+                {field: 'pos_key', title: '岗位编码', align: 'center'},
+                {field: 'list_sort', title: '排序', align: 'center', sortable: true},
 
                 {
                     field: 'status',

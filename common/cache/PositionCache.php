@@ -32,7 +32,7 @@ class PositionCache
     public static function lists(): array
     {
         return \Yii::$app->cache->getOrSet('position_list', function () {
-            $lists = Position::find()->select(['id', 'name', 'poskey', 'status'])->orderBy('listsort asc,id asc')->asArray()->all();
+            $lists = Position::find()->select(['id', 'name', 'pos_key', 'status'])->orderBy('list_sort asc,id asc')->asArray()->all();
             return $lists?:[];
         });
     }

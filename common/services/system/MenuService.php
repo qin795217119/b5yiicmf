@@ -16,7 +16,7 @@ class MenuService
      * 菜单类型
      * @return array
      */
-    public function typeList():array
+    public static function typeList():array
     {
         return ['M' => '目录', 'C' => '菜单', 'F' => '按钮'];
     }
@@ -26,9 +26,9 @@ class MenuService
      * @param bool $root
      * @return array
      */
-    public function getList(bool $root = false):array
+    public static function getList(bool $root = false):array
     {
-        $list = Menu::find()->select(['id', 'parent_id', 'name'])->orderBy('parent_id asc,listsort asc , id asc')->asArray()->all();
+        $list = Menu::find()->select(['id', 'parent_id', 'name'])->orderBy('parent_id asc,list_sort asc , id asc')->asArray()->all();
         if ($root) {
             $first = [
                 'id' => 0,

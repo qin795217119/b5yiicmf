@@ -8,23 +8,23 @@ declare (strict_types=1);
 
 namespace common\services\system;
 
+use common\models\system\RoleMenu;
+
 class RoleMenuService
 {
-    protected $table = 'b5net_role_menu';
-
     /**
      * 更新授权信息
      * @param $role_id
      * @param null $treeId
      * @return bool
      */
-    public function update($role_id, $treeId = null): bool
+    public static function update($role_id, $treeId = null): bool
     {
         if (empty($role_id)) {
             return false;
         }
 
-        if (!$this->deleteByRole($role_id)) {
+        if (!self::deleteByRole($role_id)) {
             return false;
         }
 
@@ -42,7 +42,7 @@ class RoleMenuService
         }
         if (!$data) return true;
         try {
-            \Yii::$app->db->createCommand()->batchInsert($this->table, $filed, $data)->execute();
+            \Yii::$app->db->createCommand()->batchInsert(RoleMenu::tableName(), $filed, $data)->execute();
             return true;
         } catch (\yii\db\Exception $exception) {
             return false;
@@ -54,10 +54,10 @@ class RoleMenuService
      * @param $role_id
      * @return array
      */
-    public function getRoleMenuList($role_id): array
+    public static function getRoleMenuList($role_id): array
     {
         if (!$role_id) return [];
-        $list = (new \yii\db\Query())->from($this->table)->where(['role_id' => $role_id])->all();
+        $list = (new \yii\db\Query())->from(RoleMenu::tableName())->where(['role_id' => $role_id])->all();
         return $list ? array_unique(array_column($list, 'menu_id')) : [];
     }
 
@@ -66,11 +66,11 @@ class RoleMenuService
      * @param $role_id
      * @return bool
      */
-    public function deleteByRole($role_id): bool
+    public static function deleteByRole($role_id): bool
     {
         if ($role_id) {
             try {
-                \Yii::$app->db->createCommand()->delete($this->table, 'role_id = ' . $role_id)->execute();
+                \Yii::$app->db->createCommand()->delete(RoleMenu::tableName(), 'role_id = ' . $role_id)->execute();
                 return true;
             } catch (\yii\db\Exception $exception) {
                 return false;
@@ -84,11 +84,11 @@ class RoleMenuService
      * @param $menu_id
      * @return bool
      */
-    public function deleteByMenu($menu_id): bool
+    public static function deleteByMenu($menu_id): bool
     {
         if ($menu_id) {
             try {
-                \Yii::$app->db->createCommand()->delete($this->table, 'menu_id = ' . $menu_id)->execute();
+                \Yii::$app->db->createCommand()->delete(RoleMenu::tableName(), 'menu_id = ' . $menu_id)->execute();
                 return true;
             } catch (\yii\db\Exception $exception) {
                 return false;

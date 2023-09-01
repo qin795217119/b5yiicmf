@@ -4,21 +4,21 @@
 // +----------------------------------------------------------------------
 // | Author: 冰舞 <357145480@qq.com>
 // +----------------------------------------------------------------------
-declare (strict_types = 1);
+declare (strict_types=1);
 
 namespace common\models\system;
 
 /**
  * This is the model class for table "b5net_position".
  *
- * @property int $id  
- * @property string|null $name  岗位名称
- * @property string|null $poskey  岗位标识
- * @property int $listsort  排序
- * @property int $status  状态
- * @property string|null $note  备注
- * @property string|null $create_time  
- * @property string|null $update_time  
+ * @property int $id
+ * @property string $name  岗位名称
+ * @property string $pos_key  岗位标识
+ * @property int $list_sort  排序
+ * @property string $status  状态
+ * @property string $note  备注
+ * @property string|null $create_time
+ * @property string|null $update_time
  */
 class Position extends \yii\db\ActiveRecord
 {
@@ -36,14 +36,14 @@ class Position extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'poskey', 'listsort'], 'trim'],
-            [['name','poskey','listsort'],'required'],
+            [['name', 'pos_key', 'list_sort'], 'trim'],
+            [['name', 'pos_key', 'list_sort'], 'required'],
             [['name'], 'string', 'max' => 50, 'min' => 2],
-            [['poskey'], 'string', 'max' => 50, 'min' => 2],
-            ['poskey','match', 'pattern' => '/^[A-Za-z0-9_-]+$/','message'=>'{attribute}必须是字母、数字、下划线或破折号'],
+            [['pos_key'], 'string', 'max' => 50, 'min' => 2],
+            ['pos_key', 'match', 'pattern' => '/^[A-Za-z0-9_-]+$/', 'message' => '{attribute}必须是字母、数字、下划线或破折号'],
 
             [['note'], 'string', 'max' => 255],
-            [['create_time', 'update_time','status'], 'safe'],
+            [['create_time', 'update_time', 'status'], 'safe'],
         ];
     }
 
@@ -55,8 +55,8 @@ class Position extends \yii\db\ActiveRecord
         return [
             'id' => 'Id',
             'name' => '岗位名称',
-            'poskey' => '岗位标识',
-            'listsort' => '排序',
+            'pos_key' => '岗位标识',
+            'list_sort' => '排序',
             'status' => '状态',
             'note' => '备注',
             'create_time' => 'Create Time',
@@ -70,10 +70,10 @@ class Position extends \yii\db\ActiveRecord
             [
                 'class' => \yii\behaviors\TimestampBehavior::class,
                 'attributes' => [
-                    \yii\db\ActiveRecord::EVENT_BEFORE_INSERT => ['create_time','update_time'],
+                    \yii\db\ActiveRecord::EVENT_BEFORE_INSERT => ['create_time', 'update_time'],
                     \yii\db\ActiveRecord::EVENT_BEFORE_UPDATE => ['update_time'],
                 ],
-                'value'=>function(){
+                'value' => function () {
                     return (new \DateTime())->format('Y-m-d H:i:s');
                 }
             ]

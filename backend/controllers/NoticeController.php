@@ -4,7 +4,7 @@
 // +----------------------------------------------------------------------
 // | Author: 冰舞 <357145480@qq.com>
 // +----------------------------------------------------------------------
-declare (strict_types = 1);
+declare (strict_types=1);
 
 namespace backend\controllers;
 
@@ -15,7 +15,8 @@ use common\models\Notice;
 class NoticeController extends BaseController
 {
     use CommonAction;
-    protected $model = Notice::class;
+
+    protected string $model = Notice::class;
 
 
 }

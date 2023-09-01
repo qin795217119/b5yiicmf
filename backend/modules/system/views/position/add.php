@@ -10,13 +10,13 @@
     <div class="form-group">
         <label class="col-sm-3 control-label is-required">岗位编码：</label>
         <div class="col-sm-8">
-            <input type="text" name="poskey" value="" class="form-control" required autocomplete="off"/>
+            <input type="text" name="pos_key" value="" class="form-control" required autocomplete="off"/>
         </div>
     </div>
     <div class="form-group">
         <label class="col-sm-3 control-label is-required">排序：</label>
         <div class="col-sm-8">
-            <input type="number" name="listsort" value="" class="form-control" required autocomplete="off"/>
+            <input type="number" name="list_sort" value="" class="form-control" required autocomplete="off"/>
         </div>
     </div>
     <div class="form-group">

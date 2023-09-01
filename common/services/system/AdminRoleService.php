@@ -8,23 +8,22 @@ declare (strict_types=1);
 
 namespace common\services\system;
 
+use common\models\system\AdminRole;
 use common\models\system\Role;
 
 class AdminRoleService
 {
-    protected $table = 'b5net_admin_role';
-
     /**
      * 更新信息
      * @param $admin_id
      * @param null $role_ids
      * @return bool
      */
-    public function update($admin_id, $role_ids = null): bool
+    public static function update($admin_id, $role_ids = null): bool
     {
         if (!$admin_id) return false;
         try {
-            \Yii::$app->db->createCommand()->delete($this->table, 'admin_id = ' . $admin_id)->execute();
+            \Yii::$app->db->createCommand()->delete(AdminRole::tableName(), 'admin_id = ' . $admin_id)->execute();
         } catch (\yii\db\Exception $exception) {
             return false;
         }
@@ -44,7 +43,7 @@ class AdminRoleService
         }
         if (!$data) return true;
         try {
-            \Yii::$app->db->createCommand()->batchInsert($this->table, $filed, $data)->execute();
+            \Yii::$app->db->createCommand()->batchInsert(AdminRole::tableName(), $filed, $data)->execute();
             return true;
         } catch (\yii\db\Exception $exception) {
             return false;
@@ -57,11 +56,11 @@ class AdminRoleService
      * @param false $showRole 是否显示角色详细信息
      * @return array
      */
-    public function getRoleByAdmin($admin_id, $showRole = false): array
+    public static function getRoleByAdmin($admin_id, $showRole = false): array
     {
         if (!$admin_id) return [];
 
-        $list = (new \yii\db\Query())->from($this->table)->where(['admin_id' => $admin_id])->all();
+        $list = (new \yii\db\Query())->from(AdminRole::tableName())->where(['admin_id' => $admin_id])->all();
 
         if (!$showRole) {
             return $list ? array_column($list, 'role_id') : [];
@@ -81,10 +80,10 @@ class AdminRoleService
      * @param $role_id
      * @return array
      */
-    public function getAdminIdByRoleId($role_id): array
+    public static function getAdminIdByRoleId($role_id): array
     {
         if (!$role_id) return [];
-        $list = (new \yii\db\Query())->from($this->table)->where(['role_id' => $role_id])->all();
+        $list = (new \yii\db\Query())->from(AdminRole::tableName())->where(['role_id' => $role_id])->all();
         return $list ? array_column($list, 'admin_id') : [];
     }
 
@@ -93,11 +92,11 @@ class AdminRoleService
      * @param $role_id
      * @return bool
      */
-    public function deleteByRole($role_id): bool
+    public static function deleteByRole($role_id): bool
     {
         if ($role_id) {
             try {
-                \Yii::$app->db->createCommand()->delete($this->table, 'role_id = ' . $role_id)->execute();
+                \Yii::$app->db->createCommand()->delete(AdminRole::tableName(), 'role_id = ' . $role_id)->execute();
                 return true;
             } catch (\yii\db\Exception $exception) {
                 return false;
@@ -111,11 +110,11 @@ class AdminRoleService
      * @param $admin_id
      * @return bool
      */
-    public function deleteByAdmin($admin_id): bool
+    public static function deleteByAdmin($admin_id): bool
     {
         if ($admin_id) {
             try {
-                \Yii::$app->db->createCommand()->delete($this->table, 'admin_id = ' . $admin_id)->execute();
+                \Yii::$app->db->createCommand()->delete(AdminRole::tableName(), 'admin_id = ' . $admin_id)->execute();
                 return true;
             } catch (\yii\db\Exception $exception) {
                 return false;

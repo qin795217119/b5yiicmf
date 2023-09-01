@@ -101,7 +101,7 @@ class LoginForm extends Model
         $roleId = [];//角色ID数组
         $is_admin = 0;//超级管理员或者超管角色
         $menuList = []; //权限列表
-        $struct = (new AdminStructService())->getStructByAdminId($user['id'],true);//组织部门
+        $struct = AdminStructService::getStructByAdminId($user['id'],true);//组织部门
 
         $root_admin_id = intval(Yii::$app->params['root_admin_id']);
         if($user['id'] == $root_admin_id){
@@ -110,7 +110,7 @@ class LoginForm extends Model
         //非超管时，获取角色
         if(!$is_admin){
             $root_role_id = intval(Yii::$app->params['root_role_id']);
-            $roleList= (new AdminRoleService())->getRoleByAdmin($user['id'],true);
+            $roleList= AdminRoleService::getRoleByAdmin($user['id'],true);
             if($roleList){
                 foreach ($roleList as $role){
                     if(!$role['status']) continue;
@@ -127,7 +127,7 @@ class LoginForm extends Model
 
         //非超管获取菜单列表
         if(!$is_admin){
-            $menuList = (new RoleMenuService())->getRoleMenuList($roleId);
+            $menuList = RoleMenuService::getRoleMenuList($roleId);
         }
 
         //非超管且无角色 无法登录

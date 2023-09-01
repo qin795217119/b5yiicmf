@@ -21,7 +21,7 @@ class IndexController extends BaseController
      * 首页
      * @return string
      */
-    public function actionIndex()
+    public function actionIndex(): string
     {
         //是否开启横向菜单
         $topNav = false;
@@ -43,7 +43,7 @@ class IndexController extends BaseController
      * 主页
      * @return string
      */
-    public function actionHome()
+    public function actionHome(): string
     {
         return $this->render();
     }
@@ -52,7 +52,8 @@ class IndexController extends BaseController
      * 主题
      * @return string
      */
-    public function actionSkin(){
+    public function actionSkin(): string
+    {
         return $this->render();
     }
 
@@ -83,12 +84,12 @@ class IndexController extends BaseController
             $isAdmin = LoginAuthHelper::adminLoginInfo('info.is_admin');
 
             if ($isAdmin) {
-                $menuList = Menu::find()->select(['id', 'type', 'name', 'url', 'parent_id', 'icon', 'is_refresh', 'target'])->where(['<>', 'type', 'F'])->andWhere(['status' => 1])->orderBy('parent_id asc,listsort asc,id asc')->asArray()->all();
+                $menuList = Menu::find()->select(['id', 'type', 'name', 'url', 'parent_id', 'icon', 'is_refresh', 'target'])->where(['<>', 'type', 'F'])->andWhere(['status' => 1])->orderBy('parent_id asc,list_sort asc,id asc')->asArray()->all();
             } else {
                 $menuIdList = LoginAuthHelper::adminLoginInfo('menu');
                 if ($menuIdList) {
                     //获取菜单
-                    $menuList = Menu::find()->select(['id', 'type', 'name', 'url', 'parent_id', 'icon', 'is_refresh', 'target'])->where(['id' => $menuIdList])->andwhere(['<>', 'type', 'F'])->andWhere(['status' => 1])->orderBy('parent_id asc,listsort asc,id asc')->asArray()->all();
+                    $menuList = Menu::find()->select(['id', 'type', 'name', 'url', 'parent_id', 'icon', 'is_refresh', 'target'])->where(['id' => $menuIdList])->andwhere(['<>', 'type', 'F'])->andWhere(['status' => 1])->orderBy('parent_id asc,list_sort asc,id asc')->asArray()->all();
                 }
             }
         }

@@ -4,7 +4,7 @@
 // +----------------------------------------------------------------------
 // | Author: 冰舞 <357145480@qq.com>
 // +----------------------------------------------------------------------
-declare (strict_types = 1);
+declare (strict_types=1);
 
 namespace backend\modules\system\controllers;
 
@@ -17,21 +17,23 @@ use common\models\system\Menu;
 class MenuController extends BaseController
 {
     use CommonAction;
-    protected $model = Menu::class;
-    protected $validate = true;
+
+    protected string $model = Menu::class;
+    protected bool $validate = true;
 
     /**
      * 获取菜单列表
      * @return string
      */
-    public function actionTree(){
+    public function actionTree()
+    {
         $root = $this->request->get('root', 0);
-        if($this->request->isPost){
-            $list = (new MenuService())->getList($root?true:false);
-            return $this->success('',$list);
-        }else{
+        if ($this->request->isPost) {
+            $list = MenuService::getList($root ? true : false);
+            return $this->success('', $list);
+        } else {
             $id = $this->request->get('id', 0);
-            return $this->render('',['menu_id'=>$id,'root'=>$root]);
+            return $this->render('', ['menu_id' => $id, 'root' => $root]);
         }
     }
 
@@ -42,7 +44,7 @@ class MenuController extends BaseController
      */
     protected function indexBefore(array $params): array
     {
-        $params['orderBy'] = ['parent_id'=>'asc','listsort'=>'asc'];
+        $params['orderBy'] = ['parent_id' => 'asc', 'list_sort' => 'asc'];
         return $params;
     }
 
@@ -52,7 +54,7 @@ class MenuController extends BaseController
      */
     protected function addRender(): string
     {
-        return $this->render('',['typeList'=>(new MenuService())->typeList()]);
+        return $this->render('', ['typeList' => MenuService::typeList()]);
     }
 
     /**
@@ -62,19 +64,20 @@ class MenuController extends BaseController
      */
     protected function editRender($info): string
     {
-        if($info['parent_id']){
+        if ($info['parent_id']) {
             $parent = Menu::findOne($info['parent_id']);
-            if($parent){
+            if ($parent) {
                 $info['parent_name'] = $parent['name'];
-            }else{
-                $info['parent_name'] = '错误：'.$info['parent_id'];
+            } else {
+                $info['parent_name'] = '错误：' . $info['parent_id'];
             }
-        }else{
+        } else {
             $info['parent_name'] = '顶级菜单';
         }
 
-        return $this->render('',['info'=>$info,'typeList'=>(new MenuService())->typeList()]);
+        return $this->render('', ['info' => $info, 'typeList' => MenuService::typeList()]);
     }
+
     /**
      * 删除后操作
      * @param array $data
@@ -82,6 +85,6 @@ class MenuController extends BaseController
     protected function deleteAfter(array $data): void
     {
         //删除菜单的角色授权
-        (new RoleMenuService())->deleteByMenu($data['id']);
+        RoleMenuService::deleteByMenu($data['id']);
     }
 }

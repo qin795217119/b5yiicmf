@@ -226,7 +226,7 @@ class DataScopeHelper
             }
         }
         if (8 & $dataScope) {//自定义
-            $struct = (new RoleStructService())->getRoleStructList($roleList);
+            $struct = RoleStructService::getRoleStructList($roleList);
             if ($struct) {
                 //[...$structArr,...$struct];
                 $structArr = array_merge($structArr, $struct);

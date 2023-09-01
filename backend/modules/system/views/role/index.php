@@ -3,7 +3,7 @@
         <div class="select-list">
             <ul>
                 <li>角色名称：<input type="text" name="like[name]"></li>
-                <li>权限字符：<input type="text" name="like[rolekey]"></li>
+                <li>权限字符：<input type="text" name="like[role_key]"></li>
                 <li>组织状态：
                     <select name="where[status]">
                         <option value="">全部</option>
@@ -34,7 +34,7 @@
         $(function () {
             var options = {
                 modalName: "角色",
-                sortName:'listsort',
+                sortName:'list_sort',
                 sortOrder:'asc',
                 columns: [
                     {
@@ -45,8 +45,8 @@
                     },
                     {field: 'id', title: '角色ID', align: 'center', sortable: true},
                     {field: 'name', title: '角色名称'},
-                    {field: 'rolekey', title: '权限字符'},
-                    {field: 'listsort', title: '显示顺序',align: 'center', sortable: true},
+                    {field: 'role_key', title: '权限字符'},
+                    {field: 'list_sort', title: '显示顺序',align: 'center', sortable: true},
                     {
                         title: '状态',
                         field: 'status',

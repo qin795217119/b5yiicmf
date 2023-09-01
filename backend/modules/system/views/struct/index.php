@@ -51,7 +51,7 @@
                     }
                 },
                 {
-                    field: 'listsort',
+                    field: 'list_sort',
                     title: '排序'
                 },
                 {

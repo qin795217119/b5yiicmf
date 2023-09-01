@@ -33,7 +33,7 @@ class StructCache
     public static function lists(bool $index = false): array
     {
         $list =  \Yii::$app->cache->getOrSet('struct_list', function () {
-            $lists = Struct::find()->select(['id', 'name', 'parent_id', 'status'])->orderBy('parent_id asc,listsort asc,id asc')->asArray()->all();
+            $lists = Struct::find()->select(['id', 'name', 'parent_id', 'status'])->orderBy('parent_id asc,list_sort asc,id asc')->asArray()->all();
             return $lists?:[];
         });
         if($index && $list){

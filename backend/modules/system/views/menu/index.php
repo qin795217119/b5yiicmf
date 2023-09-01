@@ -54,7 +54,7 @@
                             }
                         }
                     },
-                    {field: 'listsort', title: '排序',},
+                    {field: 'list_sort', title: '排序',},
                     {
                         field: 'url',
                         title: '请求地址',

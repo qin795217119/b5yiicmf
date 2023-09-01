@@ -37,9 +37,8 @@ class ConfigCache
             $result = [];
             $lists = Config::find()->select(['type', 'value', 'extra', 'style'])->asArray()->all();
             if ($lists) {
-                $service = new ConfigService();
                 foreach ($lists as $key => $value) {
-                    $result[$value['type']] = $service->formatFilter($value);
+                    $result[$value['type']] = ConfigService::formatFilter($value);
                 }
             }
             return $result;

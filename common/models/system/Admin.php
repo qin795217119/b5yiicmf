@@ -4,7 +4,7 @@
 // +----------------------------------------------------------------------
 // | Author: 冰舞 <357145480@qq.com>
 // +----------------------------------------------------------------------
-declare (strict_types = 1);
+declare (strict_types=1);
 
 namespace common\models\system;
 
@@ -16,11 +16,9 @@ namespace common\models\system;
  * @property string $password 登录密码
  * @property string $realname 人员姓名
  * @property string $status 状态
- * @property string|null $note 备注
+ * @property string $note 备注
  * @property string|null $create_time 创建时间
  * @property string|null $update_time 更新时间
- * @property string|null $last_time 登录时间
- * @property string|null $last_ip 登录ip
  */
 class Admin extends \yii\db\ActiveRecord
 {
@@ -46,7 +44,7 @@ class Admin extends \yii\db\ActiveRecord
             [['note'], 'string', 'max' => 255],
             ['status', 'in', 'range' => [0, 1]],
             [['username'], 'unique'],
-            [['create_time', 'update_time', 'last_time', 'last_ip'], 'safe'],
+            [['create_time', 'update_time'], 'safe'],
         ];
     }
 
@@ -63,9 +61,7 @@ class Admin extends \yii\db\ActiveRecord
             'status' => '状态',
             'note' => '备注',
             'create_time' => '创建时间',
-            'update_time' => '更新时间',
-            'last_time' => '登录时间',
-            'last_ip' => '登录ip',
+            'update_time' => '更新时间'
         ];
     }
 
@@ -75,10 +71,10 @@ class Admin extends \yii\db\ActiveRecord
             [
                 'class' => \yii\behaviors\TimestampBehavior::class,
                 'attributes' => [
-                    \yii\db\ActiveRecord::EVENT_BEFORE_INSERT => ['create_time','update_time'],
+                    \yii\db\ActiveRecord::EVENT_BEFORE_INSERT => ['create_time', 'update_time'],
                     \yii\db\ActiveRecord::EVENT_BEFORE_UPDATE => ['update_time'],
                 ],
-                'value'=>function(){
+                'value' => function () {
                     return (new \DateTime())->format('Y-m-d H:i:s');
                 }
             ]

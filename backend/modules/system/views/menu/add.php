@@ -53,7 +53,7 @@
         </div>
         <label class="col-sm-2 control-label">显示顺序：</label>
         <div class="col-sm-3 mb15">
-            <input type="number" name="listsort" value="0" class="form-control" placeholder="请输入显示顺序" required autocomplete="off"/>
+            <input type="number" name="list_sort" value="0" class="form-control" placeholder="请输入显示顺序" required autocomplete="off"/>
         </div>
     </div>
     <div class="form-group icon_dropbox">

@@ -14,7 +14,7 @@
     <div class="form-group">
         <label class="col-sm-3 control-label">角色标识：</label>
         <div class="col-sm-8">
-            <div class="form-control-static"><?=$info['rolekey']?></div>
+            <div class="form-control-static"><?=$info['role_key']?></div>
         </div>
     </div>
     <div class="form-group">

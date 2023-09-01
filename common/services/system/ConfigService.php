@@ -19,7 +19,7 @@ class ConfigService
      * 配置类型
      * @return string[]
      */
-    public function styleList():array
+    public static function styleList(): array
     {
         return ['text' => '文本', 'textarea' => '多行文本', 'array' => '数组', 'select' => '枚举'];
     }
@@ -30,16 +30,16 @@ class ConfigService
      * @param bool $isVal
      * @return array|false|string[]|null
      */
-    public function getConfig(string $key, bool $isVal = true)
+    public static function getConfig(string $key, bool $isVal = true)
     {
-        if(!$key) {
+        if (!$key) {
             return false;
         }
         $info = Config::findOne(['type' => $key]);
         if (!$info) {
             return false;
         }
-        $info = $this->formatFilter($info->toArray());
+        $info = self::formatFilter($info->toArray());
         if ($isVal) {
             return $info['value'];
         } else {
@@ -53,7 +53,7 @@ class ConfigService
      * @param bool $array 是否处理数组
      * @return array
      */
-    public function formatFilter(array $info,bool $array = true):array
+    public static function formatFilter(array $info, bool $array = true): array
     {
         if (empty($info)) return [];
         $value = $info['value'];
@@ -75,15 +75,16 @@ class ConfigService
         $info['extra'] = $extra;
         return $info;
     }
+
     /**
      * 获取分组的配置列表
      * @param string $key
      * @return array
      */
-    public function getListByGroup(string $key = ''):array
+    public static function getListByGroup(string $key = ''): array
     {
         $reList = [];
-        $groupList = $this->getConfig('sys_config_group');
+        $groupList = self::getConfig('sys_config_group');
         if ($key && isset($groupList[$key])) {
             $groupList = [$key => $groupList[$key]];
         }
@@ -100,7 +101,7 @@ class ConfigService
                         ];
                         foreach ($lists as $key => $val) {
                             if ($val['groups'] == $gKey) {
-                                $val = $this->formatFilter($val,false);
+                                $val = self::formatFilter($val, false);
                                 $reList[$gKey]['chList'][$val['type']] = $val;
                                 unset($lists[$key]);
                             }

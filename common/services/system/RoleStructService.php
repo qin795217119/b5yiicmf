@@ -8,22 +8,23 @@ declare (strict_types=1);
 
 namespace common\services\system;
 
+use common\models\system\RoleStruct;
+
 class RoleStructService
 {
-    protected $table = 'b5net_role_struct';
     /**
      * 更新授权信息
      * @param $role_id
      * @param string|array $struct_id
      * @return bool
      */
-    public function update($role_id, $struct_id = null): bool
+    public static function update($role_id, $struct_id = null): bool
     {
         if (!$role_id) {
             return false;
         }
 
-        if(!$this->deleteByRole($role_id)){
+        if (!self::deleteByRole($role_id)) {
             return false;
         }
 
@@ -34,17 +35,17 @@ class RoleStructService
         }
         $struct_id = array_unique($struct_id);
         $data = [];
-        $filed = ['role_id','struct_id'];
+        $filed = ['role_id', 'struct_id'];
         foreach ($struct_id as $id) {
             if ($id) {
                 $data[] = [$role_id, $id];
             }
         }
-        if(!$data) return true;
+        if (!$data) return true;
         try {
-            \Yii::$app->db->createCommand()->batchInsert($this->table,$filed,$data)->execute();
+            \Yii::$app->db->createCommand()->batchInsert(RoleStruct::tableName(), $filed, $data)->execute();
             return true;
-        } catch (\yii\db\Exception $exception){
+        } catch (\yii\db\Exception $exception) {
             return false;
         }
     }
@@ -54,10 +55,10 @@ class RoleStructService
      * @param $role_id
      * @return array
      */
-    public function getRoleStructList($role_id): array
+    public static function getRoleStructList($role_id): array
     {
         if (!$role_id) return [];
-        $list = (new \yii\db\Query())->from($this->table)->where(['role_id' => $role_id])->all();
+        $list = (new \yii\db\Query())->from(RoleStruct::tableName())->where(['role_id' => $role_id])->all();
         return $list ? array_unique(array_column($list, 'struct_id')) : [];
     }
 
@@ -66,10 +67,11 @@ class RoleStructService
      * @param $role_id
      * @return bool
      */
-    public function deleteByRole($role_id):bool{
+    public static function deleteByRole($role_id): bool
+    {
         if ($role_id) {
             try {
-                \Yii::$app->db->createCommand()->delete($this->table, 'role_id = ' . $role_id)->execute();
+                \Yii::$app->db->createCommand()->delete(RoleStruct::tableName(), 'role_id = ' . $role_id)->execute();
                 return true;
             } catch (\yii\db\Exception $exception) {
                 return false;
@@ -83,10 +85,11 @@ class RoleStructService
      * @param $struct_id
      * @return bool
      */
-    public function deleteByStruct($struct_id):bool{
+    public static function deleteByStruct($struct_id): bool
+    {
         if ($struct_id) {
             try {
-                \Yii::$app->db->createCommand()->delete($this->table, 'struct_id = ' . $struct_id)->execute();
+                \Yii::$app->db->createCommand()->delete(RoleStruct::tableName(), 'struct_id = ' . $struct_id)->execute();
                 return true;
             } catch (\yii\db\Exception $exception) {
                 return false;

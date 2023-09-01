@@ -21,7 +21,8 @@ class CommonController extends BaseController
      * 公共action操作
      * @return array
      */
-    public function actions(){
+    public function actions(): array
+    {
         return [
             'uploadimg'=>[
                 'class'=>'common\actions\UploadAction',
@@ -42,7 +43,8 @@ class CommonController extends BaseController
      * 裁剪图片
      * @return string
      */
-    public function actionCropper(){
+    public function actionCropper(): string
+    {
         $data=[
             'id' => Yii::$app->request->get('id',''),
             'cat' => Yii::$app->request->get('cat','')

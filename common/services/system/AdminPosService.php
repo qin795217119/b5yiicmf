@@ -9,22 +9,21 @@ declare (strict_types=1);
 namespace common\services\system;
 
 use common\cache\PositionCache;
+use common\models\system\AdminPos;
 
 class AdminPosService
 {
-    protected $table = 'b5net_admin_pos';
-
     /**
      * 更新信息
      * @param $admin_id
      * @param $pos_ids
      * @return bool
      */
-    public function update($admin_id, $pos_ids): bool
+    public static function update($admin_id, $pos_ids): bool
     {
         if (!$admin_id) return false;
         try {
-            \Yii::$app->db->createCommand()->delete($this->table, 'admin_id = ' . $admin_id)->execute();
+            \Yii::$app->db->createCommand()->delete(AdminPos::tableName(), 'admin_id = ' . $admin_id)->execute();
         } catch (\yii\db\Exception $exception) {
             return false;
         }
@@ -43,7 +42,7 @@ class AdminPosService
         }
         if (!$data) return true;
         try {
-            \Yii::$app->db->createCommand()->batchInsert($this->table, $filed, $data)->execute();
+            \Yii::$app->db->createCommand()->batchInsert(AdminPos::tableName(), $filed, $data)->execute();
             return true;
         } catch (\yii\db\Exception $exception) {
             return false;
@@ -56,21 +55,20 @@ class AdminPosService
      * @param false $showPos
      * @return array|false|mixed
      */
-    public function getPosByAdmin($admin_id, $showPos = false)
+    public static function getPosByAdmin($admin_id, $showPos = false)
     {
         if (!$admin_id) return [];
 
-        $info = (new \yii\db\Query())->from($this->table)->where(['admin_id' => $admin_id])->one();
+        $info = (new \yii\db\Query())->from(AdminPos::tableName())->where(['admin_id' => $admin_id])->one();
         if (!$info) return [];
 
         if (!$showPos) return $info['pos_id'];
 
         $posList = PositionCache::lists();
-        $posList = array_column($posList,null,'id');
+        $posList = array_column($posList, null, 'id');
 
         return $posList[$info['pos_id']] ?? [];
     }
-
 
 
     /**
@@ -78,11 +76,11 @@ class AdminPosService
      * @param $admin_id
      * @return bool
      */
-    public function deleteByAdmin($admin_id): bool
+    public static function deleteByAdmin($admin_id): bool
     {
         if ($admin_id) {
             try {
-                \Yii::$app->db->createCommand()->delete($this->table, 'admin_id = ' . $admin_id)->execute();
+                \Yii::$app->db->createCommand()->delete(AdminPos::tableName(), 'admin_id = ' . $admin_id)->execute();
                 return true;
             } catch (\yii\db\Exception $exception) {
                 return false;
@@ -96,11 +94,11 @@ class AdminPosService
      * @param $pos_id
      * @return bool
      */
-    public function deleteByPos($pos_id): bool
+    public static function deleteByPos($pos_id): bool
     {
         if ($pos_id) {
             try {
-                \Yii::$app->db->createCommand()->delete($this->table, 'pos_id = ' . $pos_id)->execute();
+                \Yii::$app->db->createCommand()->delete(AdminPos::tableName(), 'pos_id = ' . $pos_id)->execute();
                 return true;
             } catch (\yii\db\Exception $exception) {
                 return false;

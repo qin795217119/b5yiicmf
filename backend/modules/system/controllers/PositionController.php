@@ -4,7 +4,7 @@
 // +----------------------------------------------------------------------
 // | Author: 冰舞 <357145480@qq.com>
 // +----------------------------------------------------------------------
-declare (strict_types = 1);
+declare (strict_types=1);
 
 namespace backend\modules\system\controllers;
 
@@ -18,7 +18,8 @@ use common\services\system\AdminPosService;
 class PositionController extends BaseController
 {
     use CommonAction;
-    protected $model = Position::class;
+
+    protected string $model = Position::class;
 
     protected function saveAfter(\yii\db\ActiveRecord $model, string $type, array $extend = []): void
     {
@@ -29,7 +30,7 @@ class PositionController extends BaseController
     {
         PositionCache::clear();
         //删除岗位绑定的人员信息
-        (new AdminPosService())->deleteByPos($data['id']);
+        AdminPosService::deleteByPos($data['id']);
     }
 
 }

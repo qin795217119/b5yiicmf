@@ -19,7 +19,7 @@ class StructService
      * @param $pid
      * @return bool
      */
-    public function updateExtendField($pid):bool{
+    public static function updateExtendField($pid):bool{
         if(!$pid) return false;
 
         $parentInfo = Struct::findOne($pid);
@@ -34,7 +34,7 @@ class StructService
                 $child->levels = $levels;
                 $res = $child->save(false);
                 if($res){
-                    $this->updateExtendField($child['id']);
+                    self::updateExtendField($child['id']);
                 }
             }
         }
@@ -63,9 +63,9 @@ class StructService
      * 获取所有菜单，用于树形组件使用
      * @return array
      */
-    public function getList():array
+    public static function getList():array
     {
-        $list = Struct::find()->select(['id', 'parent_id', 'name'])->orderBy('parent_id asc,listsort asc,id asc')->asArray()->all();
+        $list = Struct::find()->select(['id', 'parent_id', 'name'])->orderBy('parent_id asc,list_sort asc,id asc')->asArray()->all();
         return $list?:[];
     }
 }

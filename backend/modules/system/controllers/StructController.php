@@ -4,7 +4,7 @@
 // +----------------------------------------------------------------------
 // | Author: 冰舞 <357145480@qq.com>
 // +----------------------------------------------------------------------
-declare (strict_types = 1);
+declare (strict_types=1);
 
 namespace backend\modules\system\controllers;
 
@@ -18,22 +18,24 @@ use common\models\system\Struct;
 class StructController extends BaseController
 {
     use CommonAction;
-    protected $model = Struct::class;
-    protected $validate = true;
+
+    protected string $model = Struct::class;
+    protected bool $validate = true;
 
     /**
      * 树形页面
      * @return array|string
      */
-    public function actionTree(){
+    public function actionTree()
+    {
         if ($this->request->isPost) {
-            $list = (new StructService())->getList();
-            return $this->success('',$list);
+            $list = StructService::getList();
+            return $this->success('', $list);
         } else {//是否显示父级名称
-            $parent = $this->request->get('parent',0);
+            $parent = $this->request->get('parent', 0);
             $id = $this->request->get('id', 0);
             $ismult = $this->request->get('ismult', 0);
-            return $this->render('',['struct_id'=>$id,'parent'=>$parent,'ismult'=>$ismult]);
+            return $this->render('', ['struct_id' => $id, 'parent' => $parent, 'ismult' => $ismult]);
         }
     }
 
@@ -44,7 +46,7 @@ class StructController extends BaseController
     protected function indexRender(): string
     {
         $root_id = intval($this->app->params['root_struct_id']);
-        return $this->render('',['root_id'=>$root_id]);
+        return $this->render('', ['root_id' => $root_id]);
     }
 
     /**
@@ -54,7 +56,7 @@ class StructController extends BaseController
      */
     protected function indexBefore(array $params): array
     {
-        $params['orderBy'] = ['parent_id'=>'asc','listsort'=>'asc'];
+        $params['orderBy'] = ['parent_id' => 'asc', 'list_sort' => 'asc'];
         return $params;
     }
 
@@ -66,25 +68,26 @@ class StructController extends BaseController
     {
         $root_id = intval($this->app->params['root_struct_id']);
         $rootInfo = Struct::findOne($root_id);
-        if(!$rootInfo){
-            return $this->error("根组织错误，请添加根组织ID：".$root_id);
+        if (!$rootInfo) {
+            return $this->error("根组织错误，请添加根组织ID：" . $root_id);
         }
-        return $this->render('',['root_id'=>$root_id,'root_name'=>$rootInfo['name']]);
+        return $this->render('', ['root_id' => $root_id, 'root_name' => $rootInfo['name']]);
     }
 
     /**
      * 编辑页渲染
+     * @param array $info
      * @return string
      */
     protected function editRender(array $info): string
     {
-        if($info['parent_id']){
-            $info['parent_name'] = implode('-',explode(',',$info['parent_name']));
-        }else{
+        if ($info['parent_id']) {
+            $info['parent_name'] = implode('-', explode(',', $info['parent_name']));
+        } else {
             $info['parent_name'] = '顶级部门';
         }
         $root_id = intval($this->app->params['root_struct_id']);
-        return $this->render('',['info'=>$info,'root_id'=>$root_id]);
+        return $this->render('', ['info' => $info, 'root_id' => $root_id]);
     }
 
     /**
@@ -95,22 +98,22 @@ class StructController extends BaseController
      */
     protected function saveBefore(\yii\db\ActiveRecord $model, string $type): string
     {
-        if($type == 'add' || $type == 'edit'){
+        if ($type == 'add' || $type == 'edit') {
             $root_id = intval($this->app->params['root_struct_id']);
-            $parent_id = $model['parent_id']??'';
-            if($type == 'add' && !$parent_id){
+            $parent_id = $model['parent_id'] ?? '';
+            if ($type == 'add' && !$parent_id) {
                 return '不能添加顶级部门';
             }
-            if($type == 'edit' && $model['id'] == $root_id && $parent_id){
+            if ($type == 'edit' && $model['id'] == $root_id && $parent_id) {
                 return '顶级部门不能修改上级部门';
             }
-            if($parent_id){
+            if ($parent_id) {
                 $parentInfo = Struct::findOne($parent_id);
-                if(!$parentInfo){
+                if (!$parentInfo) {
                     return '上级部门信息不存在';
                 }
-                $model['parent_name'] = trim($parentInfo['parent_name'].','.$parentInfo['name'],',');
-                $model['levels'] = trim($parentInfo['levels'].','.$parentInfo['id'],',');
+                $model['parent_name'] = trim($parentInfo['parent_name'] . ',' . $parentInfo['name'], ',');
+                $model['levels'] = trim($parentInfo['levels'] . ',' . $parentInfo['id'], ',');
             }
         }
         return '';
@@ -123,8 +126,8 @@ class StructController extends BaseController
      */
     protected function saveAfter(\yii\db\ActiveRecord $model, string $type): void
     {
-        if($type == 'edit'){
-            (new StructService())->updateExtendField($model['id']);
+        if ($type == 'edit') {
+            StructService::updateExtendField($model['id']);
         }
     }
 
@@ -135,9 +138,9 @@ class StructController extends BaseController
     protected function deleteAfter(array $data): void
     {
         //删除管理员组织信息
-        (new AdminStructService())->deleteByStruct($data['id']);
+        AdminStructService::deleteByStruct($data['id']);
 
         //删除角色数据权限信息
-        (new RoleStructService())->deleteByStruct($data['id']);
+        RoleStructService::deleteByStruct($data['id']);
     }
 }

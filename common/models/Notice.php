@@ -4,7 +4,7 @@
 // +----------------------------------------------------------------------
 // | Author: 冰舞 <357145480@qq.com>
 // +----------------------------------------------------------------------
-declare (strict_types = 1);
+declare (strict_types=1);
 
 namespace common\models;
 
@@ -13,9 +13,9 @@ namespace common\models;
  *
  * @property int $id 公告ID
  * @property string $title 公告标题
- * @property string|null $type 公告类型（1通知 2公告）
- * @property string|null $content 公告内容
- * @property string|null $textarea 非html内容
+ * @property string $type 公告类型（1通知 2公告）
+ * @property string $content 公告内容
+ * @property string $textarea 非html内容
  * @property string $status 公告状态（1正常 0关闭）
  * @property string|null $create_time 创建时间
  * @property string|null $update_time 更新时间
@@ -68,10 +68,10 @@ class Notice extends \yii\db\ActiveRecord
             [
                 'class' => \yii\behaviors\TimestampBehavior::class,
                 'attributes' => [
-                    \yii\db\ActiveRecord::EVENT_BEFORE_INSERT => ['create_time','update_time'],
+                    \yii\db\ActiveRecord::EVENT_BEFORE_INSERT => ['create_time', 'update_time'],
                     \yii\db\ActiveRecord::EVENT_BEFORE_UPDATE => ['update_time'],
                 ],
-                'value'=>function(){
+                'value' => function () {
                     return (new \DateTime())->format('Y-m-d H:i:s');
                 }
             ]
