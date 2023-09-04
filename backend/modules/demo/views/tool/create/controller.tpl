@@ -16,7 +16,7 @@ use common\models\{$model_use};
 class {$controller}Controller extends BaseController
 {
     use CommonAction;
-    protected $model = {$model}::class;
 
-
+    protected string $model = {$model}::class;
+    protected bool $validate = true;
 }

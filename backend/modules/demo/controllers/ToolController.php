@@ -168,7 +168,8 @@ class ToolController extends BaseController
     //生成控制器
     private function createController($model_name,$dir){
         $root = \Yii::getAlias('@root_path');//根地址
-        $controller_name = ucfirst(strtolower($model_name));//生成控制器名称
+//        $controller_name = ucfirst(strtolower($model_name));//生成控制器名称
+        $controller_name = $model_name;//生成控制器名称
 
         $model_use = $model_name;
         if($dir) {
@@ -196,7 +197,7 @@ class ToolController extends BaseController
     //创建index.html
     private function createIndex($fields,$model_name,$dir){
         $root = \Yii::getAlias('@root_path');//根地址
-        $path_name = strtolower($model_name);//文件夹
+        $path_name = Str::snake($model_name,'-');//文件夹
         if($dir){
             $dir = '/modules/'.$dir;
         }
@@ -269,7 +270,7 @@ class ToolController extends BaseController
     //创建add.html
     private function createAdd($fields,$model_name,$dir){
         $root = \Yii::getAlias('@root_path');//根地址
-        $path_name = strtolower($model_name);//文件夹
+        $path_name = Str::snake($model_name,'-');//文件夹
         if($dir){
             $dir = '/modules/'.$dir;
         }
@@ -328,7 +329,7 @@ class ToolController extends BaseController
 
     private function createEdit($fields,$model_name,$dir){
         $root = \Yii::getAlias('@root_path');//根地址
-        $path_name = strtolower($model_name);//文件夹
+        $path_name = Str::snake($model_name,'-');//文件夹
         if($dir){
             $dir = '/modules/'.$dir;
         }
@@ -409,7 +410,8 @@ class ToolController extends BaseController
         return $result;
     }
     //判断字段类型
-    private function fieldType($type){
+    private function fieldType($type): string
+    {
         $int = ['tinyint','smallint','mediumint','int','integer','bigint','timestamp'];
         $float = ['decimal','float','double','numeric'];
         if(in_array($type,$int)){
