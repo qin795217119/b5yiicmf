@@ -34,9 +34,7 @@ class ConfigController extends BaseController
             if (!$params) return $this->error('无更新数据');
 
             foreach ($params as $id => $value) {
-                if ($id) {
-                    Config::updateAll(['value' => $value], ['id' => $id]);
-                }
+                if ($id) Config::updateAll(['value' => $value], ['id' => $id]);
             }
             ConfigCache::clear();
             return $this->success('保存成功');
@@ -89,14 +87,14 @@ class ConfigController extends BaseController
 
     /**
      * 编辑渲染
-     * @param $info
+     * @param Config $model
      * @return string
      */
-    protected function editRender($info): string
+    protected function editRender(Config $model): string
     {
         $styleList = ConfigService::styleList();
         $groupList = ConfigService::getConfig('sys_config_group');
-        return $this->render('', ['info' => $info, 'groupList' => $groupList, 'styleList' => $styleList]);
+        return $this->render('', ['info' => $model, 'groupList' => $groupList, 'styleList' => $styleList]);
     }
 
 
@@ -110,12 +108,12 @@ class ConfigController extends BaseController
 
     /**
      * 删除前操作
-     * @param array $data
+     * @param Config $model
      * @return string
      */
-    protected function deleteBefore(array $data): string
+    protected function deleteBefore(Config $model): string
     {
-        if ($data['is_sys'] == 1) {
+        if ($model->is_sys == 1) {
             return '系统配置，无法删除';
         }
         return '';

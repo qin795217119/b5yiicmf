@@ -8,7 +8,7 @@
         <label class="col-sm-3 control-label is-required">上级组织：</label>
         <div class="col-sm-8">
             <div class="input-group">
-                <input type="text" id="treeName" value="<?=$info['parent_name']?>" class="form-control" placeholder="请选择上级组织" readonly autocomplete="off" <?=$info['id']==$root_id?'disabled':''?>/>
+                <input type="text" id="treeName" value="<?=$parent_name?>" class="form-control" placeholder="请选择上级组织" readonly autocomplete="off" <?=$info['id']==$root_id?'disabled':''?>/>
                 <span class="input-group-addon"><i class="fa fa-search"></i></span>
             </div>
         </div>

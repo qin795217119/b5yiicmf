@@ -76,44 +76,40 @@ class StructController extends BaseController
 
     /**
      * 编辑页渲染
-     * @param array $info
+     * @param Struct $model
      * @return string
      */
-    protected function editRender(array $info): string
+    protected function editRender(Struct $model): string
     {
-        if ($info['parent_id']) {
-            $info['parent_name'] = implode('-', explode(',', $info['parent_name']));
-        } else {
-            $info['parent_name'] = '顶级部门';
+        $parent_name = '顶级部门';
+        if ($model->parent_id) {
+            $parent_name = implode('-', explode(',', $model->parent_name));
         }
         $root_id = intval($this->app->params['root_struct_id']);
-        return $this->render('', ['info' => $info, 'root_id' => $root_id]);
+        return $this->render('', ['info' => $model, 'root_id' => $root_id,'parent_name'=>$parent_name]);
     }
 
     /**
      * 添加和编辑保存前 处理 父级信息
-     * @param \yii\db\ActiveRecord $model
+     * @param Struct $model
      * @param string $type
      * @return string
      */
-    protected function saveBefore(\yii\db\ActiveRecord $model, string $type): string
+    protected function saveBefore(Struct $model, string $type): string
     {
         if ($type == 'add' || $type == 'edit') {
             $root_id = intval($this->app->params['root_struct_id']);
-            $parent_id = $model['parent_id'] ?? '';
-            if ($type == 'add' && !$parent_id) {
+            if ($type == 'add' && !$model->parent_id) {
                 return '不能添加顶级部门';
             }
-            if ($type == 'edit' && $model['id'] == $root_id && $parent_id) {
+            if ($type == 'edit' && $model->id == $root_id && $model->parent_id) {
                 return '顶级部门不能修改上级部门';
             }
-            if ($parent_id) {
-                $parentInfo = Struct::findOne($parent_id);
-                if (!$parentInfo) {
-                    return '上级部门信息不存在';
-                }
-                $model['parent_name'] = trim($parentInfo['parent_name'] . ',' . $parentInfo['name'], ',');
-                $model['levels'] = trim($parentInfo['levels'] . ',' . $parentInfo['id'], ',');
+            if ($model->parent_id) {
+                $parentInfo = Struct::findOne($model->parent_id);
+                if (!$parentInfo) return '上级部门信息不存在';
+                $model->parent_name = trim($parentInfo->parent_name . ',' . $parentInfo->name, ',');
+                $model->levels = trim($parentInfo->levels . ',' . $parentInfo->id, ',');
             }
         }
         return '';
@@ -121,26 +117,26 @@ class StructController extends BaseController
 
     /**
      * 修改后 进行fullname和levels更新
-     * @param \yii\db\ActiveRecord $model
+     * @param Struct $model
      * @param string $type
      */
-    protected function saveAfter(\yii\db\ActiveRecord $model, string $type): void
+    protected function saveAfter(Struct $model, string $type): void
     {
         if ($type == 'edit') {
-            StructService::updateExtendField($model['id']);
+            StructService::updateExtendField($model->id);
         }
     }
 
     /**
      * 删除后操作
-     * @param array $data
+     * @param Struct $model
      */
-    protected function deleteAfter(array $data): void
+    protected function deleteAfter(Struct $model): void
     {
         //删除管理员组织信息
-        AdminStructService::deleteByStruct($data['id']);
+        AdminStructService::deleteByStruct($model->id);
 
         //删除角色数据权限信息
-        RoleStructService::deleteByStruct($data['id']);
+        RoleStructService::deleteByStruct($model->id);
     }
 }

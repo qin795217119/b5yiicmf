@@ -1550,6 +1550,7 @@ var table = {
                     },
                     data: {
                         key: {
+                            name: "name",           // 显示的字段
                             title: "name"         // 节点数据保存节点提示信息的属性名称
                         },
                         simpleData: {
@@ -1648,7 +1649,7 @@ var table = {
                 }
                 $.tree.hideAllNode(nodes);
                 // 根据搜索值模糊匹配
-                $.tree.updateNodes($._tree.getNodesByParamFuzzy("name", value));
+                $.tree.updateNodes($._tree.getNodesByParamFuzzy($.tree._option.data.key.name, value));
             },
             // 显示所有节点
             showAllNode: function(nodes) {

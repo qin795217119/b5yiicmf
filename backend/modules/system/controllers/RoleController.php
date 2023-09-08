@@ -106,13 +106,13 @@ class RoleController extends BaseController
 
     /**
      * 删除前判断
-     * @param array $data
+     * @param Role $model
      * @return string
      */
-    protected function deleteBefore(array $data): string
+    protected function deleteBefore(Role $model): string
     {
         $root_id = intval($this->app->params['root_role_id']);
-        if ($data['id'] == $root_id) {
+        if ($model->id == $root_id) {
             return '默认超管角色无法删除';
         }
         return '';
@@ -120,17 +120,17 @@ class RoleController extends BaseController
 
     /**
      * 删除角色后
-     * @param array $data
+     * @param Role $model
      */
-    protected function deleteAfter(array $data): void
+    protected function deleteAfter(Role $model): void
     {
         //删除对应的管理员角色信息
-        AdminRoleService::deleteByRole($data['id']);
+        AdminRoleService::deleteByRole($model->id);
 
         //删除对应的权限菜单信息
-        RoleMenuService::deleteByRole($data['id']);
+        RoleMenuService::deleteByRole($model->id);
 
         //删除对应角色数据权限信息
-        RoleStructService::deleteByRole($data['id']);
+        RoleStructService::deleteByRole($model->id);
     }
 }

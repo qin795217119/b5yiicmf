@@ -196,7 +196,7 @@ trait CommonAction
             if (!$info) {
                 return $this->error('信息不存在');
             }
-            return $this->editRender($info->toArray());
+            return $this->editRender($info);
         }
     }
     public function actionSetstatus()
@@ -251,9 +251,8 @@ trait CommonAction
             if (!$info) {
                 return $this->error('信息不存在或数据已删除');
             }
-            $data = $info->toArray();
             //删除前
-            $res = $this->deleteBefore($data,'one');
+            $res = $this->deleteBefore($info,'one');
             if ($res) {
                 return $this->error($res);
             }
@@ -261,7 +260,7 @@ trait CommonAction
             $result = $info->delete();
             if ($result) {
                 //删除后操作
-                $this->deleteAfter($data,'one');
+                $this->deleteAfter($info,'one');
                 return $this->success('删除成功');
             } else {
                 return $this->error('删除失败');
@@ -287,16 +286,15 @@ trait CommonAction
                 if (!$id) continue;
                 $info = $this->model::findOne($id);
                 if ($info) {
-                    $data = $info->toArray();
                     //删除前
-                    $res = $this->deleteBefore($data,'batch');
+                    $res = $this->deleteBefore($info,'batch');
                     if ($res) {
                         continue;
                     }
                     $result = $info->delete();
                     if ($result) {
                         $number++;
-                        $this->deleteAfter($data,'batch');
+                        $this->deleteAfter($info,'batch');
                     }
                 }
             }
@@ -326,12 +324,12 @@ trait CommonAction
 
     /**
      * 编辑渲染，方便重写
-     * @param array $info
+     * @param ActiveRecord $model
      * @return string
      */
-    protected function editRender(array $info): string
+    protected function editRender(ActiveRecord $model): string
     {
-        return $this->render('', ['input' => $this->request->get(), 'info' => $info]);
+        return $this->render('', ['input' => $this->request->get(), 'info' => $model]);
     }
 
     /**
@@ -398,20 +396,20 @@ trait CommonAction
 
     /**
      * 删除后的操作
-     * @param array $data
+     * @param ActiveRecord $model
      * @param string $type
      */
-    protected function deleteAfter(array $data,string $type): void
+    protected function deleteAfter(ActiveRecord $model,string $type): void
     {
     }
 
     /**
      * 删除前操作
-     * @param array $data
+     * @param ActiveRecord $model
      * @param string $type
      * @return string
      */
-    protected function deleteBefore(array $data,string $type): string
+    protected function deleteBefore(ActiveRecord $model,string $type): string
     {
         return '';
     }

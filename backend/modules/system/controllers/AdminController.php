@@ -250,40 +250,40 @@ class AdminController extends BaseController
 
     /**
      * 编辑页渲染
-     * @param array $info
+     * @param Admin $model
      * @return string
      */
-    protected function editRender(array $info): string
+    protected function editRender(Admin $model): string
     {
-        $structInfo = AdminStructService::getStructByAdminId($info['id'], true);
+        $structInfo = AdminStructService::getStructByAdminId($model->id, true);
 
         $struct_id = implode(',', array_column($structInfo, 'id'));
         $struct_name = implode(',', array_column($structInfo, 'name'));
 
-        $roleId = AdminRoleService::getRoleByAdmin($info['id']);
+        $roleId = AdminRoleService::getRoleByAdmin($model->id);
         $roleList = RoleService::getList();
 
         $posList = PositionCache::lists();
-        $posId = AdminPosService::getPosByAdmin($info['id']);
-        return $this->render('', ['info' => $info, 'roleList' => $roleList, 'struct_id' => $struct_id, 'struct_name' => $struct_name, 'roleId' => $roleId, 'posList' => $posList, 'posId' => $posId]);
+        $posId = AdminPosService::getPosByAdmin($model->id);
+        return $this->render('', ['info' => $model, 'roleList' => $roleList, 'struct_id' => $struct_id, 'struct_name' => $struct_name, 'roleId' => $roleId, 'posList' => $posList, 'posId' => $posId]);
     }
 
     /**
      * 验证前进行数据处理
-     * @param $model
+     * @param Admin $model
      * @param string $type
      * @return string
      */
-    protected function validateBefore($model, string $type): string
+    protected function validateBefore(Admin $model, string $type): string
     {
-        if (isset($model['password']) && !$model['password']) {
+        if (isset($model->password) && !$model->password) {
             if ($type == 'add') {
-                $model['password'] = '123456';
+                $model->password = '123456';
             } else if ($type == 'edit') {
-                unset($model['password']);
+                unset($model->password);
             }
-            if (isset($model['realname']) && !$model['realname']) {
-                $model['realname'] = $model['username'];
+            if (isset($model->realname) && !$model->realname) {
+                $model->realname = $model->username;
             }
         }
         return '';
@@ -291,19 +291,18 @@ class AdminController extends BaseController
 
     /**
      * 添加和编辑保存前对数据进行处理
-     * @param \yii\db\ActiveRecord $model
+     * @param Admin $model
      * @param string $type
      * @return string
      */
-    protected function saveBefore(\yii\db\ActiveRecord $model, string $type): string
+    protected function saveBefore(Admin $model, string $type): string
     {
         if ($type == 'add' || $type == 'edit') {
-
-            if (isset($model['password'])) {
-                if (!$model['password']) {
-                    $model['password'] = $model['oldAttributes']['password'];
+            if (isset($model->password)) {
+                if (!$model->password) {
+                    $model->password = $model->oldAttributes['password'];
                 } else {
-                    $model['password'] = md5($model['password']);
+                    $model->password = md5($model->password);
                 }
             }
         }
@@ -312,31 +311,31 @@ class AdminController extends BaseController
 
     /**
      * 添加和编辑后更新角色和组织信息
-     * @param \yii\db\ActiveRecord $model
+     * @param Admin $model
      * @param string $type
      */
-    protected function saveAfter(\yii\db\ActiveRecord $model, string $type): void
+    protected function saveAfter(Admin $model, string $type): void
     {
         if ($type == 'add' || $type == 'edit') {
             $roles = $this->request->post('roles', '');
             $struct = $this->request->post('struct', '');
             $pos = $this->request->post('pos', '');
 
-            AdminRoleService::update($model['id'], $roles);
-            AdminStructService::update($model['id'], $struct);
-            AdminPosService::update($model['id'], $pos);
+            AdminRoleService::update($model->id, $roles);
+            AdminStructService::update($model->id, $struct);
+            AdminPosService::update($model->id, $pos);
         }
     }
 
     /**
      * 删除前判断
-     * @param array $data
+     * @param Admin $model
      * @return string
      */
-    protected function deleteBefore(array $data): string
+    protected function deleteBefore(Admin $model): string
     {
         $root_id = intval($this->app->params['root_admin_id']);
-        if ($data['id'] == $root_id) {
+        if ($model->id == $root_id) {
             return '默认超级管理员无法删除';
         }
         return '';
@@ -344,17 +343,17 @@ class AdminController extends BaseController
 
     /**
      * 删除后操作
-     * @param array $data
+     * @param Admin $model
      */
-    protected function deleteAfter(array $data): void
+    protected function deleteAfter(Admin $model): void
     {
         //删除管理员角色
-        AdminRoleService::deleteByAdmin($data['id']);
+        AdminRoleService::deleteByAdmin($model->id);
 
         //删除管理员组织部门
-        AdminStructService::deleteByAdmin($data['id']);
+        AdminStructService::deleteByAdmin($model->id);
 
         //删除管理员岗位
-        AdminPosService::deleteByAdmin($data['id']);
+        AdminPosService::deleteByAdmin($model->id);
     }
 }

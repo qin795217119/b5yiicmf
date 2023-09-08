@@ -23,7 +23,7 @@ class MenuController extends BaseController
 
     /**
      * 获取菜单列表
-     * @return string
+     * @return array|string
      */
     public function actionTree()
     {
@@ -59,32 +59,31 @@ class MenuController extends BaseController
 
     /**
      * 编辑渲染
-     * @param $info
+     * @param Menu $model
      * @return string
      */
-    protected function editRender($info): string
+    protected function editRender(Menu $model): string
     {
-        if ($info['parent_id']) {
-            $parent = Menu::findOne($info['parent_id']);
+        $parent_name = '顶级菜单';
+        if ($model->parent_id) {
+            $parent = Menu::findOne($model->parent_id);
             if ($parent) {
-                $info['parent_name'] = $parent['name'];
+                $parent_name = $parent['name'];
             } else {
-                $info['parent_name'] = '错误：' . $info['parent_id'];
+                $parent_name = '错误：' . $model->parent_id;
             }
-        } else {
-            $info['parent_name'] = '顶级菜单';
         }
 
-        return $this->render('', ['info' => $info, 'typeList' => MenuService::typeList()]);
+        return $this->render('', ['info' => $model,'parent_name'=>$parent_name, 'typeList' => MenuService::typeList()]);
     }
 
     /**
      * 删除后操作
-     * @param array $data
+     * @param Menu $model
      */
-    protected function deleteAfter(array $data): void
+    protected function deleteAfter(Menu $model): void
     {
         //删除菜单的角色授权
-        RoleMenuService::deleteByMenu($data['id']);
+        RoleMenuService::deleteByMenu($model->id);
     }
 }

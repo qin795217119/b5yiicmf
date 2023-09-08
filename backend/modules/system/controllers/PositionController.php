@@ -21,16 +21,16 @@ class PositionController extends BaseController
 
     protected string $model = Position::class;
 
-    protected function saveAfter(\yii\db\ActiveRecord $model, string $type, array $extend = []): void
+    protected function saveAfter(Position $model, string $type, array $extend = []): void
     {
         PositionCache::clear();
     }
 
-    protected function deleteAfter(array $data, string $type): void
+    protected function deleteAfter(Position $model, string $type): void
     {
         PositionCache::clear();
         //删除岗位绑定的人员信息
-        AdminPosService::deleteByPos($data['id']);
+        AdminPosService::deleteByPos($model->id);
     }
 
 }
