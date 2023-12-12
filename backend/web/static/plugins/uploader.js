@@ -25,7 +25,7 @@ function b5uploadfilehtml(path,name,url,filename){
     }
     var classname = getExtClass(path);
     var html='<div class="b5upload_li">' +
-        '           <input type="hidden" name="'+name+'[]" value="'+path+'">' +
+        '           <input type="hidden" name="'+name+'[]" value="'+path+'" class="'+name+'_upload_val">' +
         '           <div class="b5upload_filetype '+classname+'"></div>' +
         '           <div class="b5upload_filename">';
     if(inputname){
@@ -47,7 +47,7 @@ function b5uploadfilehtml(path,name,url,filename){
 function b5uploadimghtml(path,name,url){
     url = url?url:path;
     var html='<div class="b5upload_li">' +
-        '           <input type="hidden" name="'+name+'[]" value="'+path+'">' +
+        '           <input type="hidden" name="'+name+'[]" value="'+path+'" class="'+name+'_upload_val">' +
         '           <div class="b5uploadimg_con">' +
         '                <div class="b5uploadimg_cell">' +
         '                     <img src="'+url+'" alt="">' +
