@@ -73,6 +73,10 @@ class Asset extends Widget
                 'css'=>[],
                 'js'=>['bootstrap-treetable/bootstrap-treetable.js']
             ],
+            'treetable-async'=>[
+                'css'=>[],
+                'js'=>['bootstrap-treetable/bootstrap-treetable-async.js']
+            ],
             'ztree'=>[
                 'css'=>['ztree/css/metroStyle/metroStyle.css'],
                 'js'=>['ztree/js/jquery.ztree.all.min.js','ztree/js/jquery.ztree.exhide.min.js']

@@ -487,6 +487,8 @@ var table = {
                     ajaxParams: {},
                     toolbar: "toolbar",
                     striped: false,
+					async:false,
+                    asyncLevel: 0,
                     expandColumn: 1,
                     showSearch: true,
                     showRefresh: true,
@@ -502,6 +504,8 @@ var table = {
                 table.config[options.id] = options;
                 $.table.initEvent();
                 $.bttTable = $('#' + options.id).bootstrapTreeTable({
+					async: options.async,  								// 是否启用异步加载子节点
+                    asyncLevel: options.asyncLevel,   					// 异步加载时，最大第几级可以异步，超出不显示展开按钮
                     code: options.code,                                 // 用于设置父子关系
                     parentCode: options.parentCode,                     // 用于设置父子关系
                     type: 'post',                                       // 请求方式（*）
