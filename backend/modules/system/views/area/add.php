@@ -48,7 +48,7 @@
     <div class="form-group">
         <label class="col-sm-3 control-label is-required">排序：</label>
         <div class="col-sm-8">
-            <input type="number" name="listsort" value="100" class="form-control" required autocomplete="off" min="0"/>
+            <input type="number" name="list_sort" value="100" class="form-control" required autocomplete="off" min="0"/>
         </div>
     </div>
 </form>
