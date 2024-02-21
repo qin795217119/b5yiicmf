@@ -339,7 +339,7 @@ var table = {
             // 图片预览
             imageView: function (row,type,width,height,fit) {
                 var value = row[type];
-                if ($.common.isNotEmpty(fit)) fit='cover';
+                if ($.common.isEmpty(fit)) fit='cover';
                 if ($.common.isNotEmpty(value)) {
                     var id = row.id;
                     var shtml = '';
