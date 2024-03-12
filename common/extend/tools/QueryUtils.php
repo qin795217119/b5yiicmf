@@ -285,8 +285,7 @@ class QueryUtils
         if (is_string($value)){
             return trim($key) && (trim($value) || trim($value) == '0');
         }else{
-            return trim($key) && $value;
+            return trim($key) && ($value || $value == 0);
         }
-
     }
 }

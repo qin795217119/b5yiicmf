@@ -19,6 +19,7 @@ class AreaController extends BaseController
     use CommonAction;
 
     protected string $model = Area::class;
+    protected bool $validate = true;
 
     protected function indexBefore(array $params): array
     {

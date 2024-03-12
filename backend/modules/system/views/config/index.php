@@ -31,7 +31,7 @@
     </form>
 </div>
 <div class="btn-group-sm" id="toolbar" role="group">
-    <a class="btn btn-success" onclick="$.operate.add('',this)"><i class="fa fa-plus"></i> 新增</a>
+    <a class="btn btn-success" onclick="$.operate.add()"><i class="fa fa-plus"></i> 新增</a>
     <a class="btn btn-primary single disabled" onclick="$.operate.edit(this)"><i class="fa fa-edit"></i> 修改</a>
     <a class="btn btn-warning" onclick="$.table.exportExcel()"><i class="fa fa-download"></i> 导出Excel</a>
     <a class="btn btn-danger multiple disabled" onclick="$.operate.removeAll(this)"><i class="fa fa-trash"></i> 批量删除</a>
