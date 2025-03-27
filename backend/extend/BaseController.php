@@ -8,6 +8,7 @@ declare (strict_types = 1);
 
 namespace backend\extend;
 
+use backend\extend\helpers\LoginAuthHelper;
 use common\cache\ConfigCache;
 use common\helpers\Result;
 use yii\web\Controller;
@@ -38,6 +39,7 @@ class BaseController extends Controller
         if($this->request->isGet || !$this->request->isAjax){
             $this->app->view->params['system_name'] = ConfigCache::get('sys_config_sysname');
             $this->app->view->params['static_domain'] = \Yii::$app->params['file_domain']??'';
+            $this->app->view->params['login_user'] = LoginAuthHelper::adminLoginInfo()?:[];
         }
     }
 
