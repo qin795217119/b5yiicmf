@@ -38,6 +38,7 @@
 
 <?php $this->beginBlock('script'); ?>
     <script>
+        var dictDataList = JSON.parse('<?=\common\services\system\DictService::getDictDataByType($type,true)?>');
         $(function () {
             var options = {
                 modalName: "字典数据",
@@ -56,7 +57,8 @@
                     {
                         field: 'title', title: '字典标签', align: 'center',
                         formatter:function (value, row, index){
-                            return '<span class="label label-'+row.list_class+'">'+value+'</span>';
+                            // return '<span class="label label-'+row.list_class+'">'+value+'</span>';
+                            return $.table.selectDictLabel(dictDataList, row.value);
                         }
                     },
                     {field: 'value', title: '数据键值', align: 'center'},

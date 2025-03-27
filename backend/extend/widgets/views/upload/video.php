@@ -35,7 +35,7 @@
                 ,done: function(res){
                     if(res.success && res.code===0){
                         $("#videourl_<?=$widget_data['name']?>").val(res.data.path);
-                        $("#videoshow_<?=$widget_data['name']?>").val(res.data.url);
+                        $("#videoshow_<?=$widget_data['name']?>").data("url",res.data.url);
                     }else{
                         $.modal.msgError(res.msg)
                     }

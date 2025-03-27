@@ -216,6 +216,7 @@ class QueryUtils
         $orderBy = $params['orderBy'] ?? []; //自定义的排序
         $orderByColumn = trim($params['orderByColumn'] ?? '');
         $orderBySort = trim($params['orderBySort'] ?? 'asc');
+        if (isset($params['isAsc'])) $orderBySort = $params['isAsc'];
         if ($orderBySort == 'ascending') $orderBySort = 'asc';
         if ($orderBySort != 'asc') $orderBySort = 'desc';
         $orderList = [];

@@ -20,10 +20,10 @@ class DictService
      */
     public static function getDictTypeList(bool $all = false): array
     {
-        $query = DictType::find()->select(['name','type']);
-        if(!$all) $query = $query->where(['status'=>'1']);
-        $list = $query->asArray()->all()?:[];
-        return $list?:[];
+        $query = DictType::find()->select(['name', 'type']);
+        if (!$all) $query = $query->where(['status' => '1']);
+        $list = $query->asArray()->all() ?: [];
+        return $list ?: [];
     }
 
     /**
@@ -33,8 +33,8 @@ class DictService
      */
     public static function getDictTypeInfo(string $type = ''): ?DictType
     {
-        if(!$type) return null;
-        return DictType::findOne(['type'=>$type]);
+        if (!$type) return null;
+        return DictType::findOne(['type' => $type]);
     }
 
     /**
@@ -44,13 +44,33 @@ class DictService
      */
     public static function deleteDictDataByType(string $type = '')
     {
-        if(!$type) return;
-        DictData::deleteAll(['type'=>$type]);
+        if (!$type) return;
+        DictData::deleteAll(['type' => $type]);
     }
 
-
-    public static function getDictDataByType($type)
+    /**
+     * 获取某个字典类型的数据列表
+     * @param string $type
+     * @param bool $json 是否返回json字符串
+     * @return array|string
+     */
+    public static function getDictDataByType($type = '', $json = false)
     {
+        if (!$type) return [];
+        $list = DictData::find()->select(['id', 'title', 'value', 'list_class', 'css_class', 'is_default', 'status'])->where(['type' => $type])->orderBy('list_sort asc')->cache(20)->asArray()->all();
+        return $json? json_encode($list ?: []) : ($list ?: []);
+    }
 
+    /**
+     * 获取某个字典类型的某个值的信息
+     * @param string $type
+     * @param string $value
+     * @return array
+     */
+    public static function getDictDataByTypeAndValue($type = '', $value = ''): array
+    {
+        if (!$type || !$value) return [];
+        $info = DictData::find()->select(['id', 'title', 'value', 'list_class', 'css_class', 'is_default', 'status'])->where(['type' => $type, 'value' => $value])->orderBy('list_sort asc')->cache(20)->asArray()->one();
+        return $info ?: [];
     }
 }

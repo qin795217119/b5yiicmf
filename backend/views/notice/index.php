@@ -3,6 +3,12 @@
         <div class="select-list">
             <ul>
                 <li>公告标题：<input type="text" name="like[title]" value=""></li>
+                <li>状态
+                    <select name="where[status]">
+                        <option value="">全部</option>
+                        <?=\backend\extend\widgets\DictOption::widget( ['type'=>'sys_notice_status','all'=>true])?>
+                    </select>
+                <li>
                 <li class="select-time">
                     <label>创建时间： </label>
                     <input type="text" name="date[create_time][start]" id="startTime" placeholder="开始时间" readonly>
@@ -28,6 +34,7 @@
 
 <?php $this->beginBlock('script'); ?>
 <script>
+    var statusList = JSON.parse('<?=\common\services\system\DictService::getDictDataByType('sys_notice_status',true)?>');
     $(function () {
         var options = {
             modalName: "通知公告",
@@ -42,7 +49,8 @@
                     align: 'center',
                     sortable: true,
                     formatter: function (value, row, index) {
-                        return $.view.statusShow(row,false);
+                        // return $.view.statusShow(row,false);
+                        return $.table.selectDictLabel(statusList,value);
                     }
                 },
 

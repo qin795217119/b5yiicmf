@@ -3573,8 +3573,8 @@ INSERT INTO `b5net_dict_data` VALUES (6, '正常', '1', 'sys_normal_disable', 1,
 INSERT INTO `b5net_dict_data` VALUES (7, '停用', '0', 'sys_normal_disable', 2, 'danger', '', 'N', '停用状态', '1', '2023-05-12 10:40:01', '2024-03-12 16:51:28');
 INSERT INTO `b5net_dict_data` VALUES (14, '通知', '1', 'sys_notice_type', 1, 'warning', NULL, 'Y', '通知', '0', '2023-05-12 10:40:01', NULL);
 INSERT INTO `b5net_dict_data` VALUES (15, '公告', '2', 'sys_notice_type', 2, 'success', NULL, 'N', '公告', '0', '2023-05-12 10:40:01', NULL);
-INSERT INTO `b5net_dict_data` VALUES (16, '正常', '0', 'sys_notice_status', 1, 'primary', NULL, 'Y', '正常状态', '0', '2023-05-12 10:40:01', NULL);
-INSERT INTO `b5net_dict_data` VALUES (17, '关闭', '1', 'sys_notice_status', 2, 'danger', NULL, 'N', '关闭状态', '0', '2023-05-12 10:40:01', NULL);
+INSERT INTO `b5net_dict_data` VALUES (16, '正常', '1', 'sys_notice_status', 1, 'primary', NULL, 'Y', '正常状态', '1', '2023-05-12 10:40:01', NULL);
+INSERT INTO `b5net_dict_data` VALUES (17, '关闭', '0', 'sys_notice_status', 2, 'danger', NULL, 'N', '关闭状态', '1', '2023-05-12 10:40:01', NULL);
 
 -- ----------------------------
 -- Table structure for b5net_dict_type

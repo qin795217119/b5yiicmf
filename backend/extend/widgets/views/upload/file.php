@@ -39,9 +39,14 @@
                 $widget_data['data'] = explode(',',$widget_data['data']);
             }
             foreach ($widget_data['data'] as $widget_data_val){
+                $widget_data_name = '';
+                if (is_array($widget_data_val)) {
+                    $widget_data_name = $widget_data_val['name']??'';
+                    $widget_data_val = $widget_data_val['path']??'';
+                }
                 $widget_data_url = \common\helpers\Functions::getFileUrl($widget_data_val);
         ?>
-            b5uploadhtmlshow("<?=$widget_data['name']?>",b5uploadfilehtml("<?=$widget_data_val?>","<?=$widget_data['name']?>","<?=$widget_data_url?>"));
+            b5uploadhtmlshow("<?=$widget_data['name']?>",b5uploadfilehtml("<?=$widget_data_val?>","<?=$widget_data['name']?>","<?=$widget_data_url?>","<?=$widget_data_name?>"));
         <?php
             }
         }

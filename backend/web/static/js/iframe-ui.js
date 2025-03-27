@@ -444,7 +444,45 @@ var table = {
                 }
                 return $.common.uniqueFn(rows);
             },
-
+            // 回显数据字典
+            selectDictLabel: function(datas, value) {
+                if ($.common.isEmpty(datas) || $.common.isEmpty(value)) {
+                    return '';
+                }
+                var actions = [];
+                $.each(datas, function(index, dict) {
+                    if (dict.value == ('' + value)) {
+                        actions.push($.common.sprintf("<span class='badge badge-%s %s'>%s</span>", dict.list_class, dict.css_class, dict.title));
+                        return false;
+                    }
+                });
+                if (actions.length === 0) {
+                    actions.push($.common.sprintf("<span> %s </span>", value));
+                }
+                return actions.join('');
+            },
+            // 回显数据字典（字符串数组）
+            selectDictLabels: function(datas, value, separator) {
+                if ($.common.isEmpty(datas) || $.common.isEmpty(value)) {
+                    return '';
+                }
+                var currentSeparator = $.common.isEmpty(separator) ? "," : separator;
+                var actions = [];
+                $.each(value.split(currentSeparator), function(i, val) {
+                    var match = false;
+                    $.each(datas, function(index, dict) {
+                        if (dict.dictValue == ('' + val)) {
+                            actions.push($.common.sprintf("<span class='badge badge-%s %s'>%s</span>", dict.list_class, dict.css_class, dict.title));
+                            match = true;
+                            return false;
+                        }
+                    });
+                    if (!match) {
+                        actions.push($.common.sprintf("<span> %s </span>", val));
+                    }
+                });
+                return actions.join('');
+            },
             // 显示表格指定列
             showColumn: function(column, tableId) {
                 var currentId = $.common.isEmpty(tableId) ? table.options.id : tableId;
@@ -1997,15 +2035,17 @@ var table = {
                 return json;
             },
             // 数据字典转下拉框
-            dictToSelect: function(datas, value, name) {
+            dictToSelect: function(datas, value, name, all=false) {
                 var actions = [];
                 actions.push($.common.sprintf("<select class='form-control' name='%s'>", name));
                 $.each(datas, function(index, dict) {
-                    actions.push($.common.sprintf("<option value='%s'", dict.dictValue));
-                    if (dict.dictValue == ('' + value)) {
-                        actions.push(' selected');
+                    if (dict.status == '1' || all) {
+                        actions.push($.common.sprintf("<option value='%s'", dict.value));
+                        if (dict.value == ('' + value)) {
+                            actions.push(' selected');
+                        }
+                        actions.push($.common.sprintf(">%s</option>", dict.title));
                     }
-                    actions.push($.common.sprintf(">%s</option>", dict.dictLabel));
                 });
                 actions.push('</select>');
                 return actions.join('');

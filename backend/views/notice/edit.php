@@ -19,8 +19,7 @@
     <div class="form-group">
         <label class="col-sm-2 control-label is-required">状态：</label>
         <div class="col-sm-9">
-            <label class="radio-box"><input type="radio" name="status" value="0" <?=$info['status']=='0'?'checked':''?>/> 无效</label>
-            <label class="radio-box"><input type="radio" name="status" value="1" <?=$info['status']=='1'?'checked':''?>/> 有效</label>
+            <?=\backend\extend\widgets\DictOption::widget(['type'=>'sys_notice_status','value'=>$info['status'],'tag'=>'radio','name'=>'status'])?>
         </div>
     </div>
 </form>
