@@ -37,6 +37,7 @@ class BaseController extends Controller
 
         if($this->request->isGet || !$this->request->isAjax){
             $this->app->view->params['system_name'] = ConfigCache::get('sys_config_sysname');
+            $this->app->view->params['static_domain'] = \Yii::$app->params['file_domain']??'';
         }
     }
 

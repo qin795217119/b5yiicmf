@@ -24,10 +24,10 @@ class MediaController extends BaseController
         foreach ($list as $key=>$value){
             $value['img'] = Functions::getFileUrl($value['img']);
             $value['imgs'] = Functions::getFileUrlList($value['imgs'],false);
-            $value['crop'] = Functions::getFileUrlList($value['crop'],false);
-            $value['video'] = Functions::getFileUrlList($value['video'],false);
-            $value['file'] = Functions::getFileUrlList($value['file'],false);
-            $value['files'] = Functions::getFileUrlList($value['files'],false);
+//            $value['crop'] = Functions::getFileUrlList($value['crop'],false);
+//            $value['video'] = Functions::getFileUrlList($value['video'],false);
+//            $value['file'] = Functions::getFileUrlList($value['file'],false);
+//            $value['files'] = Functions::getFileUrlList($value['files'],false);
             $list[$key] = $value;
         }
         return $list;

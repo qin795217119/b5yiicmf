@@ -352,7 +352,8 @@ var table = {
                         style+="height:"+height+"px;";
                     }
                     for (var i = 0; i < list.length; i++) {
-                        shtml += $.common.sprintf("<img class='img-table-show' src='%s' style='"+style+"'/>", list[i]);
+                        var src = $.common.domainJoin(list[i], 'static'); // 自动拼接静态域名
+                        shtml += $.common.sprintf("<img class='img-table-show' src='%s' style='"+style+"'/>", src);
                     }
                     shtml = '<div class="photospreshow" id="'+type+'_'+id+'">'+shtml+'</div>';
                     return shtml;
@@ -1842,6 +1843,17 @@ var table = {
         },
         // 通用方法封装处理
         common: {
+            // 拼接域名，主要用于静态资源展示
+            domainJoin: function(url, domain = 'static') {
+                if (!url) return url
+                if (/^(https?:|mailto:|tel:)/.test(url)) return url
+                if (domain === 'static') domain = typeof staticDomain === 'undefined' ? '' : staticDomain
+                if (!domain) return url
+                if (url.indexOf(domain) === 0) return url // 防止后台处理，但是本地/
+                if (domain.charAt(domain.length - 1) === '/') domain = domain.slice(0, -1)
+                if (url.indexOf('/') === 0) url = url.slice(1)
+                return url ? domain + '/' + url : domain
+            },
             //通用连接处理
             processurl:function(url){
                 switch (url) {

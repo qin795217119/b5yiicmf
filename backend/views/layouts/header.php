@@ -22,6 +22,7 @@
     var oesUrl="<?= \yii\helpers\Url::toRoute('edit')?>";
     var upImgUrl="<?= \yii\helpers\Url::toRoute('/common/uploadimg')?>";
     var upFileUrl="<?= \yii\helpers\Url::toRoute('/common/uploadfile')?>";
+    var staticDomain="<?=$this->params['static_domain']?>";
     var bootUrl={
         url: "<?=\yii\helpers\Url::toRoute('index')?>",
         createUrl: decodeURIComponent("<?=\yii\helpers\Url::toRoute(['add','id'=>'%id%'])?>"),
