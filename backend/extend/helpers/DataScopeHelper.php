@@ -186,10 +186,10 @@ class DataScopeHelper
      */
     private static function getFilterStructList()
     {
-        $adminId = intval(LoginAuthHelper::adminLoginInfo('info.id'));
-        if (!$adminId) return false; //未登录返回无权限
+        $adminId = LoginAuthHelper::loginId();
+        if ($adminId < 1) return false; //未登录返回无权限
 
-        $isAdmin = intval(LoginAuthHelper::adminLoginInfo('info.is_admin'));
+        $isAdmin = LoginAuthHelper::loginAdmin();
         if ($isAdmin) return true; //超管返回全部权限
 
         $dataScope = LoginAuthHelper::adminLoginInfo('dataScope');//用户角色列表

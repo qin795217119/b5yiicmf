@@ -99,7 +99,7 @@ class LoginForm extends Model
 
         $dataScope = 0; //数据权限
         $roleId = [];//角色ID数组
-        $is_admin = 0;//超级管理员或者超管角色
+        $is_admin = 0;//超级管理员
         $menuList = []; //权限列表
         $struct = AdminStructService::getStructByAdminId($user['id'],true);//组织部门
 
@@ -109,19 +109,11 @@ class LoginForm extends Model
         }
         //非超管时，获取角色
         if(!$is_admin){
-            $root_role_id = intval(Yii::$app->params['root_role_id']);
             $roleList= AdminRoleService::getRoleByAdmin($user['id'],true);
-            if($roleList){
-                foreach ($roleList as $role){
-                    if(!$role['status']) continue;
-                    if($role['id'] == $root_role_id){
-                        $is_admin = 1;
-                        break;
-                    }else{
-                        $dataScope += $role['data_scope'];
-                        $roleId[] = $role['id'];
-                    }
-                }
+            foreach ($roleList as $role){
+                if(!$role['status']) continue;
+                $dataScope += $role['data_scope'];
+                $roleId[] = $role['id'];
             }
         }
 
