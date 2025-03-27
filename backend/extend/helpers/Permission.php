@@ -31,19 +31,11 @@ class Permission
      */
     public static function hasPerm($permission): bool
     {
-        //判断登录
-        $user_id = LoginAuthHelper::loginId();
-        if ($user_id < 1) return false;
-
-        // 是否超管
-        $is_admin  = LoginAuthHelper::loginAdmin();
-        if($is_admin) return true;
-
         $permission = strtolower($permission);
         $permissionArr = explode(':', $permission);
-        if (count($permissionArr) < 2) return false;
-
-        if (count($permissionArr) == 2) {
+        if (count($permissionArr) < 2) {
+            return false;
+        } elseif (count($permissionArr) == 2) {
             $controller_name = $permissionArr[0];
             $action_name = $permissionArr[1];
         } else {
@@ -58,6 +50,14 @@ class Permission
         if (in_array($controller_name, $notAuthController) || in_array($action_name, $notAuthAction) || in_array($permission, $notAuthPermission) || substr($action_name,0,4) === 'ajax') {
             return true;
         }
+
+        //判断登录
+        $user_id = LoginAuthHelper::loginId();
+        if ($user_id < 1) return false;
+
+        // 是否超管
+        $is_admin  = LoginAuthHelper::loginAdmin();
+        if($is_admin) return true;
 
         //获取登录时的授权菜单Id
         $menuList = LoginAuthHelper::adminLoginInfo('menu');
