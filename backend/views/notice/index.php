@@ -34,7 +34,7 @@
 
 <?php $this->beginBlock('script'); ?>
 <script>
-    var statusList = JSON.parse('<?=\common\services\system\DictService::getDictDataByType('sys_notice_status',true)?>');
+    var statusList = JSON.parse('<?=\backend\extend\widgets\DictList::widget(['type'=>'sys_notice_status','all'=>true])?>');
     $(function () {
         var options = {
             modalName: "通知公告",
