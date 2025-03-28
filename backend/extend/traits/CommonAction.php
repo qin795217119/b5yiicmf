@@ -47,6 +47,7 @@ trait CommonAction
             $isExport = $params['isExport'] ?? 0;//是否为导出excel，展示所有数据
             $debug = $params['debug'] ?? 0; // 是否输出sql语句
             $alias = $params['alias']??'';// 表名简称
+            $isActive = $params['isActive']??0;// 是否indexAfter中的返回数据保持activeQuery
 
             $query = $this->model::find(); //创建查询构建器
             if($alias) $query = $query->alias($alias);
@@ -72,11 +73,13 @@ trait CommonAction
             //是否分页
             if (!$isTree && !$isExport) {
                 $count = (clone $query)->count();
+                if (!$isActive) $query = $query->asArray();
                 $pages = new PageUtils('pageNum','pageSize');
-                $list = $this->indexAfter($query->offset($pages->getOffset())->limit($pages->getPageSize())->asArray()->all());
+                $list = $this->indexAfter($query->offset($pages->getOffset())->limit($pages->getPageSize())->all());
                 return $this->success('',$list,['total' => (int)$count,'extend'=>(object)$extend]);
             }else{
-                $list = $this->indexAfter($query->asArray()->all());
+                if (!$isActive) $query = $query->asArray();
+                $list = $this->indexAfter($query->all());
                 //导出操作
                 if ($isExport) {
                     if (method_exists($this,'exportCustom')){
