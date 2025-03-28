@@ -726,6 +726,14 @@ label {
 	color: #333;
 	margin: 5px 15px 5px 0px;
 	float: left;
+	display: flex;
+	align-items: center;
+}
+.select-list li:last-child {
+	margin-right: 0;
+}
+.select-list li .btn+.btn {
+	margin-left: 4px;
 }
 
 .select-list li p, .select-list li label:not(.radio-box){

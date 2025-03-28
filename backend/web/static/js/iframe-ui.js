@@ -1844,7 +1844,7 @@ var table = {
         // 通用方法封装处理
         common: {
             // 拼接域名，主要用于静态资源展示
-            domainJoin: function(url, domain = 'static') {
+            domainJoin: function(url, domain) {
                 if (!url) return url
                 if (/^(https?:|mailto:|tel:)/.test(url)) return url
                 if (domain === 'static') domain = typeof staticDomain === 'undefined' ? '' : staticDomain
@@ -2047,7 +2047,7 @@ var table = {
                 return json;
             },
             // 数据字典转下拉框
-            dictToSelect: function(datas, value, name, all=false) {
+            dictToSelect: function(datas, value, name, all) {
                 var actions = [];
                 actions.push($.common.sprintf("<select class='form-control' name='%s'>", name));
                 $.each(datas, function(index, dict) {
