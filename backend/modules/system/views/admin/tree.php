@@ -55,8 +55,9 @@
 <?php $this->beginBlock('script'); ?>
     <script>
         var struct_treeUrl="<?=\yii\helpers\Url::toRoute('struct/tree')?>";
-        var ids = ",<?=$user_ids?>,";
-        if(ids) ids = ids.split(',');
+        var selectIds = "<?=$user_ids??''?>";
+        var checkDisabled="<?=$check_disabled??''?>";
+        var multiple = "<?=$mult??''?>";
         $(function () {
             var panehHidden = false;
             if ($(this).width() < 769) {
@@ -100,14 +101,15 @@
                 sortOrder:'asc',
                 showToolbar:false,
 				clickToSelect:true,//点击行选中/取消选中
-                singleSelect : <?php if($mult == '0'):?>true<?php else:?>false<?php endif;?>,
+                singleSelect : multiple !== '1',
                 columns: [
                     {
                         checkbox: true,
                         formatter: function (value, row, index) {
-                            if(ids && ids.indexOf("," + row.id.toString() + ",")>-1){
+                            if(selectIds && (","+selectIds+",").indexOf("," + row.id + ",")>-1){
                                 return {
-                                    checked: true//设置选中
+                                    checked: true,//设置选中
+                                    disabled: multiple === '1' && checkDisabled === "1" // 默认选中的是否禁用
                                 };
                             }
                             return value;
@@ -147,6 +149,19 @@
         //获取选择的行，数组形式
         function getCheckRows(){
             return $('#bootstrap-table').bootstrapTable('getSelections');
+        }
+
+        function getNewCheckRows() {
+            var list = getCheckRows();
+            if (!selectIds) return list;
+            var selectIdsPattern = ","+selectIds+",";
+            var newList = [];
+            for (var i = 0; i < list.length; i++) {
+                if(selectIdsPattern.indexOf("," + list[i].id + ",") === -1) {
+                    newList.push(list[i]);
+                }
+            }
+            return newList;
         }
     </script>
 <?php $this->endBlock(); ?>

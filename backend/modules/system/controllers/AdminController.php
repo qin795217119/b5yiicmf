@@ -35,9 +35,10 @@ class AdminController extends BaseController
      */
     public function actionTree(): string
     {
-        $mult = $this->request->get('mult', 0);
-        $ids = $this->request->get('ids', '');
-        return $this->render('', ['user_ids' => $ids, 'mult' => $mult]);
+        $mult = $this->request->get('mult', '0'); // 是否多选 1多选 非1单选，默认单选
+        $ids = $this->request->get('ids', ''); // 默认选中的
+        $checkDisabled = $this->request->get('check_disabled',''); // 多选时，是否进制取消选中
+        return $this->render('', ['user_ids' => $ids, 'mult' => $mult, 'check_disabled'=>$checkDisabled]);
     }
 
     /**

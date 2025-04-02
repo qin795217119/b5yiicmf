@@ -304,8 +304,25 @@ trait CommonAction
             return $this->success('批量删除完成，共删除'.$number.'条数据');
         }
         return $this->error('请求类型错误');
-
     }
+
+    /**
+     * 公共详情action
+     */
+    public function actionDetail(): string
+    {
+        $id = $this->request->get('id',0);
+        if (!$id) {
+            return $this->error('参数错误');
+        }
+        $info = $this->model::findOne($id);
+
+        if (!$info) {
+            return $this->error('信息不存在');
+        }
+        return $this->detailRender($info);
+    }
+
 
     /**
      * 首页渲染，方便重写
@@ -331,6 +348,16 @@ trait CommonAction
      * @return string
      */
     protected function editRender(ActiveRecord $model): string
+    {
+        return $this->render('', ['input' => $this->request->get(), 'info' => $model]);
+    }
+
+    /**
+     * 详情渲染，方便重写
+     * @param ActiveRecord $model
+     * @return string
+     */
+    protected function detailRender(ActiveRecord $model): string
     {
         return $this->render('', ['input' => $this->request->get(), 'info' => $model]);
     }

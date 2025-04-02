@@ -44,6 +44,7 @@ var table = {
                     removeUrl: bootUrl.removeUrl,
                     removeAllUrl: bootUrl.removeAllUrl,
                     clearCacheUrl: bootUrl.clearCacheUrl,
+                    detailUrl: bootUrl.detailUrl,
                     method: 'post',
                     classes:"table table-hover", //去除默认的table-bordered
                     height: undefined,
@@ -445,6 +446,21 @@ var table = {
                 }
                 return $.common.uniqueFn(rows);
             },
+            // 获取字典文本值
+            textDictLabel: function (datas, value, separator) {
+                if ($.common.isEmpty(datas) || $.common.isEmpty(value)) {
+                    return '';
+                }
+                var currentSeparator = $.common.isEmpty(separator) ? "," : separator;
+                var actions = [];
+                $.each(datas, function(index, dict) {
+                    if (dict.value == ('' + value)) {
+                        actions.push(dict.title);
+                        return false;
+                    }
+                });
+                return actions.join(currentSeparator);
+            },
             // 回显数据字典
             selectDictLabel: function(datas, value) {
                 if ($.common.isEmpty(datas) || $.common.isEmpty(value)) {
@@ -517,6 +533,7 @@ var table = {
                     createUrl: bootUrl.createUrl,
                     updateUrl: bootUrl.updateUrl,
                     removeUrl: bootUrl.removeUrl,
+                    detailUrl: bootUrl.detailUrl,
                     code: "id",
                     parentCode: "parent_id",
                     uniqueId: "id",

@@ -20,6 +20,7 @@ class DictOption extends Widget
     public string $value = ''; // 字典值
     public string $tag = ''; // 标签 默认为select 只返回option
     public string $name = ''; // 当tag为radio和checkbox时指定name值
+    public bool $default = false; // 当value值为空字符串时，是否获取默认值作为选中值
     public bool $all = false; // 是否展示禁用的
 
 
@@ -28,13 +29,17 @@ class DictOption extends Widget
         $tagArr = ['radio', 'checkbox', 'select'];
         if (!$this->type || ($this->tag && !in_array($this->tag, $tagArr))) return '';
 
-
         $list = DictService::getDictDataByType($this->type);
         if (!$list) return '';
         $html = '';
         foreach ($list as $dict) {
             if ($dict['status'] != '1' && !$this->all) continue;
-            $isCheck = $this->value == $dict['value'];
+            if ($this->value === '') {
+                $isCheck = false;
+                if ($this->default && $dict['is_default'] == 'Y') $isCheck = true;
+            } else {
+                $isCheck = $this->value == $dict['value'];
+            }
 
             if ($this->tag == 'radio') {
                 $html .= '<label class="radio-box"><input type="radio" name="' . $this->name . '" value="' . $dict['value'] . '" ' . ($isCheck ? 'checked' : '') . '/> ' . $dict['title'] . '</label>';

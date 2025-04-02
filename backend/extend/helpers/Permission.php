@@ -45,7 +45,7 @@ class Permission
 
         //不走授权的控制器及、方法及节点
         $notAuthController = ['public', 'common'];
-        $notAuthAction = ['tree'];
+        $notAuthAction = ['tree', 'detail'];
         $notAuthPermission = ['index:index', 'index:home', 'index:download'];
         if (in_array($controller_name, $notAuthController) || in_array($action_name, $notAuthAction) || in_array($permission, $notAuthPermission) || substr($action_name,0,4) === 'ajax') {
             return true;
