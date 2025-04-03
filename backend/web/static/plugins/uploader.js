@@ -16,7 +16,7 @@ function b5uploadMaxNum(id){
 }
 
 //上传文件成功后的展示的html
-function b5uploadfilehtml(path,name,url,filename){
+function b5uploadfilehtml(path,name,url,filename,disabled){
     var inputname = $("#"+name).data('inputname');
     inputname = inputname?true:false;
     url = url?url:path;
@@ -36,7 +36,7 @@ function b5uploadfilehtml(path,name,url,filename){
 
     html+= '        </div>' +
         '               <div class="b5upload_fileop">' +
-        '                   <a href="javascript:;" onclick="b5uploadImgRemove(this)"><i class="fa fa-trash-o"></i>删除</a>' +
+        (disabled?'':'<a href="javascript:;" onclick="b5uploadImgRemove(this)"><i class="fa fa-trash-o"></i>删除</a>') +
         '                  <a href="'+url+'" target="_blank"><i class="fa fa-hand-o-right"></i>查看</a>' +
         '               </div>' +
         '      </div>';
@@ -44,7 +44,7 @@ function b5uploadfilehtml(path,name,url,filename){
 }
 
 //上传图片成功后的展示的html
-function b5uploadimghtml(path,name,url){
+function b5uploadimghtml(path,name,url,disabled){
     url = url?url:path;
     var html='<div class="b5upload_li">' +
         '           <input type="hidden" name="'+name+'[]" value="'+path+'" class="'+name+'_upload_val">' +
@@ -54,7 +54,7 @@ function b5uploadimghtml(path,name,url){
         '                </div>' +
         '            </div>' +
         '            <div class="b5uploadimg_footer">' +
-        '                 <a href="javascript:;" onclick="b5uploadImgRemove(this)"><i class="fa fa-trash-o"></i>删除</a>' +
+        (disabled?'':'<a href="javascript:;" onclick="b5uploadImgRemove(this)"><i class="fa fa-trash-o"></i>删除</a>') +
         '                  <a href="'+url+'" target="_blank"><i class="fa fa-hand-o-right"></i>查看</a>' +
         '            </div>' +
         '      </div>';
