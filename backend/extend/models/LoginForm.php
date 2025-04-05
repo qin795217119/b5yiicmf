@@ -8,6 +8,7 @@ declare (strict_types=1);
 
 namespace backend\extend\models;
 
+use common\models\system\Menu;
 use common\services\system\AdminRoleService;
 use common\services\system\AdminStructService;
 use common\services\system\RoleMenuService;
@@ -100,7 +101,8 @@ class LoginForm extends Model
         $dataScope = 0; //数据权限
         $roleId = [];//角色ID数组
         $is_admin = 0;//超级管理员
-        $menuList = []; //权限列表
+        $menuList = []; //权限id列表
+        $permList = [];// 权限标识列表
         $struct = AdminStructService::getStructByAdminId($user['id'],true);//组织部门
 
         $root_admin_id = intval(Yii::$app->params['root_admin_id']);
@@ -117,15 +119,18 @@ class LoginForm extends Model
             }
         }
 
-        //非超管获取菜单列表
-        if(!$is_admin){
-            $menuList = RoleMenuService::getRoleMenuList($roleId);
-        }
-
         //非超管且无角色 无法登录
         if(!$is_admin && !$roleId){
             $this->addError('username', '无角色分组，登录失败');
             return false;
+        }
+
+        //非超管获取菜单列表
+        if(!$is_admin){
+            $menuList = RoleMenuService::getRoleMenuList($roleId);
+            if ($menuList) {
+                $permList = array_unique(Menu::find()->select(['perms'])->where(['id'=>$menuList])->column());
+            }
         }
 
         $sessionData = [
@@ -139,6 +144,7 @@ class LoginForm extends Model
             'struct' => $struct,
             'role' => $is_admin?[]:$roleId,
             'menu' => $is_admin?[]:$menuList,
+            'perms' => $is_admin?[]:$permList,
         ];
         Yii::$app->session->set('adminLoginInfo', $sessionData);
         return true;

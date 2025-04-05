@@ -43,10 +43,21 @@ class LoginAuthHelper
         return $id > 0 ? intval($id) : 0;
     }
 
+    /**
+     * 登录人姓名
+     * @return string
+     */
+    public static function loginName(): string
+    {
+        $name = self::adminLoginInfo('info.name');
+        if(!$name) $name = self::adminLoginInfo('info.username');
+        return $name?:'';
+    }
+
 
     /**
      * 获取登录用户是超管
-     * @return array|false
+     * @return bool
      */
     public static function loginAdmin(): bool
     {

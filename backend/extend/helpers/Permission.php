@@ -56,22 +56,26 @@ class Permission
         if ($user_id < 1) return false;
 
         // 是否超管
-        $is_admin  = LoginAuthHelper::loginAdmin();
+        $is_admin  = self::isAdmin($user_id);
         if($is_admin) return true;
 
-        //获取登录时的授权菜单Id
-        $menuList = LoginAuthHelper::adminLoginInfo('menu');
-        if (empty($menuList)) {
-            return false;
-        }
+        // 使用session存储权限字符，减少数据库查询
+        $permList = LoginAuthHelper::adminLoginInfo('perms')?:[];
+        return in_array($permission, $permList);
 
-        //获取节点信息
-        $menuInfo = Menu::findOne(['perms' => $permission]);
-        if (!$menuInfo || !$menuInfo['status']) return false;
-
-        //判断是否在权限菜单内
-        if (in_array($menuInfo['id'], $menuList)) return true;
-        return false;
+//        //获取登录时的授权菜单Id
+//        $menuList = LoginAuthHelper::adminLoginInfo('menu');
+//        if (empty($menuList)) {
+//            return false;
+//        }
+//
+//        //获取节点信息
+//        $menuInfo = Menu::findOne(['perms' => $permission]);
+//        if (!$menuInfo || !$menuInfo['status']) return false;
+//
+//        //判断是否在权限菜单内
+//        if (in_array($menuInfo['id'], $menuList)) return true;
+//        return false;
     }
 
 }
