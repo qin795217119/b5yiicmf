@@ -60,4 +60,30 @@ class Transform
         }
         return $number . $coin;
     }
+	
+	/**
+     * 将数组中的根节点的父级重置
+     * @param array $list
+     * @param string $idField
+     * @param string $parentField
+     * @param int $resetValue
+     * @return array
+     */
+    public static function listRootReset(array $list,string $idField = 'id',string $parentField='parent_id', $resetValue = 0): array
+    {
+        $idList = [];
+        foreach ($list as $key=>$value){
+            if(!in_array($value[$idField],$idList)){
+                $idList[] = $value[$idField];
+            }
+        }
+
+        foreach ($list as $key=>$value){
+            if(!in_array($value[$parentField],$idList)) {
+                $value[$parentField] = $resetValue;
+                $list[$key] = $value;
+            }
+        }
+        return $list;
+    }
 }

@@ -16,11 +16,12 @@ namespace common\models\system;
  * @property string $type 字典类型
  * @property string $status 状态（1正常 0停用）
  * @property int $list_sort 字典排序
+ * @property string|null $list_class 额外标识
+ * @property string|null $css_class 额外标识
+ * @property string|null $is_default 是否默认
  * @property string|null $remark 备注
  * @property string|null $create_time 创建时间
- * @property string|null $create_by 创建人
  * @property string|null $update_time 更新时间
- * @property string|null $update_by 更新人
  */
 class DictData extends \yii\db\ActiveRecord
 {
@@ -60,8 +61,13 @@ class DictData extends \yii\db\ActiveRecord
             'value' => '数据值',
             'type' => '字典类型',
             'list_sort' => '字典排序',
+            'list_class' => '表格回显样式',
+            'css_class' => '样式属性',
+            'is_default' => '是否默认',
             'status' => '状态',
             'remark' => '备注',
+            'create_time' => '备注',
+            'update_time' => '备注',
         ];
     }
 

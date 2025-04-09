@@ -138,7 +138,7 @@ trait CommonAction
             }
             $this->saveAfter($model, 'add');
 
-            return $this->success('保存成功');
+            return $this->success('保存成功',['id'=>$model->id]);
         } else {
             return $this->addRender();
         }
@@ -202,6 +202,7 @@ trait CommonAction
             return $this->editRender($info);
         }
     }
+
     public function actionSetstatus()
     {
         if ($this->request->isPost) {
@@ -283,7 +284,7 @@ trait CommonAction
             if (!$ids) {
                 return $this->error('参数缺失');
             }
-            $ids = explode(',', $ids);
+            $ids = explode(',', (string)$ids);
             $number = 0;
             foreach ($ids as $id) {
                 if (!$id) continue;
@@ -304,6 +305,7 @@ trait CommonAction
             return $this->success('批量删除完成，共删除'.$number.'条数据');
         }
         return $this->error('请求类型错误');
+
     }
 
     /**
@@ -374,10 +376,10 @@ trait CommonAction
 
     /**
      * 首页查询语句处理，可以用来自定义以及数据权限处理
-     * @param $query
+     * @param ActiveQuery $query
      * @return array|ActiveQuery 可以返回query对象，也可以一个数组['query'=>$query,'extend'=>[xxx]]  extend将会在ajax中返回
      */
-    protected function indexQuery($query)
+    protected function indexQuery(ActiveQuery $query)
     {
         return $query;
     }

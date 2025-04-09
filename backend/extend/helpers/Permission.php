@@ -26,10 +26,10 @@ class Permission
 
     /**
      * 检测权限，可用于前端
-     * @param $permission
+     * @param string $permission
      * @return bool
      */
-    public static function hasPerm($permission): bool
+    public static function hasPerm(string $permission): bool
     {
         $permission = strtolower($permission);
         $permissionArr = explode(':', $permission);
@@ -62,6 +62,7 @@ class Permission
         // 使用session存储权限字符，减少数据库查询
         $permList = LoginAuthHelper::adminLoginInfo('perms')?:[];
         return in_array($permission, $permList);
+
 
 //        //获取登录时的授权菜单Id
 //        $menuList = LoginAuthHelper::adminLoginInfo('menu');

@@ -29,9 +29,7 @@ class AdminPosService
         }
         if (!$pos_ids) return true;
 
-        if (!is_array($pos_ids)) {
-            $pos_ids = explode(',', $pos_ids);
-        }
+        if (!is_array($pos_ids)) $pos_ids = explode(',', (string)$pos_ids);
         $pos_ids = array_unique($pos_ids);
         $data = [];
         $filed = ['admin_id', 'pos_id'];

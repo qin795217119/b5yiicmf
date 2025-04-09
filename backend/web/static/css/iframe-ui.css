@@ -7,8 +7,11 @@
 
 .w-min-min{min-width: 50px;}
 .w-min-xs{min-width: 80px;}
+.w-min-xm{min-width: 100px;}
 .w-min-sm{min-width: 120px;}
+.w-min-sd{min-width: 140px;}
 .w-min-md{min-width: 160px;}
+.w-min-ml{min-width: 180px;}
 .w-min-lg{min-width: 200px;}
 .pt0 {
     padding-top: 0;
