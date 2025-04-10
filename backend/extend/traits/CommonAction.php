@@ -39,7 +39,7 @@ trait CommonAction
              * field 查询的字段，可以为字符串或数组  'field1,field2,..' 或 [field1,field2,..]
              * orderByColumn和 isAsc 是前端列表自带的排序参数
              * alias 表的简称，不为空时，会在条件和查询字段等 拼接该值，主要为了当你在indexQuery中需要join等联表查询时列名的冲突
-            **/
+             **/
             $params = $this->indexBefore($params);
 
             $extend = [];
@@ -111,7 +111,7 @@ trait CommonAction
         if ($this->request->isPost) {
             $data = $this->request->post();
 
-            $model = new $this->model();
+            $model = $this->modelAfter(new $this->model(), 'add');
             if (!$model->load($data, '')) {
                 return $this->error('无提交数据');
             }
@@ -161,6 +161,7 @@ trait CommonAction
             if(!$model){
                 return $this->error('信息不存在');
             }
+            $model = $this->modelAfter($model, 'edit');
             if (!$model->load($data, '')) {
                 return $this->error('加载数据失败');
             }
@@ -210,7 +211,7 @@ trait CommonAction
             $status = intval($data['status']) ? 1 : 0;
             $title = $data['name'] ?? '';
             $title = $title ?: ($status ? '启用' : '停用');
-			$field = ($data['field']??'')?:'status';
+            $field = ($data['field']??'')?:'status';
             if(!isset($data['id']) || !$data['id']){
                 return $this->error('缺少编辑主键条件');
             }
@@ -392,6 +393,17 @@ trait CommonAction
     protected function indexAfter(array $list): array
     {
         return $list;
+    }
+
+    /**
+     * 添加、编辑 模型执行load之前的处理，例如进行场景指定
+     * @param ActiveRecord $model
+     * @param string $type
+     * @return ActiveRecord
+     */
+    protected function modelAfter(ActiveRecord $model, string $type): ActiveRecord
+    {
+        return $model;
     }
 
     /**
